@@ -46,21 +46,34 @@ export const TRANSLATIONS = {
     badgeFreeCamps: "Free Camps",
     badgePostIssue: "Post Issue",
 
-    // Landing Page
-    landingTag: "Human-Centric AI Intelligence Platform for Sustainable Development",
-    heroTitle: "One Platform. Every Citizen. Every Service. Every SDG.",
-    heroSub: "Connecting rural citizens, field NGOs, and tech developers into one compassionate ecosystem. We understand who you are and what your community needs.",
-    launchGateway: "Launch Citizen Gateway",
-    exploreSdgs: "Explore 17 UN SDGs",
-    fastPassTitle: "Hackathon Evaluator Fast Pass",
-    fastPassSub: "One-click demo login as Arun Kumar (20yo Low-Income Student)",
-    demoLoginBtn: "Demo Login",
-    feature1Title: "AI-Powered Scheme Discovery",
-    feature1Desc: "Match citizens to government grants & scholarships automatically.",
-    feature2Title: "NGO Field Issue Clearance",
-    feature2Desc: "Field officers track rural grievances and disaster relief in real-time.",
-    feature3Title: "Developer Open-Source Hub",
-    feature3Desc: "Software engineers build technology apps to solve rural challenges.",
+    // Profile View
+    profileTag: "AI CITIZEN INTELLIGENCE PROFILER",
+    profileTitle: "Citizen Profile & Need Preferences",
+    profileSub: "SustainAI uses this demographic and need data to personalize recommendations and SDG impact scores.",
+    saveProfileBtn: "Save Profile & Continue",
+    sectionBasicInfo: "1. BASIC INFORMATION",
+    sectionLocation: "2. LOCATION & OCCUPATION",
+    labelFullName: "Full Name",
+    labelAge: "Age",
+    labelGender: "Gender",
+    labelState: "State",
+    labelCityDistrict: "City / District",
+    labelOccupation: "Occupation Status",
+    labelEducation: "Education Level",
+    labelIncome: "Annual Household Income Range",
+
+    // Healthcare Page
+    healthTag: "SDG 3 - RURAL COMMUNITY HEALTH & CLINIC NETWORK",
+    healthTitle: "Rural Free Medical Camps & Doctor Appointments",
+    healthSub: "Schedule free diagnostic checkups, maternal care clinics, eye screenings, and medicine distribution in your village.",
+    emergencyHelplineTag: "EMERGENCY MEDICAL HELPLINE (24 HOURS)",
+    emergencyTitle: "Call 108 Emergency Ambulance Services",
+    emergencySub: "Toll-free emergency dispatch with ALS trauma support in <10 minutes.",
+    callEmergencyNowBtn: "Call 108 Emergency Now",
+    upcomingCampsTitle: "Upcoming Free Medical, Eye & Cardiology Camps in Rural Districts",
+    slotsAvailable: "Slots Available",
+    bookAppointmentBtn: "Book Free Camp Slot",
+    specialtiesDiagnostics: "Specialties & Diagnostics:",
 
     // Clean Energy Page (SDG 7)
     cleanTag: "UN SDG 7 - AFFORDABLE & CLEAN RENEWABLE ENERGY GATEWAY",
@@ -79,6 +92,29 @@ export const TRANSLATIONS = {
     directBankCredit: "Direct Bank Credit",
     billReduction: "Up to 92% Bill Reduction",
     carbonFootprint: "Carbon Footprint Saved",
+
+    // 17 SDGs Dashboard Page
+    sdgImpactTag: "UNITED NATIONS AGENDA 2030 INTELLIGENCE PLATFORM",
+    sdgImpactTitle: "Complete 17 UN SDG Impact Dashboard",
+    sdgImpactSub: "Every public service, scholarship, emergency hotline, and civic report is mapped directly to the 17 United Nations SDGs.",
+    allSdgsActive: "All 17 SDGs Active",
+    activateAll: "Activate All 17 SDGs",
+    scoreDistribution: "17 UN SDG Impact Score Distribution",
+    sdgRegistryTitle: "17 UN Sustainable Development Goals Registry",
+    sdgRegistrySub: "Click any SDG card to inspect matched government schemes and local rural issues.",
+    targetPriorityLabel: "TARGET PRIORITY",
+    matchedSchemesCount: "Matched Schemes",
+    inspectBtn: "Inspect",
+
+    // Landing Page
+    landingTag: "Human-Centric AI Intelligence Platform for Sustainable Development",
+    heroTitle: "One Platform. Every Citizen. Every Service. Every SDG.",
+    heroSub: "Connecting rural citizens, field NGOs, and tech developers into one compassionate ecosystem. We understand who you are and what your community needs.",
+    launchGateway: "Launch Citizen Gateway",
+    exploreSdgs: "Explore 17 UN SDGs",
+    fastPassTitle: "Hackathon Evaluator Fast Pass",
+    fastPassSub: "One-click demo login as Arun Kumar (20yo Low-Income Student)",
+    demoLoginBtn: "Demo Login",
 
     // Disaster & Climate Map
     disasterTag: "SDG 11 & 13 - RURAL DISASTER RELIEF & RESILIENCE ENGINE",
@@ -99,14 +135,6 @@ export const TRANSLATIONS = {
     studentsHelped: "Students Supported:",
     applySponsorshipBtn: "Apply for Education Sponsorship",
 
-    // Healthcare Page
-    healthTag: "SDG 3 - RURAL COMMUNITY HEALTH & CLINIC NETWORK",
-    healthTitle: "Rural Free Medical Camps & Doctor Appointments",
-    healthSub: "Schedule free diagnostic checkups, maternal care clinics, eye screenings, and medicine distribution in your village.",
-    upcomingCamps: "Upcoming Free Rural Medical Camps",
-    bookAppointment: "Book Free Appointment Slot",
-    doctorsAvailable: "Doctors On Duty:",
-
     // Smart Scheme Finder Page
     schemeFinderTag: "AI-POWERED GOVERNMENT SCHEME MATCHING ENGINE",
     schemeFinderTitle: "Smart Public Welfare & Subsidy Scheme Finder",
@@ -114,16 +142,6 @@ export const TRANSLATIONS = {
     allCategories: "All Categories",
     matchScoreLabel: "Match Score:",
     applyEligibilityBtn: "Check & Apply Eligibility",
-
-    // SDG Dashboard Page
-    sdgImpactTag: "UNITED NATIONS AGENDA 2030 INTELLIGENCE PLATFORM",
-    sdgImpactTitle: "Complete 17 UN SDG Impact Dashboard",
-    sdgImpactSub: "Every public service, scholarship, emergency hotline, and civic report is mapped directly to the 17 United Nations SDGs.",
-    allSdgsActive: "All 17 SDGs Active",
-    activateAll: "Activate All 17 SDGs",
-    scoreDistribution: "17 UN SDG Impact Score Distribution",
-    sdgRegistry: "17 UN Sustainable Development Goals Registry",
-    matchedSchemesCount: "Matched Schemes",
 
     // NGO Operations Panel
     ngoPanelTag: "SDG 1-17 FIELD OPERATIONS & DISASTER CLEARANCE HUB",
@@ -286,21 +304,34 @@ export const TRANSLATIONS = {
     badgeFreeCamps: "मुफ्त शिविर",
     badgePostIssue: "समस्या दर्ज करें",
 
-    // Landing Page
-    landingTag: "सतत विकास के लिए मानव-केंद्रित एआई इंटेलिजेंस प्लेटफॉर्म",
-    heroTitle: "एक मंच। हर नागरिक। हर सेवा। हर एसडीजी।",
-    heroSub: "ग्रामीण नागरिकों, क्षेत्र एनजीओ और तकनीकी डेवलपर्स को एक करुणामय पारिस्थितिकी तंत्र में जोड़ना। हम समझते हैं कि आप कौन हैं और आपके समुदाय को क्या चाहिए।",
-    launchGateway: "नागरिक गेटवे शुरू करें",
-    exploreSdgs: "17 यूएन एसडीजी देखें",
-    fastPassTitle: "हैकथॉन मूल्यांकनकर्ता त्वरित पास",
-    fastPassSub: "अरुण कुमार के रूप में एक-क्लिक डेमो लॉगिन (20 वर्षीय कम आय वाला छात्र)",
-    demoLoginBtn: "डेमो लॉगिन",
-    feature1Title: "एआई-संचालित योजना खोज",
-    feature1Desc: "नागरिकों को सरकारी अनुदान और छात्रवृत्तियों से स्वचालित रूप से मिलाएं।",
-    feature2Title: "एनजीओ फील्ड समस्या समाधान",
-    feature2Desc: "फील्ड अधिकारी वास्तविक समय में ग्रामीण शिकायतों और आपदा राहत को ट्रैक करते हैं।",
-    feature3Title: "डेवलपर ओपन-सोर्स हब",
-    feature3Desc: "सॉफ्टवेयर इंजीनियर ग्रामीण चुनौतियों को हल करने के लिए प्रौद्योगिकी ऐप बनाते हैं।",
+    // Profile View
+    profileTag: "एआई नागरिक गुप्त सूचना प्रोफाइलर",
+    profileTitle: "नागरिक प्रोफ़ाइल और आवश्यकता प्राथमिकताएं",
+    profileSub: "सस्टेन-एआई सिफारिशों और एसडीजी प्रभाव स्कोर को व्यक्तिगत बनाने के लिए इस जनसांख्यिकी डेटा का उपयोग करता है।",
+    saveProfileBtn: "प्रोफ़ाइल सहेजें और जारी रखें",
+    sectionBasicInfo: "1. बुनियादी जानकारी",
+    sectionLocation: "2. स्थान और व्यवसाय",
+    labelFullName: "पूरा नाम",
+    labelAge: "आयु",
+    labelGender: "लिंग",
+    labelState: "राज्य",
+    labelCityDistrict: "शहर / जिला",
+    labelOccupation: "व्यवसाय की स्थिति",
+    labelEducation: "शिक्षा का स्तर",
+    labelIncome: "वार्षिक घरेलू आय सीमा",
+
+    // Healthcare Page
+    healthTag: "एसडीजी 3 - ग्रामीण सामुदायिक स्वास्थ्य एवं क्लिनिक नेटवर्क",
+    healthTitle: "ग्रामीण मुफ्त चिकित्सा शिविर और डॉक्टर अपॉइंटमेंट",
+    healthSub: "अपने गांव में मुफ्त नैदानिक जांच, मातृ देखभाल क्लिनिक, नेत्र जांच और दवा वितरण का समय निर्धारित करें।",
+    emergencyHelplineTag: "आपतकालीन चिकित्सा हेल्पलाइन (24 घंटे)",
+    emergencyTitle: "108 आपातकालीन एम्बुलेंस सेवाओं को कॉल करें",
+    emergencySub: "<10 मिनट में एएलएस आघात सहायता के साथ टोल-फ्री आपातकालीन सेवा।",
+    callEmergencyNowBtn: "अभी 108 आपातकालीन सेवा पर कॉल करें",
+    upcomingCampsTitle: "ग्रामीण जिलों में आगामी मुफ्त चिकित्सा, नेत्र और हृदय रोग शिविर",
+    slotsAvailable: "स्लॉट उपलब्ध",
+    bookAppointmentBtn: "मुफ्त शिविर स्लॉट बुक करें",
+    specialtiesDiagnostics: "विशेषज्ञताएं और निदान:",
 
     // Clean Energy Page (SDG 7)
     cleanTag: "यूएन एसडीजी 7 - किफायती और स्वच्छ नवीकरणीय ऊर्जा गेटवे",
@@ -319,6 +350,29 @@ export const TRANSLATIONS = {
     directBankCredit: "सीधा बैंक क्रेडिट",
     billReduction: "92% तक बिल में कमी",
     carbonFootprint: "कार्बन पदचिह्न बचाया गया",
+
+    // 17 SDGs Dashboard Page
+    sdgImpactTag: "संयुक्त राष्ट्र एजेंडा 2030 इंटेलिजेंस प्लेटफॉर्म",
+    sdgImpactTitle: "संपूर्ण 17 यूएन एसडीजी प्रभाव डैशबोर्ड",
+    sdgImpactSub: "प्रत्येक सार्वजनिक सेवा, छात्रवृत्ति, आपातकालीन हेल्पलाइन और नागरिक रिपोर्ट को सीधे 17 संयुक्त राष्ट्र एसडीजी में मैप किया गया है।",
+    allSdgsActive: "सभी 17 एसडीजी सक्रिय",
+    activateAll: "सभी 17 एसडीजी सक्रिय करें",
+    scoreDistribution: "17 यूएन एसडीजी प्रभाव स्कोर वितरण",
+    sdgRegistryTitle: "17 संयुक्त राष्ट्र सतत विकास लक्ष्य रजिस्ट्री",
+    sdgRegistrySub: "मिलान की गई सरकारी योजनाओं और ग्रामीण मुद्दों का निरीक्षण करने के लिए किसी भी एसडीजी कार्ड पर क्लिक करें।",
+    targetPriorityLabel: "लक्ष्य प्राथमिकता",
+    matchedSchemesCount: "मिलान की गई योजनाएं",
+    inspectBtn: "निरीक्षण करें",
+
+    // Landing Page
+    landingTag: "सतत विकास के लिए मानव-केंद्रित एआई इंटेलिजेंस प्लेटफॉर्म",
+    heroTitle: "एक मंच। हर नागरिक। हर सेवा। हर एसडीजी।",
+    heroSub: "ग्रामीण नागरिकों, क्षेत्र एनजीओ और तकनीकी डेवलपर्स को एक करुणामय पारिस्थितिकी तंत्र में जोड़ना। हम समझते हैं कि आप कौन हैं और आपके समुदाय को क्या चाहिए।",
+    launchGateway: "नागरिक गेटवे शुरू करें",
+    exploreSdgs: "17 यूएन एसडीजी देखें",
+    fastPassTitle: "हैकथॉन मूल्यांकनकर्ता त्वरित पास",
+    fastPassSub: "अरुण कुमार के रूप में एक-क्लिक डेमो लॉगिन (20 वर्षीय कम आय वाला छात्र)",
+    demoLoginBtn: "डेमो लॉगिन",
 
     // Disaster & Climate Map
     disasterTag: "एसडीजी 11 और 13 - ग्रामीण आपदा राहत और लचीलापन इंजन",
@@ -339,14 +393,6 @@ export const TRANSLATIONS = {
     studentsHelped: "सहायता प्राप्त छात्र:",
     applySponsorshipBtn: "शिक्षा प्रायोजन के लिए आवेदन करें",
 
-    // Healthcare Page
-    healthTag: "एसडीजी 3 - ग्रामीण सामुदायिक स्वास्थ्य एवं क्लिनिक नेटवर्क",
-    healthTitle: "ग्रामीण मुफ्त चिकित्सा शिविर और डॉक्टर अपॉइंटमेंट",
-    healthSub: "अपने गांव में मुफ्त नैदानिक जांच, मातृ देखभाल क्लिनिक, नेत्र जांच और दवा वितरण का समय निर्धारित करें।",
-    upcomingCamps: "आगामी मुफ्त ग्रामीण चिकित्सा शिविर",
-    bookAppointment: "मुफ्त अपॉइंटमेंट स्लॉट बुक करें",
-    doctorsAvailable: "ड्यूटी पर डॉक्टर:",
-
     // Smart Scheme Finder Page
     schemeFinderTag: "एआई-संचालित सरकारी योजना मिलान इंजन",
     schemeFinderTitle: "स्मार्ट जन कल्याण एवं सब्सिडी योजना खोजक",
@@ -354,16 +400,6 @@ export const TRANSLATIONS = {
     allCategories: "सभी श्रेणियां",
     matchScoreLabel: "मिलान स्कोर:",
     applyEligibilityBtn: "पात्रता जांचें और लागू करें",
-
-    // SDG Dashboard Page
-    sdgImpactTag: "संयुक्त राष्ट्र एजेंडा 2030 इंटेलिजेंस प्लेटफॉर्म",
-    sdgImpactTitle: "संपूर्ण 17 यूएन एसडीजी प्रभाव डैशबोर्ड",
-    sdgImpactSub: "प्रत्येक सार्वजनिक सेवा, छात्रवृत्ति, आपातकालीन हेल्पलाइन और नागरिक रिपोर्ट को सीधे 17 संयुक्त राष्ट्र एसडीजी में मैप किया गया है।",
-    allSdgsActive: "सभी 17 एसडीजी सक्रिय",
-    activateAll: "सभी 17 एसडीजी सक्रिय करें",
-    scoreDistribution: "17 यूएन एसडीजी प्रभाव स्कोर वितरण",
-    sdgRegistry: "17 संयुक्त राष्ट्र सतत विकास लक्ष्य रजिस्ट्री",
-    matchedSchemesCount: "मिलान की गई योजनाएं",
 
     // NGO Operations Panel
     ngoPanelTag: "एसडीजी 1-17 फील्ड ऑपरेशंस और आपदा मंजूरी हब",
@@ -526,21 +562,34 @@ export const TRANSLATIONS = {
     badgeFreeCamps: "ఉచిత శిబిరాలు",
     badgePostIssue: "సమస్యను నమోదు చేయండి",
 
-    // Landing Page
-    landingTag: "సుస్థిరాభివృద్ధి కోసం మానవ-కేంద్రీకృత AI ఇంటెలిజెన్స్ ప్లాట్‌ఫారమ్",
-    heroTitle: "ఒకే ప్లాట్‌ఫారమ్. ప్రతి పౌరుడు. ప్రతి సేవ. ప్రతి SDG.",
-    heroSub: "గ్రామీణ పౌరులను, ఫీల్డ్ NGOలను మరియు టెక్ డెవలపర్లను ఒకే కరుణాపూర్వక వ్యవస్థలోకి అనుసంధానిస్తుంది. మీరు ఎవరో మరియు మీ సమాజానికి ఏమి కావాలో మేము అర్థం చేసుకుంటాము.",
-    launchGateway: "పౌర గేట్‌వేని ప్రారంభించండి",
-    exploreSdgs: "17 UN SDGs అన్వేషించండి",
-    fastPassTitle: "హాకథాన్ మూల్యాంకనదారుని ఫాస్ట్ పాస్",
-    fastPassSub: "అరుణ్ కుమార్ గా ఒకే క్లిక్‌తో డెమో లాగిన్ (20 ఏళ్ల తక్కువ ఆదాయ విద్యార్థి)",
-    demoLoginBtn: "డెమో లాగిన్",
-    feature1Title: "AI-ఆధారిత పథకాల గుర్తింపు",
-    feature1Desc: "పౌరులను ప్రభుత్వ నిధులు మరియు స్కాలర్‌షిప్‌లతో స్వయంచాలకంగా జత చేస్తుంది.",
-    feature2Title: "NGO ఫీల్డ్ సమస్యల పరిష్కారం",
-    feature2Desc: "ఫీల్డ్ అధికారులు గ్రామీణ సమస్యలు మరియు విపత్తు సహాయాన్ని నిజ సమయంలో ట్రాక్ చేస్తారు.",
-    feature3Title: "డెవలపర్ ఓపెన్-సోర్స్ హబ్",
-    feature3Desc: "గ్రామీణ సవాళ్లను పరిష్కరించడానికి సాఫ్ట్‌వేర్ ఇంజనీర్లు సాంకేతిక యాప్‌లను నిర్మిస్తారు.",
+    // Profile View
+    profileTag: "AI పౌర సమాచార ప్రొఫైలర్",
+    profileTitle: "పౌరుని ప్రొఫైల్ & అవసరమైన ప్రాధాన్యతలు",
+    profileSub: "సిఫార్సులు మరియు SDG ప్రభావ స్కోర్‌లను వ్యక్తిగతీకరించడానికి సస్టెయిన్-AI ఈ జనాభా డేటాను ఉపయోగిస్తుంది.",
+    saveProfileBtn: "ప్రొఫైల్‌ను సేవ్‌చేసి కొనసాగించండి",
+    sectionBasicInfo: "1. ప్రాథమిక సమాచారం",
+    sectionLocation: "2. ప్రాంతం & వృత్తి",
+    labelFullName: "పూర్తి పేరు",
+    labelAge: "వయస్సు",
+    labelGender: "లింగం",
+    labelState: "రాష్ట్రం",
+    labelCityDistrict: "పట్టణం / జిల్లా",
+    labelOccupation: "వృత్తి స్థితి",
+    labelEducation: "విద్యా అర్హత",
+    labelIncome: "వార్షిక కుటుంబ ఆదాయ పరిమితి",
+
+    // Healthcare Page
+    healthTag: "SDG 3 - గ్రామీణ సమాజ ఆరోగ్య & క్లినిక్ నెట్‌వర్క్",
+    healthTitle: "గ్రామీణ ఉచిత వైద్య శిబిరాలు & వైద్యుల అపాయింట్‌మెంట్‌లు",
+    healthSub: "మీ గ్రామంలో ఉచిత వైద్య పరీక్షలు, మాతృ సంరక్షణ క్లినిక్‌లు, కంటి పరీక్షలు మరియు ఔషధాల పంపిణీని షెడ్యూల్ చేయండి.",
+    emergencyHelplineTag: "అత్యవసర వైద్య హెల్ప్‌లైన్ (24 గంటలు)",
+    emergencyTitle: "108 అత్యవసర అంబులెన్స్ సేవలకు కాల్ చేయండి",
+    emergencySub: "<10 నిమిషాల్లో ALS గాయాల మద్దతుతో ఉచిత అత్యవసర రవాణా సేవ.",
+    callEmergencyNowBtn: "ఇప్పుడే 108 అత్యవసర సేవలకు కాల్ చేయండి",
+    upcomingCampsTitle: "గ్రామీణ జిల్లాల్లో రాబోయే ఉచిత వైద్య, కంటి & గుండె సంబంధిత శిబిరాలు",
+    slotsAvailable: "స్లాట్‌లు అందుబాటులో ఉన్నాయి",
+    bookAppointmentBtn: "ఉచిత క్యాంప్ స్లాట్‌ను బుక్ చేయండి",
+    specialtiesDiagnostics: "ప్రత్యేకతలు & పరీక్షలు:",
 
     // Clean Energy Page (SDG 7)
     cleanTag: "UN SDG 7 - సరసమైన మరియు స్వచ్ఛమైన పునరుత్పాదక ఇంధన గేట్‌వే",
@@ -559,6 +608,29 @@ export const TRANSLATIONS = {
     directBankCredit: "నేరుగా బ్యాంక్ క్రెడిట్",
     billReduction: "92% వరకు బిల్లు తగ్గింపు",
     carbonFootprint: "తగ్గించబడిన కార్బన్ ఉద్గారాలు",
+
+    // 17 SDGs Dashboard Page
+    sdgImpactTag: "ఐక్యరాజ్యసమితి ఎజెండా 2030 ఇంటెలిజెన్స్ ప్లాట్‌ఫారమ్",
+    sdgImpactTitle: "సమగ్ర 17 UN SDG ప్రభావ డాష్‌బోర్డ్",
+    sdgImpactSub: "ప్రతి ప్రజా సేవ, స్కాలర్‌షిప్, అత్యవసర హెల్ప్‌లైన్ మరియు పౌరుల నివేదిక నేరుగా 17 ఐక్యరాజ్యసమితి SDGs కు అనుసంధానించబడింది.",
+    allSdgsActive: "అన్ని 17 SDGs చురుగ్గా ఉన్నాయి",
+    activateAll: "అన్ని 17 SDGs ని సక్రియం చేయండి",
+    scoreDistribution: "17 UN SDG ప్రభావ స్కోర్ పంపిణీ",
+    sdgRegistryTitle: "17 UN సుస్థిరాభివృద్ధి లక్ష్యాల రిజిస్ట్రీ",
+    sdgRegistrySub: "సరిపోలిన ప్రభుత్వ పథకాలు మరియు స్థానిక గ్రామీణ సమస్యలను పరిశీలించడానికి ఏదైనా SDG కార్డ్‌పై క్లిక్ చేయండి.",
+    targetPriorityLabel: "లక్ష్య ప్రాధాన్యత",
+    matchedSchemesCount: "సరిపోలిన పథకాలు",
+    inspectBtn: "పరిశీలించండి",
+
+    // Landing Page
+    landingTag: "సుస్థిరాభివృద్ధి కోసం మానవ-కేంద్రీకృత AI ఇంటెలిజెన్స్ ప్లాట్‌ఫారమ్",
+    heroTitle: "ఒకే ప్లాట్‌ఫారమ్. ప్రతి పౌరుడు. ప్రతి సేవ. ప్రతి SDG.",
+    heroSub: "గ్రామీణ పౌరులను, ఫీల్డ్ NGOలను మరియు టెక్ డెవలపర్లను ఒకే కరుణాపూర్వక వ్యవస్థలోకి అనుసంధానిస్తుంది. మీరు ఎవరో మరియు మీ సమాజానికి ఏమి కావాలో మేము అర్థం చేసుకుంటాము.",
+    launchGateway: "పౌర గేట్‌వేని ప్రారంభించండి",
+    exploreSdgs: "17 UN SDGs అన్వేషించండి",
+    fastPassTitle: "హాకథాన్ మూల్యాంకనదారుని ఫాస్ట్ పాస్",
+    fastPassSub: "అరుణ్ కుమార్ గా ఒకే క్లిక్‌తో డెమో లాగిన్ (20 ఏళ్ల తక్కువ ఆదాయ విద్యార్థి)",
+    demoLoginBtn: "డెమో లాగిన్",
 
     // Disaster & Climate Map
     disasterTag: "SDG 11 & 13 - గ్రామీణ విపత్తు ఉపశమనం & దెబ్బతినని సామర్థ్య ఇంజిన్",
@@ -579,14 +651,6 @@ export const TRANSLATIONS = {
     studentsHelped: "సహాయం పొందిన విద్యార్థులు:",
     applySponsorshipBtn: "విద్య సహాయం కోసం దరఖాస్తు చేయండి",
 
-    // Healthcare Page
-    healthTag: "SDG 3 - గ్రామీణ సమాజ ఆరోగ్య & క్లినిక్ నెట్‌వర్క్",
-    healthTitle: "గ్రామీణ ఉచిత వైద్య శిబిరాలు & వైద్యుల అపాయింట్‌మెంట్‌లు",
-    healthSub: "మీ గ్రామంలో ఉచిత వైద్య పరీక్షలు, మాతృ సంరక్షణ క్లినిక్‌లు, కంటి పరీక్షలు మరియు ఔషధాల పంపిణీని షెడ్యూల్ చేయండి.",
-    upcomingCamps: "రాబోయే ఉచిత గ్రామీణ వైద్య శిబిరాలు",
-    bookAppointment: "ఉచిత అపాయింట్‌మెంట్ స్లాట్‌ను బుక్ చేయండి",
-    doctorsAvailable: "విధుల్లో ఉన్న వైద్యులు:",
-
     // Smart Scheme Finder Page
     schemeFinderTag: "AI-ఆధారిత ప్రభుత్వ పథకాల జతచేసే ఇంజిన్",
     schemeFinderTitle: "స్మార్ట్ ప్రజా సంక్షేమ & సబ్సిడీ పథకాల శోధన",
@@ -594,16 +658,6 @@ export const TRANSLATIONS = {
     allCategories: "అన్ని వర్గాలు",
     matchScoreLabel: "సరిపోలిక స్కోర్:",
     applyEligibilityBtn: "అర్హతను తనిఖీ చేసి దరఖాస్తు చేయండి",
-
-    // SDG Dashboard Page
-    sdgImpactTag: "ఐక్యరాజ్యసమితి ఎజెండా 2030 ఇంటెలిజెన్స్ ప్లాట్‌ఫారమ్",
-    sdgImpactTitle: "సమగ్ర 17 UN SDG ప్రభావ డాష్‌బోర్డ్",
-    sdgImpactSub: "ప్రతి ప్రజా సేవ, స్కాలర్‌షిప్, అత్యవసర హెల్ప్‌లైన్ మరియు పౌరుల నివేదిక నేరుగా 17 ఐక్యరాజ్యసమితి SDGs కు అనుసంధానించబడింది.",
-    allSdgsActive: "అన్ని 17 SDGs చురుగ్గా ఉన్నాయి",
-    activateAll: "అన్ని 17 SDGs ని సక్రియం చేయండి",
-    scoreDistribution: "17 UN SDG ప్రభావ స్కోర్ పంపిణీ",
-    sdgRegistry: "17 UN సుస్థిరాభివృద్ధి లక్ష్యాల రిజిస్ట్రీ",
-    matchedSchemesCount: "సరిపోలిన పథకాలు",
 
     // NGO Operations Panel
     ngoPanelTag: "SDG 1-17 ఫీల్డ్ ఆపరేషన్స్ & విపత్తు పరిపరిష్కార హబ్",
@@ -766,21 +820,34 @@ export const TRANSLATIONS = {
     badgeFreeCamps: "இலவச முகாம்கள்",
     badgePostIssue: "புகாரைப் பதிவுசெய்",
 
-    // Landing Page
-    landingTag: "நிலையான வளர்ச்சிக்கான மனித-மையப்படுத்தப்பட்ட AI அறிவாண்மை தளம்",
-    heroTitle: "ஒரே தளம். ஒவ்வொரு குடிமகனும். ஒவ்வொரு சேவையும். ஒவ்வொரு எஸ்டிஜியும்.",
-    heroSub: "கிராமப்புற குடிமக்கள், கள என்ஜிஓக்கள் மற்றும் தொழில் நுட்ப டெவலப்பர்களை ஒரு இரக்கமுள்ள சூழலில் இணைக்கிறது. நீங்கள் யார் என்பதும் உங்கள் சமூகத்திற்கு என்ன தேவை என்பதும் எங்களுக்குப் புரியும்.",
-    launchGateway: "குடிமக்கள் நுழைவாயிலைத் தொடங்குங்கள்",
-    exploreSdgs: "17 ஐ.நா. எஸ்டிஜிக்களை ஆராயுங்கள்",
-    fastPassTitle: "ஹேக்கத்தான் மதிப்பீட்டாளர் விரைவு பாஸ்",
-    fastPassSub: "அருண் குமாராக ஒரே கிளிக்கில் டெமோ உள்நுழைவு (20 வயது குறைந்த வருமான மாணவர்)",
-    demoLoginBtn: "டெமோ உள்நுழைவு",
-    feature1Title: "AI-இயக்கப்படும் திட்டக் கண்டுபிடிப்பு",
-    feature1Desc: "குடிமக்களை அரசு மானியங்கள் மற்றும் உதவித்தொகைகளுடன் தானாகப் பொருத்துங்கள்.",
-    feature2Title: "என்ஜிஓ களப் பிரச்சனை தீர்வு",
-    feature2Desc: "கள அதிகாரிகள் கிராமப்புறப் புகார்கள் மற்றும் பேரிடர் நிவாரணத்தைக் நிகழ்நேரத்தில் கண்காணிக்கின்றனர்.",
-    feature3Title: "டெவலப்பர் திறந்த மூல மையம்",
-    feature3Desc: "கிராமப்புற சவால்களைத் தீர்க்க மென்பொருள் பொறியாளர்கள் தொழில்நுட்ப பயன்பாடுகளை உருவாக்குகிறார்கள்.",
+    // Profile View
+    profileTag: "AI குடிமக்கள் சுயவிவர அமைப்பான்",
+    profileTitle: "குடிமக்கள் சுயவிவரம் & தேவை முன்னுரிமைகள்",
+    profileSub: "பரிந்துரைகள் மற்றும் எஸ்டிஜி தாக்க மதிப்பெண்களைத் தனிப்பயனாக்க சஸ்டைன்-AI இந்தத் தரவைப் பயன்படுத்துகிறது.",
+    saveProfileBtn: "சுயவிவரத்தைச் சேமித்துத் தொடரவும்",
+    sectionBasicInfo: "1. அடிப்படைத் தகவல்கள்",
+    sectionLocation: "2. இருப்பிடம் & தொழில்",
+    labelFullName: "முழு பெயர்",
+    labelAge: "வயது",
+    labelGender: "பாலினம்",
+    labelState: "மாநிலம்",
+    labelCityDistrict: "நகரம் / மாவட்டம்",
+    labelOccupation: "தொழில் நிலை",
+    labelEducation: "கல்வித் தகுதி",
+    labelIncome: "வருடாந்திர குடும்ப வருமான வரம்பு",
+
+    // Healthcare Page
+    healthTag: "எஸ்டிஜி 3 - கிராமப்புற சமூக சுகாதார & மருத்துவமனை வலையமைப்பு",
+    healthTitle: "கிராமப்புற இலவச மருத்துவ முகாம்கள் & மருத்துவர் முன்பதிவு",
+    healthSub: "உங்கள் கிராமத்தில் இலவச மருத்துவப் பரிசோதனைகள், தாய்மைப் பராமரிப்பு, கண் பரிசோதனைகளை முன்பதிவு செய்யுங்கள்.",
+    emergencyHelplineTag: "அவசர மருத்துவ உதவி எண் (24 மணிநேரம்)",
+    emergencyTitle: "108 அவசர ஆம்புலன்ஸ் சேவைக்கு அழைக்கவும்",
+    emergencySub: "<10 நிமிடங்களில் அவசர விபத்து உதவியுடன் இலவச சேவை.",
+    callEmergencyNowBtn: "இப்போதே 108 அவசர சேவைக்கு அழைக்கவும்",
+    upcomingCampsTitle: "கிராமப்புறங்களில் வரவிருக்கும் இலவச மருத்துவ, கண் & இதய நோய் முகாம்கள்",
+    slotsAvailable: "இடங்கள் உள்ளன",
+    bookAppointmentBtn: "இலவச முகாம் இடத்தை முன்பதிவு செய்",
+    specialtiesDiagnostics: "சிறப்பு மருத்துவம் & பரிசோதனைகள்:",
 
     // Clean Energy Page (SDG 7)
     cleanTag: "ஐ.நா. எஸ்டிஜி 7 - மலிவான மற்றும் தூய்மையான புதுப்பிக்கத்தக்க ஆற்றல் நுழைவாயில்",
@@ -799,6 +866,29 @@ export const TRANSLATIONS = {
     directBankCredit: "நேரடி வங்கி வரவு",
     billReduction: "92% வரை கட்டணக் குறைப்பு",
     carbonFootprint: "சேமிக்கப்பட்ட கார்பன் தடம்",
+
+    // 17 SDGs Dashboard Page
+    sdgImpactTag: "ஐக்கிய நாடுகள் சபை நிகழ்ச்சி நிரல் 2030 அறிவாண்மை தளம்",
+    sdgImpactTitle: "முழுமையான 17 ஐ.நா. எஸ்டிஜி தாக்க டாஷ்போர்டு",
+    sdgImpactSub: "ஒவ்வொரு பொதுச் சேவையும் நேரடியாக 17 ஐக்கிய நாடுகள் சபையின் எஸ்டிஜிக்களுடன் வரைபடமாக்கப்பட்டுள்ளது.",
+    allSdgsActive: "எல்லா 17 எஸ்டிஜிக்களும் செயலில் உள்ளன",
+    activateAll: "எல்லா 17 எஸ்டிஜிக்களையும் செயல்படுத்துங்கள்",
+    scoreDistribution: "17 ஐ.நா. எஸ்டிஜி தாக்க மதிப்பெண் பரவல்",
+    sdgRegistryTitle: "17 ஐ.நா. நிலையான வளர்ச்சி இலக்குகள் பதிவேடு",
+    sdgRegistrySub: "பொருந்திய அரசுத் திட்டங்களை ஆய்வு செய்ய ஏதேனும் எஸ்டிஜி கார்டைக் கிளிக் செய்யவும்.",
+    targetPriorityLabel: "இலக்கு முன்னுரிமை",
+    matchedSchemesCount: "பொருந்திய திட்டங்கள்",
+    inspectBtn: "ஆய்வு செய்",
+
+    // Landing Page
+    landingTag: "நிலையான வளர்ச்சிக்கான மனித-மையப்படுத்தப்பட்ட AI அறிவாண்மை தளம்",
+    heroTitle: "ஒரே தளம். ஒவ்வொரு குடிமகனும். ஒவ்வொரு சேவையும். ஒவ்வொரு எஸ்டிஜியும்.",
+    heroSub: "கிராமப்புற குடிமக்கள், கள என்ஜிஓக்கள் மற்றும் தொழில் நுட்ப டெவலப்பர்களை ஒரு இரக்கமுள்ள சூழலில் இணைக்கிறது. நீங்கள் யார் என்பதும் உங்கள் சமூகத்திற்கு என்ன தேவை என்பதும் எங்களுக்குப் புரியும்.",
+    launchGateway: "குடிமக்கள் நுழைவாயிலைத் தொடங்குங்கள்",
+    exploreSdgs: "17 ஐ.நா. எஸ்டிஜிக்களை ஆராயுங்கள்",
+    fastPassTitle: "ஹேக்கத்தான் மதிப்பீட்டாளர் விரைவு பாஸ்",
+    fastPassSub: "அருண் குமாராக ஒரே கிளிக்கில் டெமோ உள்நுழைவு (20 வயது குறைந்த வருமான மாணவர்)",
+    demoLoginBtn: "டெமோ உள்நுழைவு",
 
     // Disaster & Climate Map
     disasterTag: "எஸ்டிஜி 11 & 13 - கிராமப்புற பேரிடர் நிவாரணம் & மீள்தன்மை எஞ்சின்",
@@ -819,14 +909,6 @@ export const TRANSLATIONS = {
     studentsHelped: "ஆதரவு பெற்ற மாணவர்கள்:",
     applySponsorshipBtn: "கல்வி ஆதரவிற்கு விண்ணப்பிக்கவும்",
 
-    // Healthcare Page
-    healthTag: "எஸ்டிஜி 3 - கிராமப்புற சமூக சுகாதார & மருத்துவமனை வலையமைப்பு",
-    healthTitle: "கிராமப்புற இலவச மருத்துவ முகாம்கள் & மருத்துவர் முன்பதிவு",
-    healthSub: "உங்கள் கிராமத்தில் இலவச மருத்துவப் பரிசோதனைகள், தாய்மைப் பராமரிப்பு, கண் பரிசோதனைகளை முன்பதிவு செய்யுங்கள்.",
-    upcomingCamps: "வரவிருக்கும் இலவச கிராமப்புற மருத்துவ முகாம்கள்",
-    bookAppointment: "இலவச முன்பதிவு நேரத்தைச் சேமி",
-    doctorsAvailable: "பணியில் உள்ள மருத்துவர்கள்:",
-
     // Smart Scheme Finder Page
     schemeFinderTag: "AI-இயக்கப்படும் அரசுத் திட்டப் பொருத்த எஞ்சின்",
     schemeFinderTitle: "ஸ்மார்ட் மக்கள் நலன் & மானியத் திட்டக் கண்டுபிடிப்பான்",
@@ -834,16 +916,6 @@ export const TRANSLATIONS = {
     allCategories: "எல்லா வகைகளும்",
     matchScoreLabel: "பொருத்த மதிப்பெண்:",
     applyEligibilityBtn: "தகுதியைச் சரிபார்த்து விண்ணப்பிக்கவும்",
-
-    // SDG Dashboard Page
-    sdgImpactTag: "ஐக்கிய நாடுகள் சபை நிகழ்ச்சி நிரல் 2030 அறிவாண்மை தளம்",
-    sdgImpactTitle: "முழுமையான 17 ஐ.நா. எஸ்டிஜி தாக்க டாஷ்போர்டு",
-    sdgImpactSub: "ஒவ்வொரு பொதுச் சேவையும் நேரடியாக 17 ஐக்கிய நாடுகள் சபையின் எஸ்டிஜிக்களுடன் வரைபடமாக்கப்பட்டுள்ளது.",
-    allSdgsActive: "எல்லா 17 எஸ்டிஜிக்களும் செயலில் உள்ளன",
-    activateAll: "எல்லா 17 எஸ்டிஜிக்களையும் செயல்படுத்துங்கள்",
-    scoreDistribution: "17 ஐ.நா. எஸ்டிஜி தாக்க மதிப்பெண் பரவல்",
-    sdgRegistry: "17 ஐ.நா. நிலையான வளர்ச்சி இலக்குகள் பதிவேடு",
-    matchedSchemesCount: "பொருந்திய திட்டங்கள்",
 
     // NGO Operations Panel
     ngoPanelTag: "எஸ்டிஜி 1-17 கள நடவடிக்கைகள் & பேரிடர் தீர்வு மையம்",

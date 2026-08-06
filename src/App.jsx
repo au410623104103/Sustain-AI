@@ -204,6 +204,7 @@ export default function App() {
               currentUser={currentUser}
               onSaveProfile={handleSaveProfile}
               onContinue={() => setActiveView('dashboard')}
+              currentLanguage={currentLanguage}
             />
           )}
 
@@ -230,6 +231,7 @@ export default function App() {
           {activeView === 'disaster-support' && (
             <DisasterSupportView
               currentUser={currentUser}
+              currentLanguage={currentLanguage}
             />
           )}
 
@@ -244,6 +246,7 @@ export default function App() {
             <EducationSponsorsView
               currentUser={currentUser}
               onCheckEligibility={handleOpenEligibilityModal}
+              currentLanguage={currentLanguage}
             />
           )}
 
@@ -254,6 +257,7 @@ export default function App() {
               developerSolutions={developerSolutions}
               cleanEnergyRequests={cleanEnergyRequests}
               setCleanEnergyRequests={setCleanEnergyRequests}
+              currentLanguage={currentLanguage}
             />
           )}
 
@@ -262,6 +266,7 @@ export default function App() {
               ruralIssues={ruralIssues}
               developerSolutions={developerSolutions}
               setDeveloperSolutions={setDeveloperSolutions}
+              currentLanguage={currentLanguage}
             />
           )}
 
@@ -271,6 +276,7 @@ export default function App() {
               initialQuery={initialAiQuery}
               apiKey={apiKey}
               onCheckEligibility={handleOpenEligibilityModal}
+              currentLanguage={currentLanguage}
             />
           )}
 
@@ -278,17 +284,21 @@ export default function App() {
             <SchemeFinderView
               citizenProfile={currentUser}
               onCheckEligibility={handleOpenEligibilityModal}
+              currentLanguage={currentLanguage}
             />
           )}
 
           {activeView === 'education-jobs' && (
             <EducationJobsView
               onCheckEligibility={handleOpenEligibilityModal}
+              currentLanguage={currentLanguage}
             />
           )}
 
           {activeView === 'healthcare' && (
-            <HealthcareView />
+            <HealthcareView 
+              currentLanguage={currentLanguage}
+            />
           )}
 
           {activeView === 'civic-reporting' && (
@@ -303,6 +313,7 @@ export default function App() {
             <SdgDashboardView
               currentUser={currentUser}
               onCheckEligibility={handleOpenEligibilityModal}
+              currentLanguage={currentLanguage}
             />
           )}
         </main>

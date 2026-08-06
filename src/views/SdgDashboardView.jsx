@@ -16,11 +16,14 @@ import {
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { SDG_GOALS } from '../data/sdgData';
 import { SAMPLE_SCHEMES } from '../data/mockDatabase';
+import { TRANSLATIONS } from '../data/translations';
 
-export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
+export default function SdgDashboardView({ currentUser, onCheckEligibility, currentLanguage }) {
   // Toggle for activating all 17 SDGs for full demo showcase
   const [activateAllSdgs, setActivateAllSdgs] = useState(true);
   const [selectedSdgFilter, setSelectedSdgFilter] = useState(null);
+
+  const t = TRANSLATIONS[currentLanguage || 'English'] || TRANSLATIONS.English;
 
   // Default active SDGs derived from profile + saved schemes + civic reports + active state
   const baseActiveSdgs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
@@ -82,11 +85,11 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
         <div>
           <div className="flex items-center space-x-2 text-emerald-600 dark:text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-1">
             <Globe className="h-4 w-4" />
-            <span>United Nations Agenda 2030 Intelligence Platform</span>
+            <span>{t.sdgImpactTag}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold">Complete 17 UN SDG Impact Dashboard</h1>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
-            Every public service, scholarship, emergency hotline, and civic report is mapped directly to the 17 United Nations SDGs.
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">{t.sdgImpactTitle}</h1>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 font-medium">
+            {t.sdgImpactSub}
           </p>
         </div>
 
@@ -101,20 +104,20 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
             }`}
           >
             <Sparkles className="h-4 w-4 text-emerald-500" />
-            <span>{activateAllSdgs ? 'All 17 SDGs Active' : 'Activate All 17 SDGs'}</span>
+            <span>{activateAllSdgs ? t.allSdgsActive : t.activateAll}</span>
           </button>
         </div>
       </div>
 
       {/* Recharts 17 UN SDG Distribution Graph */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6">
+      <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
           <div>
-            <h2 className="text-base sm:text-lg font-extrabold flex items-center space-x-2">
+            <h2 className="text-base sm:text-lg font-extrabold flex items-center space-x-2 text-slate-900 dark:text-white">
               <BarChart2 className="h-5 w-5 text-emerald-500" />
-              <span>17 UN SDG Impact Score Distribution</span>
+              <span>{t.scoreDistribution}</span>
             </h2>
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Automated alignment index across public welfare schemes and rural issues.</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 font-medium">Automated alignment index across public welfare schemes and rural issues.</p>
           </div>
 
           <div className="flex items-center space-x-2">
@@ -156,8 +159,8 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-bold">17 UN Sustainable Development Goals Registry</h2>
-            <p className="text-xs text-slate-600 dark:text-slate-400">Click any SDG card to inspect matched government schemes and local rural issues.</p>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white">{t.sdgRegistryTitle}</h2>
+            <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">{t.sdgRegistrySub}</p>
           </div>
         </div>
 
@@ -175,7 +178,7 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
                   isSelected 
                     ? 'bg-emerald-50 dark:bg-slate-900 border-2 border-emerald-500 shadow-xl scale-[1.02]' 
                     : isActive 
-                      ? 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-emerald-500/50' 
+                      ? 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 shadow-sm' 
                       : 'bg-slate-100 dark:bg-slate-950/40 border-slate-200 dark:border-slate-800/80 opacity-70 hover:opacity-100'
                 }`}
               >
@@ -200,7 +203,7 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
                       }`}
                     >
                       <CheckCircle2 className="h-3 w-3" />
-                      <span>{isActive ? 'Active Impact' : 'Enable'}</span>
+                      <span>{isActive ? t.activeImpact : 'Enable'}</span>
                     </button>
                   </div>
 
@@ -215,17 +218,17 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
 
                 <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
                   <div className="text-[10px] font-semibold text-slate-600 dark:text-slate-400">
-                    <span className="text-slate-500 block text-[9px] uppercase tracking-wider font-bold">Target Priority</span>
+                    <span className="text-slate-500 block text-[9px] uppercase tracking-wider font-bold">{t.targetPriorityLabel}</span>
                     <span className="text-slate-900 dark:text-slate-200 font-bold">{sdg.targetFocus}</span>
                   </div>
 
                   <div className="flex items-center justify-between pt-1">
                     <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                      {matchedSchemes.length} Matched Schemes
+                      {matchedSchemes.length} {t.matchedSchemesCount}
                     </span>
 
                     <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 flex items-center space-x-0.5 group-hover:text-emerald-600 dark:group-hover:text-white transition-colors">
-                      <span>Inspect</span>
+                      <span>{t.inspectBtn}</span>
                       <ChevronRight className="h-3 w-3" />
                     </span>
                   </div>
@@ -245,7 +248,7 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
               <span className="text-xs font-extrabold px-2.5 py-0.5 rounded text-white" style={{ backgroundColor: selectedSdgObj.color }}>
                 {selectedSdgObj.number}
               </span>
-              <h3 className="text-base font-bold">Matched Services for {selectedSdgObj.title}</h3>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">Matched Services for {selectedSdgObj.title}</h3>
             </div>
             <button onClick={() => setSelectedSdgFilter(null)} className="text-xs text-slate-400 hover:text-white">✕ Close Filter</button>
           </div>
@@ -257,7 +260,7 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
               filteredSchemesForSdg.map((scheme) => (
                 <div key={scheme.id} className="p-4 rounded-2xl bg-slate-100/90 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 space-y-2">
                   <h4 className="text-xs font-bold text-slate-900 dark:text-white">{scheme.name}</h4>
-                  <p className="text-[11px] text-slate-700 dark:text-slate-300">{scheme.description}</p>
+                  <p className="text-[11px] text-slate-700 dark:text-slate-300 font-medium">{scheme.description}</p>
                   <div className="pt-2 border-t border-slate-200 dark:border-slate-900 flex items-center justify-between text-xs">
                     <span className="text-emerald-700 dark:text-emerald-400 font-bold">{scheme.benefits}</span>
                     <button

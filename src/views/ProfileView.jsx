@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { User, MapPin, Briefcase, GraduationCap, DollarSign, CheckCircle2, Save, Sparkles, HeartHandshake } from 'lucide-react';
+import { TRANSLATIONS } from '../data/translations';
 
-export default function ProfileView({ currentUser, onSaveProfile, onContinue }) {
+export default function ProfileView({ currentUser, onSaveProfile, onContinue, currentLanguage }) {
   const [profile, setProfile] = useState({
     name: currentUser?.name || 'Arun Kumar',
     age: currentUser?.age || 20,
@@ -17,6 +18,8 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue }) 
   });
 
   const [savedSuccess, setSavedSuccess] = useState(false);
+
+  const t = TRANSLATIONS[currentLanguage || 'English'] || TRANSLATIONS.English;
 
   const assistanceCategories = [
     'Education',
@@ -53,19 +56,19 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue }) 
     <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-6">
         <div>
-          <div className="flex items-center space-x-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-1">
+          <div className="flex items-center space-x-2 text-emerald-600 dark:text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-1">
             <Sparkles className="h-4 w-4" />
-            <span>AI Citizen Intelligence Profiler</span>
+            <span>{t.profileTag}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white">Citizen Profile & Need Preferences</h1>
-          <p className="text-xs text-slate-400 mt-1">SustainAI uses this demographic and need data to personalize recommendations and SDG impact scores.</p>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">{t.profileTitle}</h1>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium">{t.profileSub}</p>
         </div>
 
         <button
           onClick={handleSubmit}
-          className="px-6 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs hover:shadow-lg hover:shadow-emerald-500/30 transition-all flex items-center justify-center space-x-2 shrink-0"
+          className="px-6 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-extrabold text-xs hover:shadow-lg transition-all flex items-center justify-center space-x-2 shrink-0"
         >
           {savedSuccess ? (
             <>
@@ -75,7 +78,7 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue }) 
           ) : (
             <>
               <Save className="h-4 w-4" />
-              <span>Save Profile & Continue</span>
+              <span>{t.saveProfileBtn}</span>
             </>
           )}
         </button>
@@ -84,39 +87,39 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue }) 
       <form onSubmit={handleSubmit} className="space-y-8">
         
         {/* Section 1: Basic Demographics */}
-        <div className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-6">
-          <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider flex items-center space-x-2">
+        <div className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
+          <h3 className="text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center space-x-2">
             <User className="h-4 w-4" />
-            <span>1. Basic Information</span>
+            <span>{t.sectionBasicInfo}</span>
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.labelFullName}</label>
               <input
                 type="text"
                 value={profile.name}
                 onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-emerald-500 outline-none"
+                className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white text-xs focus:border-emerald-500 outline-none font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Age</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.labelAge}</label>
               <input
                 type="number"
                 value={profile.age}
                 onChange={(e) => setProfile({ ...profile, age: parseInt(e.target.value) || 20 })}
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-emerald-500 outline-none"
+                className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white text-xs focus:border-emerald-500 outline-none font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Gender</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.labelGender}</label>
               <select
                 value={profile.gender}
                 onChange={(e) => setProfile({ ...profile, gender: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-emerald-500 outline-none"
+                className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white text-xs focus:border-emerald-500 outline-none font-medium"
               >
                 <option>Male</option>
                 <option>Female</option>
@@ -127,39 +130,39 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue }) 
         </div>
 
         {/* Section 2: Location & Economic Details */}
-        <div className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-6">
-          <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider flex items-center space-x-2">
+        <div className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
+          <h3 className="text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center space-x-2">
             <MapPin className="h-4 w-4" />
-            <span>2. Location & Occupation</span>
+            <span>{t.sectionLocation}</span>
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">State</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.labelState}</label>
               <input
                 type="text"
                 value={profile.state}
                 onChange={(e) => setProfile({ ...profile, state: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-emerald-500 outline-none"
+                className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white text-xs focus:border-emerald-500 outline-none font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">City / District</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.labelCityDistrict}</label>
               <input
                 type="text"
                 value={profile.city}
                 onChange={(e) => setProfile({ ...profile, city: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-emerald-500 outline-none"
+                className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white text-xs focus:border-emerald-500 outline-none font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Occupation Status</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.labelOccupation}</label>
               <select
                 value={profile.occupation}
                 onChange={(e) => setProfile({ ...profile, occupation: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-emerald-500 outline-none"
+                className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white text-xs focus:border-emerald-500 outline-none font-medium"
               >
                 <option>Student</option>
                 <option>Employed</option>
@@ -171,11 +174,11 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue }) 
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Education Level</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.labelEducation}</label>
               <select
                 value={profile.educationLevel}
                 onChange={(e) => setProfile({ ...profile, educationLevel: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-emerald-500 outline-none"
+                className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white text-xs focus:border-emerald-500 outline-none font-medium"
               >
                 <option>High School (10th / 12th)</option>
                 <option>Diploma</option>
@@ -188,11 +191,11 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue }) 
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">Annual Household Income Range</label>
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.labelIncome}</label>
             <select
               value={profile.incomeRange}
               onChange={(e) => setProfile({ ...profile, incomeRange: e.target.value, incomeCategory: e.target.value.includes('Below') ? 'Low Income' : 'Middle Income' })}
-              className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-emerald-500 outline-none"
+              className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white text-xs focus:border-emerald-500 outline-none font-medium"
             >
               <option>Below ₹2.5 Lakhs / Year (Low Income)</option>
               <option>₹2.5 Lakhs - ₹5.0 Lakhs / Year</option>
@@ -203,13 +206,13 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue }) 
         </div>
 
         {/* Section 3: Assistance Categories */}
-        <div className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-6">
-          <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider flex items-center space-x-2">
+        <div className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
+          <h3 className="text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center space-x-2">
             <HeartHandshake className="h-4 w-4" />
             <span>3. Primary Assistance Areas Required</span>
           </h3>
 
-          <p className="text-xs text-slate-400">Select all categories where you currently seek government support, scholarships, or services:</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">Select all categories where you currently seek government support, scholarships, or services:</p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {assistanceCategories.map((cat) => {
@@ -218,14 +221,14 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue }) 
                 <div
                   key={cat}
                   onClick={() => handleNeedToggle(cat)}
-                  className={`p-3.5 rounded-2xl cursor-pointer transition-all border flex items-center justify-between ${
+                  className={`p-3.5 rounded-2xl cursor-pointer transition-all border flex items-center justify-between font-bold ${
                     isSelected 
-                      ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300 shadow-md shadow-emerald-950'
-                      : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:border-slate-700'
+                      ? 'bg-emerald-500/20 border-emerald-500 text-emerald-700 dark:text-emerald-300 shadow-md'
+                      : 'bg-slate-100 dark:bg-slate-950/60 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-400 hover:border-slate-400'
                   }`}
                 >
-                  <span className="text-xs font-semibold">{cat}</span>
-                  {isSelected && <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />}
+                  <span className="text-xs">{cat}</span>
+                  {isSelected && <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />}
                 </div>
               );
             })}
@@ -235,9 +238,9 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue }) 
         <div className="flex justify-end pt-4">
           <button
             type="submit"
-            className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-sm hover:shadow-xl hover:shadow-emerald-500/30 transition-all flex items-center justify-center space-x-2"
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-extrabold text-xs hover:shadow-xl transition-all flex items-center justify-center space-x-2"
           >
-            <span>Save Profile & Continue to Dashboard</span>
+            <span>{t.saveProfileBtn}</span>
             <CheckCircle2 className="h-4 w-4" />
           </button>
         </div>
