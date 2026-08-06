@@ -25,10 +25,13 @@ import {
 } from 'lucide-react';
 import { SAMPLE_SCHEMES, RURAL_DISTRICTS, SAMPLE_NGOS, SAMPLE_RURAL_ISSUES } from '../data/mockDatabase';
 import { SDG_GOALS } from '../data/sdgData';
+import { TRANSLATIONS } from '../data/translations';
 
-export default function DashboardView({ currentUser, setActiveView, onSearchSubmit, onCheckEligibility, setRuralDistrict, ruralDistrict }) {
+export default function DashboardView({ currentUser, setActiveView, onSearchSubmit, onCheckEligibility, setRuralDistrict, ruralDistrict, currentLanguage }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState(ruralDistrict || currentUser?.ruralDistrict || 'Ramanagara Rural District');
+
+  const t = TRANSLATIONS[currentLanguage || 'English'] || TRANSLATIONS.English;
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -50,13 +53,13 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
   const recommendedSchemes = SAMPLE_SCHEMES.filter(s => s.matchScore > 88).slice(0, 4);
 
   const quickActionCards = [
-    { id: 'ai-assistant', label: 'Ask SustainAI', icon: Sparkles, color: 'from-emerald-500 to-teal-500', desc: 'AI Assistant Chat' },
-    { id: 'clean-energy', label: 'Clean Energy', icon: Zap, color: 'from-amber-500 to-yellow-500', desc: 'SDG 7 Solar & LPG Grants' },
-    { id: 'food-donation', label: 'Food Donation', icon: UtensilsCrossed, color: 'from-orange-500 to-amber-500', desc: 'SDG 2 Excess Food Hub' },
-    { id: 'education-sponsors', label: 'Education Sponsors', icon: GraduationCap, color: 'from-blue-500 to-indigo-500', desc: 'SDG 4 Laptop & Fee Grants' },
-    { id: 'healthcare', label: 'Medical Camps', icon: Activity, color: 'from-rose-500 to-red-500', desc: 'SDG 3 Free Eye & Health Camps' },
-    { id: 'ngo-panel', label: 'NGO Rural Panel', icon: Building2, color: 'from-purple-500 to-indigo-500', desc: '17 SDG Field Operations' },
-    { id: 'developer-hub', label: 'Developer Hub', icon: Code, color: 'from-cyan-500 to-blue-500', desc: 'Build Rural Tech Apps' },
+    { id: 'ai-assistant', label: t.askAi || 'Ask SustainAI', icon: Sparkles, color: 'from-emerald-500 to-teal-500', desc: 'AI Assistant Chat' },
+    { id: 'clean-energy', label: t.cleanEnergyTitle || 'Clean Energy', icon: Zap, color: 'from-amber-500 to-yellow-500', desc: 'SDG 7 Solar & LPG Grants' },
+    { id: 'food-donation', label: t.foodDonationTitle || 'Food Donation', icon: UtensilsCrossed, color: 'from-orange-500 to-amber-500', desc: 'SDG 2 Excess Food Hub' },
+    { id: 'education-sponsors', label: t.educationSponsorsTitle || 'Education Sponsors', icon: GraduationCap, color: 'from-blue-500 to-indigo-500', desc: 'SDG 4 Laptop & Fee Grants' },
+    { id: 'healthcare', label: t.medicalCampsTitle || 'Medical Camps', icon: Activity, color: 'from-rose-500 to-red-500', desc: 'SDG 3 Free Eye & Health Camps' },
+    { id: 'ngo-panel', label: t.ngoPanel || 'NGO Rural Panel', icon: Building2, color: 'from-purple-500 to-indigo-500', desc: '17 SDG Field Operations' },
+    { id: 'developer-hub', label: t.developerHub || 'Developer Hub', icon: Code, color: 'from-cyan-500 to-blue-500', desc: 'Build Rural Tech Apps' },
   ];
 
   return (
@@ -66,24 +69,24 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
       <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 border border-emerald-500/30 shadow-2xl relative overflow-hidden text-white-force">
         <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10 text-white-force">
           <div>
             <div className="flex items-center space-x-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2 text-white-force">
               <Sparkles className="h-4 w-4 text-emerald-400" />
-              <span>SustainAI Rural Intelligence Platform</span>
+              <span>SustainAI Platform</span>
             </div>
             <h1 className="text-2xl sm:text-4xl font-extrabold text-white text-white-force">
-              Good Morning, {currentUser?.name || 'Citizen'} 👋
+              {t.greeting}, {currentUser?.name || 'Citizen'} 👋
             </h1>
             <p className="text-xs sm:text-sm text-slate-300 text-white-force mt-1">
-              How can SustainAI help you discover government schemes, connect with active rural NGOs, or request AI support today?
+              {t.platformSubtitle}
             </p>
           </div>
 
           {/* Universal Impact Counter */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 text-white-force">
             <div className="px-4 py-2 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold text-center text-white-force">
-              <p className="text-[10px] text-emerald-400 uppercase tracking-wider text-white-force">Universal Impact Score</p>
+              <p className="text-[10px] text-emerald-400 uppercase tracking-wider text-white-force">{t.universalScore}</p>
               <p className="text-base font-extrabold flex items-center justify-center space-x-1 text-white-force">
                 <ShieldCheck className="h-4 w-4 text-emerald-400" />
                 <span className="text-white-force">{currentUser?.impactScore || 840} PTS</span>
@@ -100,14 +103,14 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Tell SustainAI what you need... (e.g. 'I am a college student looking for financial support and internship opportunities')"
+              placeholder={t.searchPlaceholder}
               className="w-full pl-12 pr-32 py-4 rounded-2xl bg-slate-950/90 border-2 border-emerald-500/40 text-white text-white-force placeholder:text-slate-500 focus:outline-none focus:border-emerald-400 text-xs sm:text-sm shadow-xl"
             />
             <button
               type="submit"
               className="absolute right-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-extrabold text-xs hover:shadow-lg transition-all flex items-center space-x-1.5"
             >
-              <span>Ask AI</span>
+              <span>{t.askAi}</span>
               <ArrowRight className="h-4 w-4" />
             </button>
           </div>
@@ -116,7 +119,7 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
           <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
             <span className="text-slate-400 font-semibold text-[11px] flex items-center space-x-1 text-white-force">
               <Zap className="h-3 w-3 text-amber-400" />
-              <span>Try Demo Query:</span>
+              <span>{t.tryDemo}</span>
             </span>
             <button
               type="button"
@@ -135,7 +138,7 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
         {/* Clean Energy & Rooftop Solar (SDG 7) */}
         <div 
           onClick={() => setActiveView('clean-energy')}
-          className="p-6 rounded-3xl glass-panel border border-slate-200 dark:border-slate-800 hover:border-amber-500/40 transition-all cursor-pointer space-y-3 flex flex-col justify-between group"
+          className="p-6 rounded-3xl glass-panel border border-slate-200 dark:border-slate-800 hover:border-amber-500/40 transition-all cursor-pointer space-y-3 flex flex-col justify-between group shadow-sm"
         >
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -149,15 +152,15 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
               <div className="h-10 w-10 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform shadow-md">
                 ☀️
               </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">Clean Energy Portal</h3>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">{t.cleanEnergyTitle}</h3>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-2">
-              Calculate rooftop solar bill savings, apply for ₹78,000 PM Surya Ghar grants & free LPG connections.
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-2 font-medium">
+              {t.cleanEnergyDesc}
             </p>
           </div>
 
           <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-amber-700 dark:text-amber-400">
-            <span>Calculate Solar Subsidy</span>
+            <span>{t.calcSolarSubsidy}</span>
             <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
@@ -165,7 +168,7 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
         {/* Excess Food Share (SDG 2) */}
         <div 
           onClick={() => setActiveView('food-donation')}
-          className="p-6 rounded-3xl glass-panel border border-slate-200 dark:border-slate-800 hover:border-orange-500/40 transition-all cursor-pointer space-y-3 flex flex-col justify-between group"
+          className="p-6 rounded-3xl glass-panel border border-slate-200 dark:border-slate-800 hover:border-orange-500/40 transition-all cursor-pointer space-y-3 flex flex-col justify-between group shadow-sm"
         >
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -179,15 +182,15 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
               <div className="h-10 w-10 rounded-2xl bg-orange-500 text-slate-950 flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform shadow-md">
                 🍲
               </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">Excess Food Donation Hub</h3>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">{t.foodDonationTitle}</h3>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-2">
-              Share surplus food from events or claim available meals for rural shelters and families in need.
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-2 font-medium">
+              {t.foodDonationDesc}
             </p>
           </div>
 
           <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-orange-700 dark:text-orange-400">
-            <span>Explore Food Sharing</span>
+            <span>{t.exploreFood}</span>
             <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
@@ -195,7 +198,7 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
         {/* Education Sponsors (SDG 4) */}
         <div 
           onClick={() => setActiveView('education-sponsors')}
-          className="p-6 rounded-3xl glass-panel border border-slate-200 dark:border-slate-800 hover:border-blue-500/40 transition-all cursor-pointer space-y-3 flex flex-col justify-between group"
+          className="p-6 rounded-3xl glass-panel border border-slate-200 dark:border-slate-800 hover:border-blue-500/40 transition-all cursor-pointer space-y-3 flex flex-col justify-between group shadow-sm"
         >
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -209,15 +212,15 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
               <div className="h-10 w-10 rounded-2xl bg-blue-500 text-slate-950 flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform shadow-md">
                 🎓
               </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Education Sponsors Directory</h3>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{t.educationSponsorsTitle}</h3>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-2">
-              Students & citizens apply for verified sponsors offering laptops, college tuition waivers & book kits.
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-2 font-medium">
+              {t.educationSponsorsDesc}
             </p>
           </div>
 
           <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-blue-700 dark:text-blue-400">
-            <span>Find Education Sponsors</span>
+            <span>{t.findSponsors}</span>
             <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
@@ -225,7 +228,7 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
         {/* Free Rural Medical Camps (SDG 3) */}
         <div 
           onClick={() => setActiveView('healthcare')}
-          className="p-6 rounded-3xl glass-panel border border-slate-200 dark:border-slate-800 hover:border-rose-500/40 transition-all cursor-pointer space-y-3 flex flex-col justify-between group"
+          className="p-6 rounded-3xl glass-panel border border-slate-200 dark:border-slate-800 hover:border-rose-500/40 transition-all cursor-pointer space-y-3 flex flex-col justify-between group shadow-sm"
         >
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -239,15 +242,15 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
               <div className="h-10 w-10 rounded-2xl bg-rose-500 text-slate-950 flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform shadow-md">
                 🩺
               </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">Rural Medical Camps Schedule</h3>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">{t.medicalCampsTitle}</h3>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-2">
-              Book free appointments for upcoming rural eye checkups, diabetes screenings, and maternal clinics.
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-2 font-medium">
+              {t.medicalCampsDesc}
             </p>
           </div>
 
           <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-rose-700 dark:text-rose-400">
-            <span>Book Free Camp Slot</span>
+            <span>{t.bookCampSlot}</span>
             <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
@@ -263,12 +266,12 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
             </div>
             <div>
               <h2 className="text-lg font-bold flex items-center space-x-2">
-                <span>Active Helping NGOs in Your Rural Area</span>
+                <span>{t.activeNgosHeading}</span>
                 <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold">
                   Live District Tracker
                 </span>
               </h2>
-              <p className="text-xs text-slate-600 dark:text-slate-400">Select your rural district to see field NGOs, active 17 SDG projects & cleared issues in your village.</p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">{t.activeNgosSub}</p>
             </div>
           </div>
 
@@ -303,7 +306,7 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
-                      Verified Rural NGO
+                      {t.verifiedNgo}
                     </span>
                     <span className="text-xs font-extrabold text-emerald-700 dark:text-emerald-400">{ngo.impactScore} PTS</span>
                   </div>
@@ -312,7 +315,7 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
                   <p className="text-[11px] text-slate-600 dark:text-slate-300 mb-3">Headquarters: {ngo.headquarters} (Leader: {ngo.leaderName})</p>
 
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-2 text-xs">
-                    <span className="text-slate-500 dark:text-slate-400 font-semibold block text-[11px]">Active Rural Projects:</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-semibold block text-[11px]">{t.activeProjects}</span>
                     {ngo.activeProjects.map((proj, idx) => (
                       <div key={idx} className="flex items-center space-x-1.5 text-slate-800 dark:text-slate-200 font-medium">
                         <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
@@ -323,12 +326,12 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
                 </div>
 
                 <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                  <span className="text-[10px] text-slate-600 dark:text-slate-400 font-semibold">Cleared: <strong className="text-emerald-700 dark:text-emerald-400">{ngo.issuesCleared} Issues</strong></span>
+                  <span className="text-[10px] text-slate-600 dark:text-slate-400 font-semibold">{t.clearedIssues} <strong className="text-emerald-700 dark:text-emerald-400">{ngo.issuesCleared} Issues</strong></span>
                   <button 
                     onClick={() => setActiveView('ngo-panel')}
                     className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 hover:underline flex items-center space-x-1"
                   >
-                    <span>View NGO Panel</span>
+                    <span>{t.viewNgoPanel}</span>
                     <ArrowRight className="h-3 w-3" />
                   </button>
                 </div>
@@ -444,7 +447,7 @@ export default function DashboardView({ currentUser, setActiveView, onSearchSubm
                       className="px-3.5 py-1.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs hover:bg-emerald-400 transition-all flex items-center space-x-1"
                     >
                       <CheckCircle2 className="h-3.5 w-3.5" />
-                      <span>Check Eligibility</span>
+                      <span>{t.checkEligibility}</span>
                     </button>
                   </div>
                 </div>
