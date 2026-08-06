@@ -78,14 +78,14 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-6">
         <div>
-          <div className="flex items-center space-x-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-1">
+          <div className="flex items-center space-x-2 text-emerald-600 dark:text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-1">
             <Globe className="h-4 w-4" />
             <span>United Nations Agenda 2030 Intelligence Platform</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white">Complete 17 UN SDG Impact Dashboard</h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <h1 className="text-2xl sm:text-3xl font-extrabold">Complete 17 UN SDG Impact Dashboard</h1>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
             Every public service, scholarship, emergency hotline, and civic report is mapped directly to the 17 United Nations SDGs.
           </p>
         </div>
@@ -96,58 +96,51 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
             onClick={handleToggleAll}
             className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all border flex items-center space-x-2 ${
               activateAllSdgs 
-                ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-lg shadow-emerald-950' 
-                : 'bg-slate-900 text-slate-300 border-slate-800 hover:border-slate-700'
+                ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border-emerald-500/40 shadow-lg' 
+                : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800'
             }`}
           >
-            <Zap className="h-4 w-4 text-amber-400" />
-            <span>{activateAllSdgs ? 'All 17 SDGs Fully Integrated (Active)' : 'Activate All 17 SDGs for Demo'}</span>
+            <Sparkles className="h-4 w-4 text-emerald-500" />
+            <span>{activateAllSdgs ? 'All 17 SDGs Active' : 'Activate All 17 SDGs'}</span>
           </button>
         </div>
       </div>
 
-      {/* Overview Stat Counters */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
-        <div className="p-4 rounded-2xl glass-panel border border-slate-800 space-y-1">
-          <span className="text-xs text-slate-400 font-medium">Services & Schemes</span>
-          <p className="text-xl font-extrabold text-white">17 Schemes</p>
-        </div>
-        <div className="p-4 rounded-2xl glass-panel border border-slate-800 space-y-1">
-          <span className="text-xs text-slate-400 font-medium">Civic & Eco Reports</span>
-          <p className="text-xl font-extrabold text-emerald-400">4 Active</p>
-        </div>
-        <div className="p-4 rounded-2xl glass-panel border border-slate-800 space-y-1">
-          <span className="text-xs text-slate-400 font-medium">Impact Score</span>
-          <p className="text-xl font-extrabold text-teal-400">{currentUser?.impactScore || 780} PTS</p>
-        </div>
-        <div className="p-4 rounded-2xl glass-panel border border-slate-800 space-y-1">
-          <span className="text-xs text-slate-400 font-medium">SDGs Integrated</span>
-          <p className="text-xl font-extrabold text-purple-400">17 / 17 Goals</p>
-        </div>
-        <div className="p-4 rounded-2xl glass-panel border border-slate-800 space-y-1 col-span-2 sm:col-span-1">
-          <span className="text-xs text-slate-400 font-medium">Active Goal Coverage</span>
-          <p className="text-xl font-extrabold text-amber-400">{activeCount} / 17 Active</p>
-        </div>
-      </div>
+      {/* Recharts 17 UN SDG Distribution Graph */}
+      <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+          <div>
+            <h2 className="text-base sm:text-lg font-extrabold flex items-center space-x-2">
+              <BarChart2 className="h-5 w-5 text-emerald-500" />
+              <span>17 UN SDG Impact Score Distribution</span>
+            </h2>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Automated alignment index across public welfare schemes and rural issues.</p>
+          </div>
 
-      {/* Recharts 17 UN SDG Bar Visualization */}
-      <div className="p-6 rounded-3xl glass-panel border border-slate-800 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <h2 className="text-base font-bold text-white flex items-center space-x-2">
-            <BarChart2 className="h-5 w-5 text-emerald-400" />
-            <span>Complete 17 UN SDG Impact Distribution</span>
-          </h2>
-          <span className="text-xs text-slate-400">Bar height indicates public service & scheme alignment index per goal</span>
+          <div className="flex items-center space-x-2">
+            <span className="text-xs font-bold text-slate-600 dark:text-slate-400">Total Active SDGs:</span>
+            <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 font-extrabold text-xs">
+              {activeCount} / 17 Goals Active
+            </span>
+          </div>
         </div>
 
-        <div className="h-72 w-full pt-4">
+        {/* Recharts Bar Chart */}
+        <div className="h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData}>
-              <XAxis dataKey="name" stroke="#64748b" fontSize={10} tickLine={false} />
-              <YAxis stroke="#64748b" fontSize={10} tickLine={false} domain={[0, 100]} />
-              <Tooltip 
-                contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '0.75rem', fontSize: '12px' }}
-                formatter={(value, name, item) => [`${value} Index Points (${item.payload.matchedCount} Schemes)`, item.payload.fullName]}
+            <BarChart data={chartData} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
+              <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} tickLine={false} />
+              <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} domain={[0, 100]} />
+              <Tooltip
+                contentStyle={{ 
+                  backgroundColor: '#0f172a', 
+                  borderColor: '#334155', 
+                  borderRadius: '12px',
+                  color: '#fff',
+                  fontSize: '12px',
+                  fontWeight: 'bold'
+                }}
+                formatter={(value, name, props) => [`Score: ${value} PTS (${props.payload.matchedCount} Schemes)`, props.payload.fullName]}
               />
               <Bar dataKey="score" radius={[6, 6, 0, 0]}>
                 {chartData.map((entry, index) => (
@@ -159,25 +152,13 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
         </div>
       </div>
 
-      {/* All 17 UN SDG Interactive Goal Cards */}
-      <div>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+      {/* 17 UN SDG GOALS INTERACTIVE GRID */}
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-bold text-white flex items-center space-x-2">
-              <Globe className="h-5 w-5 text-emerald-400" />
-              <span>Complete 17 UN SDG Framework Alignment</span>
-            </h2>
-            <p className="text-xs text-slate-400">Click any SDG card to inspect matched government schemes & activate its impact badge.</p>
+            <h2 className="text-lg font-bold">17 UN Sustainable Development Goals Registry</h2>
+            <p className="text-xs text-slate-600 dark:text-slate-400">Click any SDG card to inspect matched government schemes and local rural issues.</p>
           </div>
-
-          {selectedSdgFilter && (
-            <button
-              onClick={() => setSelectedSdgFilter(null)}
-              className="text-xs text-emerald-400 hover:underline font-semibold"
-            >
-              Clear Filter (Show All 17)
-            </button>
-          )}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -192,10 +173,10 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
                 onClick={() => setSelectedSdgFilter(isSelected ? null : sdg.id)}
                 className={`p-5 rounded-3xl border transition-all cursor-pointer flex flex-col justify-between space-y-4 group relative overflow-hidden ${
                   isSelected 
-                    ? 'bg-slate-900 border-2 border-emerald-400 shadow-xl shadow-emerald-950/50 scale-[1.02]' 
+                    ? 'bg-emerald-50 dark:bg-slate-900 border-2 border-emerald-500 shadow-xl scale-[1.02]' 
                     : isActive 
-                      ? 'bg-slate-900/80 border-slate-700 hover:border-emerald-500/50' 
-                      : 'bg-slate-950/40 border-slate-800/80 opacity-70 hover:opacity-100'
+                      ? 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-emerald-500/50' 
+                      : 'bg-slate-100 dark:bg-slate-950/40 border-slate-200 dark:border-slate-800/80 opacity-70 hover:opacity-100'
                 }`}
               >
                 <div>
@@ -214,8 +195,8 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
                       }}
                       className={`text-[10px] font-bold px-2 py-0.5 rounded-full border transition-all flex items-center space-x-1 ${
                         isActive 
-                          ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' 
-                          : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-white'
+                          ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border-emerald-500/30' 
+                          : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700'
                       }`}
                     >
                       <CheckCircle2 className="h-3 w-3" />
@@ -223,27 +204,27 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
                     </button>
                   </div>
 
-                  <h3 className="text-sm font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                     {sdg.title}
                   </h3>
 
-                  <p className="text-[11px] text-slate-300 leading-snug mb-3">
+                  <p className="text-[11px] text-slate-700 dark:text-slate-300 leading-snug mb-3 font-medium">
                     {sdg.description}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-slate-800 space-y-2">
-                  <div className="text-[10px] font-semibold text-slate-400">
-                    <span className="text-slate-500 block text-[9px] uppercase tracking-wider">Target Priority</span>
-                    <span className="text-slate-200">{sdg.targetFocus}</span>
+                <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
+                  <div className="text-[10px] font-semibold text-slate-600 dark:text-slate-400">
+                    <span className="text-slate-500 block text-[9px] uppercase tracking-wider font-bold">Target Priority</span>
+                    <span className="text-slate-900 dark:text-slate-200 font-bold">{sdg.targetFocus}</span>
                   </div>
 
                   <div className="flex items-center justify-between pt-1">
-                    <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                    <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
                       {matchedSchemes.length} Matched Schemes
                     </span>
 
-                    <span className="text-[10px] font-semibold text-slate-400 flex items-center space-x-0.5 group-hover:text-white transition-colors">
+                    <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 flex items-center space-x-0.5 group-hover:text-emerald-600 dark:group-hover:text-white transition-colors">
                       <span>Inspect</span>
                       <ChevronRight className="h-3 w-3" />
                     </span>
@@ -258,51 +239,32 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility }) {
 
       {/* Selected SDG Matched Schemes Drill-Down Section */}
       {selectedSdgObj && (
-        <div className="p-6 rounded-3xl glass-panel border-2 border-emerald-500/40 space-y-6 animate-in fade-in">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-            <div className="flex items-center space-x-3">
-              <span className="px-3 py-1 rounded text-xs font-extrabold text-white" style={{ backgroundColor: selectedSdgObj.color }}>
+        <div className="p-6 rounded-3xl glass-panel border-2 border-emerald-500/50 space-y-4 animate-in fade-in">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <span className="text-xs font-extrabold px-2.5 py-0.5 rounded text-white" style={{ backgroundColor: selectedSdgObj.color }}>
                 {selectedSdgObj.number}
               </span>
-              <div>
-                <h3 className="text-lg font-bold text-white">Matched Schemes for {selectedSdgObj.title}</h3>
-                <p className="text-xs text-slate-400">{selectedSdgObj.description}</p>
-              </div>
+              <h3 className="text-base font-bold">Matched Services for {selectedSdgObj.title}</h3>
             </div>
-
-            <button
-              onClick={() => setSelectedSdgFilter(null)}
-              className="text-xs text-slate-400 hover:text-white"
-            >
-              Close Drilldown ✕
-            </button>
+            <button onClick={() => setSelectedSdgFilter(null)} className="text-xs text-slate-400 hover:text-white">✕ Close Filter</button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filteredSchemesForSdg.length === 0 ? (
-              <p className="text-xs text-slate-400 py-4">No specific scheme mapped to this goal in demo filters.</p>
+              <p className="text-xs text-slate-500 col-span-full">No active schemes mapped directly to this SDG ID.</p>
             ) : (
-              filteredSchemesForSdg.map((sch) => (
-                <div key={sch.id} className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-col justify-between space-y-3">
-                  <div>
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                        {sch.type}
-                      </span>
-                      <span className="text-[10px] text-slate-400">{sch.provider}</span>
-                    </div>
-
-                    <h4 className="text-xs font-bold text-white">{sch.name}</h4>
-                    <p className="text-[11px] text-slate-300 mt-1">{sch.description}</p>
-                  </div>
-
-                  <div className="pt-2 border-t border-slate-900 flex items-center justify-between">
-                    <span className="text-[10px] text-emerald-300 font-semibold">{sch.benefits}</span>
+              filteredSchemesForSdg.map((scheme) => (
+                <div key={scheme.id} className="p-4 rounded-2xl bg-slate-100/90 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 space-y-2">
+                  <h4 className="text-xs font-bold text-slate-900 dark:text-white">{scheme.name}</h4>
+                  <p className="text-[11px] text-slate-700 dark:text-slate-300">{scheme.description}</p>
+                  <div className="pt-2 border-t border-slate-200 dark:border-slate-900 flex items-center justify-between text-xs">
+                    <span className="text-emerald-700 dark:text-emerald-400 font-bold">{scheme.benefits}</span>
                     <button
-                      onClick={() => onCheckEligibility && onCheckEligibility(sch)}
-                      className="px-3 py-1 rounded-xl bg-emerald-500 text-slate-950 font-bold text-[11px] hover:bg-emerald-400 transition-colors"
+                      onClick={() => onCheckEligibility(scheme)}
+                      className="px-3 py-1 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs"
                     >
-                      Check Eligibility
+                      Apply / Eligibility
                     </button>
                   </div>
                 </div>

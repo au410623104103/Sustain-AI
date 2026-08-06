@@ -27,6 +27,7 @@ import {
   SAMPLE_RURAL_ISSUES, 
   SAMPLE_DEVELOPER_SOLUTIONS 
 } from './data/mockDatabase';
+import { TRANSLATIONS } from './data/translations';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -35,6 +36,9 @@ export default function App() {
   
   // Theme State: Dark Mode (default true) or Light Mode (false)
   const [isDarkMode, setIsDarkMode] = useState(true);
+
+  // Multilingual Support: English, Hindi, Telugu, Tamil
+  const [currentLanguage, setCurrentLanguage] = useState('English');
 
   // Ecosystem Multi-Role State
   const [ruralIssues, setRuralIssues] = useState(SAMPLE_RURAL_ISSUES);
@@ -139,7 +143,7 @@ export default function App() {
   return (
     <div className={`min-h-screen flex flex-col font-sans transition-colors duration-300 ${isDarkMode ? 'dark-theme bg-slate-950 text-slate-100' : 'light-theme bg-slate-50 text-slate-900'}`}>
       
-      {/* Top Navigation Bar with Role Switcher & Theme Toggle */}
+      {/* Top Navigation Bar with Role Switcher, Theme Toggle & Multilingual Language Selector */}
       <Navbar
         currentUser={currentUser}
         activeView={activeView}
@@ -151,6 +155,8 @@ export default function App() {
         setIsMobileMenuOpen={setIsMobileMenuOpen}
         isDarkMode={isDarkMode}
         setIsDarkMode={setIsDarkMode}
+        currentLanguage={currentLanguage}
+        setCurrentLanguage={setCurrentLanguage}
       />
 
       {/* Main Layout Container */}
@@ -204,6 +210,7 @@ export default function App() {
               onCheckEligibility={handleOpenEligibilityModal}
               ruralDistrict={ruralDistrict}
               setRuralDistrict={setRuralDistrict}
+              currentLanguage={currentLanguage}
             />
           )}
 
