@@ -17,34 +17,37 @@ import {
   AlertTriangle,
   Zap
 } from 'lucide-react';
+import { TRANSLATIONS } from '../data/translations';
 
-export default function Sidebar({ activeView, setActiveView, currentUser, onLogout, isMobileMenuOpen, setIsMobileMenuOpen }) {
+export default function Sidebar({ activeView, setActiveView, currentUser, onLogout, isMobileMenuOpen, setIsMobileMenuOpen, currentLanguage }) {
   if (!currentUser) return null;
+
+  const t = TRANSLATIONS[currentLanguage || 'English'] || TRANSLATIONS.English;
 
   const isCitizenRole = activeView === 'dashboard' || activeView === 'profile' || activeView === 'ai-assistant' || activeView === 'schemes' || activeView === 'education-jobs' || activeView === 'healthcare' || activeView === 'civic-reporting' || activeView === 'landing' || activeView === 'food-donation' || activeView === 'education-sponsors' || activeView === 'disaster-support' || activeView === 'clean-energy';
   const isNgoRole = activeView === 'ngo-panel';
   const isDevRole = activeView === 'developer-hub';
 
   const navItems = [
-    { id: 'dashboard', label: 'Citizen Dashboard', icon: LayoutDashboard, badge: null },
-    { id: 'clean-energy', label: 'Clean Energy (SDG 7)', icon: Zap, badge: 'Solar & LPG' },
-    { id: 'disaster-support', label: 'Disaster & Climate Map', icon: AlertTriangle, badge: 'SDG 11 & 13' },
-    { id: 'food-donation', label: 'Food Donation (SDG 2)', icon: UtensilsCrossed, badge: 'Zero Waste' },
-    { id: 'education-sponsors', label: 'Education Sponsors (SDG 4)', icon: GraduationCap, badge: 'Laptop & Fee' },
-    { id: 'ngo-panel', label: 'NGO Operations Panel', icon: Building2, badge: '17 SDGs' },
-    { id: 'developer-hub', label: 'Developer Hub', icon: Code, badge: 'Tech Solutions' },
-    { id: 'ai-assistant', label: 'Ask SustainAI', icon: Sparkles, badge: 'AI' },
-    { id: 'schemes', label: 'Smart Scheme Finder', icon: Landmark, badge: '17 Schemes' },
-    { id: 'education-jobs', label: 'Education & Career', icon: GraduationCap, badge: null },
-    { id: 'healthcare', label: 'Health & Medical Camps', icon: Activity, badge: 'Free Camps' },
+    { id: 'dashboard', label: t.navDashboard, icon: LayoutDashboard, badge: null },
+    { id: 'clean-energy', label: t.navCleanEnergy, icon: Zap, badge: t.badgeSolarLpg },
+    { id: 'disaster-support', label: t.navDisasterMap, icon: AlertTriangle, badge: t.badgeSdg11_13 },
+    { id: 'food-donation', label: t.navFoodDonation, icon: UtensilsCrossed, badge: t.badgeZeroWaste },
+    { id: 'education-sponsors', label: t.navEduSponsors, icon: GraduationCap, badge: t.badgeLaptopFee },
+    { id: 'ngo-panel', label: t.navNgoPanel, icon: Building2, badge: t.badge17Sdgs },
+    { id: 'developer-hub', label: t.navDevHub, icon: Code, badge: t.badgeTechSolutions },
+    { id: 'ai-assistant', label: t.navAskAi, icon: Sparkles, badge: t.badgeAi },
+    { id: 'schemes', label: t.navSchemeFinder, icon: Landmark, badge: t.badge17Schemes },
+    { id: 'education-jobs', label: t.navEduCareer, icon: GraduationCap, badge: null },
+    { id: 'healthcare', label: t.navHealthCamps, icon: Activity, badge: t.badgeFreeCamps },
     
     // RESTRICT CIVIC & ENVIRONMENT REPORTING TO CITIZENS ONLY!
     ...(isCitizenRole || activeView === 'sdg-impact' ? [
-      { id: 'civic-reporting', label: 'Civic & Environment (Citizen Only)', icon: FileText, badge: 'Post Issue' }
+      { id: 'civic-reporting', label: t.navCivicReporting, icon: FileText, badge: t.badgePostIssue }
     ] : []),
 
-    { id: 'sdg-impact', label: 'SDG Impact Dashboard', icon: Globe, badge: '17 SDGs' },
-    { id: 'profile', label: 'Citizen Profile', icon: User, badge: null },
+    { id: 'sdg-impact', label: t.navSdgImpact, icon: Globe, badge: t.badge17Sdgs },
+    { id: 'profile', label: t.navProfile, icon: User, badge: null },
   ];
 
   return (
@@ -69,7 +72,7 @@ export default function Sidebar({ activeView, setActiveView, currentUser, onLogo
               <div className="flex items-center space-x-1 mt-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping"></span>
                 <span className="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
-                  {isNgoRole ? 'NGO Officer Active' : isDevRole ? 'Tech Developer Active' : 'Citizen Active'}
+                  {isNgoRole ? t.ngoActive : isDevRole ? t.devActive : t.citizenActive}
                 </span>
               </div>
             </div>
@@ -78,7 +81,7 @@ export default function Sidebar({ activeView, setActiveView, currentUser, onLogo
 
         {/* Navigation Menu */}
         <div className="flex-1 space-y-1 overflow-y-auto">
-          <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-3 mb-2">Ecosystem Navigation</p>
+          <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-3 mb-2">{t.ecosystemNav}</p>
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeView === item.id;
@@ -91,7 +94,7 @@ export default function Sidebar({ activeView, setActiveView, currentUser, onLogo
                 }}
                 className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all group ${
                   isActive
-                    ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 shadow-sm'
+                    ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 shadow-sm font-bold'
                     : 'text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/60'
                 }`}
               >
@@ -116,7 +119,7 @@ export default function Sidebar({ activeView, setActiveView, currentUser, onLogo
           <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/20 text-center">
             <div className="flex items-center justify-center space-x-1 text-emerald-700 dark:text-emerald-400 text-xs font-bold mb-1">
               <ShieldCheck className="h-4 w-4" />
-              <span>Universal Score: {currentUser.impactScore || 840}</span>
+              <span>{t.universalScore}: {currentUser.impactScore || 840}</span>
             </div>
             <p className="text-[10px] text-slate-600 dark:text-slate-400 leading-tight">Supporting Citizens, Field NGOs & Developers across 17 SDGs.</p>
           </div>
@@ -126,7 +129,7 @@ export default function Sidebar({ activeView, setActiveView, currentUser, onLogo
             className="w-full mt-3 flex items-center justify-center space-x-2 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-all border border-transparent hover:border-red-200 dark:hover:border-red-900/30"
           >
             <LogOut className="h-3.5 w-3.5" />
-            <span>Sign Out</span>
+            <span>{t.signOut}</span>
           </button>
         </div>
       </aside>
@@ -178,7 +181,7 @@ export default function Sidebar({ activeView, setActiveView, currentUser, onLogo
             }}
             className="w-full py-3 rounded-xl bg-red-950/40 text-red-400 border border-red-900/50 font-semibold text-sm"
           >
-            Sign Out
+            {t.signOut}
           </button>
         </div>
       )}

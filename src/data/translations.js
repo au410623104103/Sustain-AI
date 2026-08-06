@@ -14,6 +14,38 @@ export const TRANSLATIONS = {
     signIn: "Sign In",
     signUp: "Sign Up",
 
+    // Sidebar Items
+    ecosystemNav: "Ecosystem Navigation",
+    navDashboard: "Citizen Dashboard",
+    navCleanEnergy: "Clean Energy (SDG 7)",
+    navDisasterMap: "Disaster & Climate Map",
+    navFoodDonation: "Food Donation (SDG 2)",
+    navEduSponsors: "Education Sponsors (SDG 4)",
+    navNgoPanel: "NGO Operations Panel",
+    navDevHub: "Developer Hub",
+    navAskAi: "Ask SustainAI",
+    navSchemeFinder: "Smart Scheme Finder",
+    navEduCareer: "Education & Career",
+    navHealthCamps: "Health & Medical Camps",
+    navCivicReporting: "Civic & Environment (Citizen Only)",
+    navSdgImpact: "SDG Impact Dashboard",
+    navProfile: "Citizen Profile",
+    ngoActive: "NGO Officer Active",
+    devActive: "Tech Developer Active",
+    citizenActive: "Citizen Active",
+
+    // Sidebar Badges
+    badgeSolarLpg: "Solar & LPG",
+    badgeSdg11_13: "SDG 11 & 13",
+    badgeZeroWaste: "Zero Waste",
+    badgeLaptopFee: "Laptop & Fee",
+    badge17Sdgs: "17 SDGs",
+    badgeTechSolutions: "Tech Solutions",
+    badgeAi: "AI",
+    badge17Schemes: "17 Schemes",
+    badgeFreeCamps: "Free Camps",
+    badgePostIssue: "Post Issue",
+
     // Auth View
     welcomeAuthTitle: "Welcome to SustainAI Ecosystem",
     welcomeAuthSub: "Connect as a Citizen, NGO Field Officer, or Tech Developer to solve SDGs 1-17.",
@@ -39,6 +71,10 @@ export const TRANSLATIONS = {
     activeProjects: "Active Rural Projects:",
     clearedIssues: "Cleared:",
     viewNgoPanel: "View NGO Panel",
+    quickPortals: "Quick Service & Role Portals",
+    recommendedSchemes: "Recommended Government Schemes & Scholarships",
+    matchedProfile: "Matched 95%+ against your citizen profile & rural location.",
+    viewAllSchemes: "View All Schemes",
 
     // Quick Pillars
     cleanEnergyTitle: "Clean Energy Portal",
@@ -56,6 +92,27 @@ export const TRANSLATIONS = {
     medicalCampsTitle: "Rural Medical Camps Schedule",
     medicalCampsDesc: "Book free appointments for upcoming rural eye checkups, diabetes screenings, and maternal clinics.",
     bookCampSlot: "Book Free Camp Slot",
+
+    // Civic & Environmental Reporting Page
+    civicEngineTag: "CITIZEN GRIEVANCE & CLIMATE ACTION ENGINE",
+    civicPageTitle: "Civic & Environmental Problem Reporting",
+    civicPageSub: "Report civic damage or environmental hazards. SustainAI routes your report & photo directly to active local NGOs and municipal teams.",
+    postProblemCardTitle: "Post a Problem in Your Rural Area / Village",
+    selectCategoryLabel: "Select Problem Category",
+    catWaterLeakage: "Water Leakage",
+    catGarbageWaste: "Garbage & Waste",
+    catPollution: "Pollution",
+    catRoadDamage: "Road Damage",
+    catEnvironmental: "Environmental",
+    catStreetlight: "Streetlight Issue",
+    issueTitleLabel: "Issue Title",
+    issueTitlePlaceholder: "e.g. Major water pipe burst causing water wastage",
+    ruralDistrictLabel: "Rural District",
+    villageWardLabel: "Village / Ward Name",
+    descLabel: "Detailed Description of Problem",
+    descPlaceholder: "Describe the severity, duration, and exact location...",
+    activeTrackedCardTitle: "Your Active Tracked Issues",
+    submitCivicReportBtn: "Submit Civic Report",
 
     // Food Donation Page
     zeroFoodWasteTitle: "Zero Food Waste Community Drive",
@@ -79,14 +136,6 @@ export const TRANSLATIONS = {
     bootcampsTab: "Skill Bootcamps",
     checkEligibility: "Check Scholarship Eligibility",
     stipendBenefit: "Stipend / Benefit:",
-
-    // Civic Reporting
-    civicTitle: "Civic & Environment Problem Reporting",
-    civicSubtitle: "Report local water leaks, garbage dumps, or broken roads with evidence photos.",
-    waterLeakage: "Water Leakage",
-    garbageWaste: "Garbage & Waste",
-    roadDamage: "Road Damage",
-    submitReport: "Submit Civic Report",
 
     // NGO Operations Panel
     ngoTitle: "NGO Field & Rural Issue Clearance Center",
@@ -126,6 +175,38 @@ export const TRANSLATIONS = {
     signIn: "साइन इन करें",
     signUp: "साइन अप करें",
 
+    // Sidebar Items
+    ecosystemNav: "पारिस्थितिकी तंत्र नेविगेशन",
+    navDashboard: "नागरिक डैशबोर्ड",
+    navCleanEnergy: "स्वच्छ ऊर्जा (एसडीजी 7)",
+    navDisasterMap: "आपदा एवं जलवायु मानचित्र",
+    navFoodDonation: "भोजन दान (एसडीजी 2)",
+    navEduSponsors: "शिक्षा प्रायोजक (एसडीजी 4)",
+    navNgoPanel: "एनजीओ संचालन पैनल",
+    navDevHub: "डेवलपर हब",
+    navAskAi: "सस्टेन-एआई से पूछें",
+    navSchemeFinder: "स्मार्ट योजना खोजक",
+    navEduCareer: "शिक्षा और करियर",
+    navHealthCamps: "स्वास्थ्य और चिकित्सा शिविर",
+    navCivicReporting: "नागरिक और पर्यावरण (केवल नागरिक)",
+    navSdgImpact: "एसडीजी प्रभाव डैशबोर्ड",
+    navProfile: "नागरिक प्रोफ़ाइल",
+    ngoActive: "एनजीओ अधिकारी सक्रिय",
+    devActive: "तकनीकी डेवलपर सक्रिय",
+    citizenActive: "नागरिक सक्रिय",
+
+    // Sidebar Badges
+    badgeSolarLpg: "सोलर और एलपीजी",
+    badgeSdg11_13: "एसडीजी 11 और 13",
+    badgeZeroWaste: "शून्य अपशिष्ट",
+    badgeLaptopFee: "लैपटॉप और शुल्क",
+    badge17Sdgs: "17 एसडीजी",
+    badgeTechSolutions: "तकनीकी समाधान",
+    badgeAi: "एआई",
+    badge17Schemes: "17 योजनाएं",
+    badgeFreeCamps: "मुफ्त शिविर",
+    badgePostIssue: "समस्या दर्ज करें",
+
     // Auth View
     welcomeAuthTitle: "सस्टेन-एआई पारिस्थितिकी तंत्र में आपका स्वागत है",
     welcomeAuthSub: "एसडीजी 1-17 को हल करने के लिए नागरिक, एनजीओ अधिकारी या डेवलपर के रूप में जुड़ें।",
@@ -151,6 +232,10 @@ export const TRANSLATIONS = {
     activeProjects: "सक्रिय ग्रामीण परियोजनाएं:",
     clearedIssues: "समाधान किया गया:",
     viewNgoPanel: "एनजीओ पैनल देखें",
+    quickPortals: "त्वरित सेवा और भूमिका पोर्टल",
+    recommendedSchemes: "अनुशंसित सरकारी योजनाएं और छात्रवृत्तियां",
+    matchedProfile: "आपकी नागरिक प्रोफ़ाइल और ग्रामीण स्थान के आधार पर 95%+ मिलान।",
+    viewAllSchemes: "सभी योजनाएं देखें",
 
     // Quick Pillars
     cleanEnergyTitle: "स्वच्छ ऊर्जा पोर्टल",
@@ -168,6 +253,27 @@ export const TRANSLATIONS = {
     medicalCampsTitle: "ग्रामीण चिकित्सा शिविर अनुसूची",
     medicalCampsDesc: "निःशुल्क नेत्र जांच, मधुमेह जांच और मातृ स्वास्थ्य शिविरों के लिए अपॉइंटमेंट बुक करें।",
     bookCampSlot: "मुफ्त शिविर स्लॉट बुक करें",
+
+    // Civic & Environmental Reporting Page
+    civicEngineTag: "नागरिक शिकायत एवं जलवायु कार्रवाई इंजन",
+    civicPageTitle: "नागरिक और पर्यावरण समस्या रिपोर्टिंग",
+    civicPageSub: "नागरिक क्षति या पर्यावरण खतरों की रिपोर्ट करें। सस्टेन-एआई आपकी रिपोर्ट और फोटो को सीधे सक्रिय स्थानीय एनजीओ को भेजता है।",
+    postProblemCardTitle: "अपने ग्रामीण क्षेत्र / गांव में एक समस्या पोस्ट करें",
+    selectCategoryLabel: "समस्या श्रेणी चुनें",
+    catWaterLeakage: "पानी का रिसाव",
+    catGarbageWaste: "कचरा और अपशिष्ट",
+    catPollution: "प्रदूषण",
+    catRoadDamage: "सड़क की क्षति",
+    catEnvironmental: "पर्यावरणीय",
+    catStreetlight: "स्ट्रीटलाइट समस्या",
+    issueTitleLabel: "समस्या का शीर्षक",
+    issueTitlePlaceholder: "जैसे मुख्य पानी की पाइप फटने से पानी की बर्बादी",
+    ruralDistrictLabel: "ग्रामीण जिला",
+    villageWardLabel: "गांव / वार्ड का नाम",
+    descLabel: "समस्या का विस्तृत विवरण",
+    descPlaceholder: "गंभीरता, अवधि और सटीक स्थान का वर्णन करें...",
+    activeTrackedCardTitle: "आपकी सक्रिय ट्रैक की गई समस्याएं",
+    submitCivicReportBtn: "नागरिक रिपोर्ट जमा करें",
 
     // Food Donation Page
     zeroFoodWasteTitle: "शून्य भोजन अपशिष्ट सामुदायिक अभियान",
@@ -191,14 +297,6 @@ export const TRANSLATIONS = {
     bootcampsTab: "कौशल बूटकैंप",
     checkEligibility: "छात्रवृत्ति पात्रता की जांच करें",
     stipendBenefit: "वजीफा / लाभ:",
-
-    // Civic Reporting
-    civicTitle: "नागरिक और पर्यावरण समस्या रिपोर्टिंग",
-    civicSubtitle: "फोटो प्रमाण के साथ स्थानीय पानी के रिसाव, कचरे के ढेर या टूटी सड़कों की रिपोर्ट करें।",
-    waterLeakage: "पानी का रिसाव",
-    garbageWaste: "कचरा और अपशिष्ट",
-    roadDamage: "सड़क की क्षति",
-    submitReport: "नागरिक रिपोर्ट जमा करें",
 
     // NGO Operations Panel
     ngoTitle: "एनजीओ फील्ड और ग्रामीण समस्या समाधान केंद्र",
@@ -238,6 +336,38 @@ export const TRANSLATIONS = {
     signIn: "సైన్ ఇన్ చేయండి",
     signUp: "సైన్ అప్ చేయండి",
 
+    // Sidebar Items
+    ecosystemNav: "ఇకోసిస్టమ్ నావిగేషన్",
+    navDashboard: "పౌరుల డాష్‌బోర్డ్",
+    navCleanEnergy: "క్లీన్ ఎనర్జీ (SDG 7)",
+    navDisasterMap: "విపత్తు & వాతావరణ పటం",
+    navFoodDonation: "ఆహార విరాళం (SDG 2)",
+    navEduSponsors: "విద్య సహాయకులు (SDG 4)",
+    navNgoPanel: "NGO కార్యకలాపాల ప్యానెల్",
+    navDevHub: "డెవలపర్ హబ్",
+    navAskAi: "సస్టెయిన్-AI ని అడగండి",
+    navSchemeFinder: "స్మార్ట్ పథకాల శోధన",
+    navEduCareer: "విద్య & కెరీర్",
+    navHealthCamps: "ఆరోగ్య & వైద్య శిబిరాలు",
+    navCivicReporting: "పౌర & పర్యావరణం (పౌరులు మాత్రమే)",
+    navSdgImpact: "SDG ప్రభావ డాష్‌బోర్డ్",
+    navProfile: "పౌరుని ప్రొఫైల్",
+    ngoActive: "NGO అధికారి చురుగ్గా ఉన్నారు",
+    devActive: "టెక్ డెవలపర్ చురుగ్గా ఉన్నారు",
+    citizenActive: "పౌరుడు చురుగ్గా ఉన్నారు",
+
+    // Sidebar Badges
+    badgeSolarLpg: "సోలార్ & LPG",
+    badgeSdg11_13: "SDG 11 & 13",
+    badgeZeroWaste: "జీరో వేస్ట్",
+    badgeLaptopFee: "ల్యాప్‌టాప్ & ఫీజు",
+    badge17Sdgs: "17 SDGs",
+    badgeTechSolutions: "సాంకేతిక పరిష్కారాలు",
+    badgeAi: "AI",
+    badge17Schemes: "17 పథకాలు",
+    badgeFreeCamps: "ఉచిత శిబిరాలు",
+    badgePostIssue: "సమస్యను నమోదు చేయండి",
+
     // Auth View
     welcomeAuthTitle: "సస్టెయిన్-AI వ్యవస్థకు స్వాగతం",
     welcomeAuthSub: "SDGs 1-17 ను పరిష్కరించడానికి పౌరుడు, NGO అధికారి లేదా డెవలపర్‌గా కనెక్ట్ అవ్వండి.",
@@ -263,6 +393,10 @@ export const TRANSLATIONS = {
     activeProjects: "చురుకైన గ్రామీణ ప్రాజెక్ట్‌లు:",
     clearedIssues: "పరిష్కరించబడినవి:",
     viewNgoPanel: "NGO ప్యానెల్‌ను చూడండి",
+    quickPortals: "త్వరిత సేవ & పాత్ర పోర్టల్‌లు",
+    recommendedSchemes: "సిఫార్సు చేయబడిన ప్రభుత్వ పథకాలు & స్కాలర్‌షిప్‌లు",
+    matchedProfile: "మీ ప్రొఫైల్ మరియు గ్రామీణ ప్రాంతం ఆధారంగా 95%+ సరిపోలిక.",
+    viewAllSchemes: "అన్ని పథకాలను చూడండి",
 
     // Quick Pillars
     cleanEnergyTitle: "క్లీన్ ఎనర్జీ పోర్టల్",
@@ -280,6 +414,27 @@ export const TRANSLATIONS = {
     medicalCampsTitle: "గ్రామీణ వైద్య శిబిరాల షెడ్యూల్",
     medicalCampsDesc: "ఉచిత కంటి పరీక్షలు, మధుమేహం పరీక్షలు మరియు మాతృత్వ క్లినిక్‌ల కోసం ఉచిత అపాయింట్‌మెంట్‌లను బుక్ చేసుకోండి.",
     bookCampSlot: "ఉచిత క్యాంప్ స్లాట్‌ను బుక్ చేయండి",
+
+    // Civic & Environmental Reporting Page
+    civicEngineTag: "పౌర ఫిర్యాదు & వాతావరణ చర్యల ఇంజిన్",
+    civicPageTitle: "పౌర & పర్యావరణ సమస్యల నివేదిక",
+    civicPageSub: "పౌర నష్టాలు లేదా పర్యావరణ ప్రమాదాలను నివేదించండి. సస్టెయిన్-AI మీ నివేదికను మరియు ఫోటోను నేరుగా స్థానిక NGOలకు పంపుతుంది.",
+    postProblemCardTitle: "మీ గ్రామీణ ప్రాంతంలో / గ్రామంలో ఒక సమస్యను నమోదు చేయండి",
+    selectCategoryLabel: "సమస్య వర్గాన్ని ఎంచుకోండి",
+    catWaterLeakage: "నీటి లీకేజీ",
+    catGarbageWaste: "చెత్త & వ్యర్థాలు",
+    catPollution: "కాలుష్యం",
+    catRoadDamage: "రోడ్డు దెబ్బతినడం",
+    catEnvironmental: "పర్యావరణ",
+    catStreetlight: "వీధిదీపాల సమస్య",
+    issueTitleLabel: "సమస్య శీర్షిక",
+    issueTitlePlaceholder: "ఉదా. నీరు వృధా కావడానికి కారణమైన ప్రధాన నీటి పైపు పగిలిపోవడం",
+    ruralDistrictLabel: "గ్రామీణ జిల్లా",
+    villageWardLabel: "గ్రామం / వార్డు పేరు",
+    descLabel: "సమస్య యొక్క వివరణాత్మక వివరణ",
+    descPlaceholder: "తీవ్రత, వ్యవధి మరియు ఖచ్చితమైన ప్రాంతాన్ని వివరించండి...",
+    activeTrackedCardTitle: "మీ చురుకైన ట్రాక్ చేయబడిన సమస్యలు",
+    submitCivicReportBtn: "నివేదికను సమర్పించండి",
 
     // Food Donation Page
     zeroFoodWasteTitle: "జీరో ఫుడ్ వేస్ట్ కమ్యూనిటీ డ్రైవ్",
@@ -303,14 +458,6 @@ export const TRANSLATIONS = {
     bootcampsTab: "స్కిల్ బూట్‌క్యాంప్‌లు",
     checkEligibility: "స్కాలర్‌షిప్ అర్హతను తనిఖీ చేయండి",
     stipendBenefit: "స్టైపెండ్ / ప్రయోజనం:",
-
-    // Civic Reporting
-    civicTitle: "పౌర & పర్యావరణ సమస్యల నివేదిక",
-    civicSubtitle: "ఫోటో ఆధారాలతో స్థానిక నీటి లీకేజీలు, చెత్త కుప్పలు లేదా దెబ్బతిన్న రోడ్ల గురించి నివేదించండి.",
-    waterLeakage: "నీటి లీకేజీ",
-    garbageWaste: "చెత్త & వ్యర్థాలు",
-    roadDamage: "రోడ్డు దెబ్బతినడం",
-    submitReport: "నివేదికను సమర్పించండి",
 
     // NGO Operations Panel
     ngoTitle: "NGO ఫీల్డ్ మరియు గ్రామీణ సమస్యల పరిష్కార కేంద్రం",
@@ -350,6 +497,38 @@ export const TRANSLATIONS = {
     signIn: "உள்நுழையவும்",
     signUp: "பதிவு செய்யவும்",
 
+    // Sidebar Items
+    ecosystemNav: "சுழல் மண்டல வழிசெலுத்தல்",
+    navDashboard: "குடிமக்கள் டாஷ்போர்டு",
+    navCleanEnergy: "தூய்மை ஆற்றல் (எஸ்டிஜி 7)",
+    navDisasterMap: "பேரிடர் & வானிலை வரைபடம்",
+    navFoodDonation: "உணவு தானம் (எஸ்டிஜி 2)",
+    navEduSponsors: "கல்வி ஆதரவாளர்கள் (எஸ்டிஜி 4)",
+    navNgoPanel: "என்ஜிஓ செயல்பாட்டுக் குழு",
+    navDevHub: "டெவலப்பர் மையம்",
+    navAskAi: "சஸ்டைன்-AI இடம் கேளுங்கள்",
+    navSchemeFinder: "ஸ்மார்ட் திட்டக் கண்டுபிடிப்பான்",
+    navEduCareer: "கல்வி & தொழில்",
+    navHealthCamps: "சுகாதார & மருத்துவ முகாம்கள்",
+    navCivicReporting: "குடிமக்கள் & சுற்றுச்சூழல் (குடிமக்கள் மட்டும்)",
+    navSdgImpact: "எஸ்டிஜி தாக்க டாஷ்போர்டு",
+    navProfile: "குடிமகன் சுயவிவரம்",
+    ngoActive: "என்ஜிஓ அதிகாரி செயலில் உள்ளார்",
+    devActive: "டெவலப்பர் செயலில் உள்ளார்",
+    citizenActive: "குடிமகன் செயலில் உள்ளார்",
+
+    // Sidebar Badges
+    badgeSolarLpg: "சூரிய மின்சாரம் & எல்பிஜி",
+    badgeSdg11_13: "எஸ்டிஜி 11 & 13",
+    badgeZeroWaste: "பூஜ்ய கழிவு",
+    badgeLaptopFee: "மடிக்கணினி & கட்டணம்",
+    badge17Sdgs: "17 எஸ்டிஜி",
+    badgeTechSolutions: "தொழில்நுட்ப தீர்வுகள்",
+    badgeAi: "AI",
+    badge17Schemes: "17 திட்டங்கள்",
+    badgeFreeCamps: "இலவச முகாம்கள்",
+    badgePostIssue: "புகாரைப் பதிவுசெய்",
+
     // Auth View
     welcomeAuthTitle: "சஸ்டைன்-AI சூழலுக்கு வரவேற்கிறோம்",
     welcomeAuthSub: "எஸ்டிஜி 1-17 இலக்குகளைத் தீர்க்க குடிமகன், என்ஜிஓ அதிகாரி அல்லது டெவலப்பராக இணையுங்கள்.",
@@ -375,6 +554,10 @@ export const TRANSLATIONS = {
     activeProjects: "செயல்படும் திட்டங்கள்:",
     clearedIssues: "தீர்க்கப்பட்டவை:",
     viewNgoPanel: "என்ஜிஓ குழுவைப் பார்க்கவும்",
+    quickPortals: "விரைவு சேவை & பங்கு தளங்கள்",
+    recommendedSchemes: "பரிந்துரைக்கப்பட்ட அரசுத் திட்டங்கள் & உதவித்தொகைகள்",
+    matchedProfile: "உங்கள் விவரங்களின் அடிப்படையில் 95%+ பொருத்தம்.",
+    viewAllSchemes: "எல்லாத் திட்டங்களையும் பார்",
 
     // Quick Pillars
     cleanEnergyTitle: "தூய்மை ஆற்றல் தளம்",
@@ -392,6 +575,27 @@ export const TRANSLATIONS = {
     medicalCampsTitle: "கிராமப்புற மருத்துவ முகாம் அட்டவணை",
     medicalCampsDesc: "இலவச கண் பரிசோதனை, நீரிழிவு பரிசோதனை முகாம்களுக்கு இலவச முன்பதிவு செய்யுங்கள்.",
     bookCampSlot: "முகாம் இடத்தை முன்பதிவு செய்",
+
+    // Civic & Environmental Reporting Page
+    civicEngineTag: "குடிமக்கள் புகார் & காலநிலை நடவடிக்கை எஞ்சின்",
+    civicPageTitle: "குடிமக்கள் மற்றும் சுற்றுச்சூழல் புகார்",
+    civicPageSub: "புகைப்பட ஆதாரத்துடன் உள்ளூர் குடிநீர் கசிவு, குப்பை அல்லது பழுதடைந்த சாலைகளைப் புகாரளிக்கவும்.",
+    postProblemCardTitle: "உங்கள் கிராமத்தில் ஒரு பிரச்சனையைப் பதிவு செய்யுங்",
+    selectCategoryLabel: "பிரச்சனை வகையைத் தேர்ந்தெடுக்கவும்",
+    catWaterLeakage: "குடிநீர் கசிவு",
+    catGarbageWaste: "குப்பை & கழிவு",
+    catPollution: "மாசுபாடு",
+    catRoadDamage: "சாலைப் பழுது",
+    catEnvironmental: "சுற்றுச்சூழல்",
+    catStreetlight: "தெருவிளக்கு பிரச்சனை",
+    issueTitleLabel: "பிரச்சனை தலைப்பு",
+    issueTitlePlaceholder: "எ.கா. முக்கிய குடிநீர் குழாய் உடைந்து நீர் வீணாகிறது",
+    ruralDistrictLabel: "கிராமப்புற மாவட்டம்",
+    villageWardLabel: "கிராமம் / வார்டு பெயர்",
+    descLabel: "பிரச்சனையின் விரிவான விளக்கம்",
+    descPlaceholder: "தீவிரம், காலம் மற்றும் இருப்பிடத்தை விளக்குங்கள்...",
+    activeTrackedCardTitle: "உங்கள் செயலில் உள்ள புகார்கள்",
+    submitCivicReportBtn: "புகாரைச் சமர்ப்பி",
 
     // Food Donation Page
     zeroFoodWasteTitle: "பூஜ்ய உணவு விரயம் சமூக பிரச்சாரம்",
@@ -415,14 +619,6 @@ export const TRANSLATIONS = {
     bootcampsTab: "திறன் முகாம்கள்",
     checkEligibility: "தகுதியைச் சரிபார்க்கவும்",
     stipendBenefit: "உதவித்தொகை / பயன்:",
-
-    // Civic Reporting
-    civicTitle: "குடிமக்கள் மற்றும் சுற்றுச்சூழல் புகார்",
-    civicSubtitle: "புகைப்பட ஆதாரத்துடன் உள்ளூர் குடிநீர் கசிவு, குப்பை அல்லது பழுதடைந்த சாலைகளைப் புகாரளிக்கவும்.",
-    waterLeakage: "குடிநீர் கசிவு",
-    garbageWaste: "குப்பை & கழிவு",
-    roadDamage: "சாலைப் பழுது",
-    submitReport: "புகாரைச் சமர்ப்பி",
 
     // NGO Operations Panel
     ngoTitle: "என்ஜிஓ கள மற்றும் கிராமப்புற பிரச்சனை தீர்வு மையம்",

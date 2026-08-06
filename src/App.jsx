@@ -171,6 +171,7 @@ export default function App() {
             onLogout={handleLogout}
             isMobileMenuOpen={isMobileMenuOpen}
             setIsMobileMenuOpen={setIsMobileMenuOpen}
+            currentLanguage={currentLanguage}
           />
         )}
 
@@ -191,7 +192,10 @@ export default function App() {
           )}
 
           {activeView === 'auth' && (
-            <AuthView onLoginSuccess={handleLoginSuccess} />
+            <AuthView 
+              onLoginSuccess={handleLoginSuccess} 
+              currentLanguage={currentLanguage}
+            />
           )}
 
           {activeView === 'profile' && (
@@ -230,6 +234,7 @@ export default function App() {
           {activeView === 'food-donation' && (
             <FoodDonationView
               currentUser={currentUser}
+              currentLanguage={currentLanguage}
             />
           )}
 
@@ -288,6 +293,7 @@ export default function App() {
             <CivicReportingView
               currentUser={currentUser}
               onAddRuralIssue={handleAddRuralIssue}
+              currentLanguage={currentLanguage}
             />
           )}
 

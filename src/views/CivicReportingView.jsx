@@ -18,8 +18,9 @@ import {
 } from 'lucide-react';
 import { SAMPLE_CIVIC_REPORTS } from '../data/mockDatabase';
 import { SDG_GOALS } from '../data/sdgData';
+import { TRANSLATIONS } from '../data/translations';
 
-export default function CivicReportingView({ currentUser, onAddRuralIssue }) {
+export default function CivicReportingView({ currentUser, onAddRuralIssue, currentLanguage }) {
   const [reports, setReports] = useState(SAMPLE_CIVIC_REPORTS);
   const [issueType, setIssueType] = useState('Water Leakage');
   const [title, setTitle] = useState('');
@@ -30,16 +31,18 @@ export default function CivicReportingView({ currentUser, onAddRuralIssue }) {
 
   const [submittedTicket, setSubmittedTicket] = useState(null);
 
+  const t = TRANSLATIONS[currentLanguage || 'English'] || TRANSLATIONS.English;
+
   const issueCategories = [
-    { name: 'Water Leakage', icon: Droplets, color: 'text-blue-400', sdgId: 6 },
-    { name: 'Garbage & Waste', icon: Trash2, color: 'text-amber-400', sdgId: 12 },
-    { name: 'Pollution', icon: CloudRain, color: 'text-purple-400', sdgId: 13 },
-    { name: 'Road Damage', icon: Milestone, color: 'text-orange-400', sdgId: 9 },
-    { name: 'Environmental Damage', icon: Trees, color: 'text-emerald-400', sdgId: 15 },
-    { name: 'Streetlight Issue', icon: Lightbulb, color: 'text-yellow-400', sdgId: 11 },
+    { key: 'Water Leakage', label: t.catWaterLeakage, icon: Droplets, color: 'text-blue-400', sdgId: 6 },
+    { key: 'Garbage & Waste', label: t.catGarbageWaste, icon: Trash2, color: 'text-amber-400', sdgId: 12 },
+    { key: 'Pollution', label: t.catPollution, icon: CloudRain, color: 'text-purple-400', sdgId: 13 },
+    { key: 'Road Damage', label: t.catRoadDamage, icon: Milestone, color: 'text-orange-400', sdgId: 9 },
+    { key: 'Environmental Damage', label: t.catEnvironmental, icon: Trees, color: 'text-emerald-400', sdgId: 15 },
+    { key: 'Streetlight Issue', label: t.catStreetlight, icon: Lightbulb, color: 'text-yellow-400', sdgId: 11 },
   ];
 
-  const selectedCategoryObj = issueCategories.find(c => c.name === issueType) || issueCategories[0];
+  const selectedCategoryObj = issueCategories.find(c => c.key === issueType) || issueCategories[0];
 
   const handleImageUpload = (e) => {
     const file = e.target.files?.[0];
@@ -110,30 +113,30 @@ export default function CivicReportingView({ currentUser, onAddRuralIssue }) {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-6">
         <div>
-          <div className="flex items-center space-x-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-1">
+          <div className="flex items-center space-x-2 text-emerald-600 dark:text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-1">
             <FileText className="h-4 w-4" />
-            <span>Citizen Grievance & Climate Action Engine</span>
+            <span>{t.civicEngineTag}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white">Civic & Environmental Problem Reporting</h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
-            Report civic damage or environmental hazards. SustainAI routes your report & photo directly to active local NGOs and municipal teams.
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">{t.civicPageTitle}</h1>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+            {t.civicPageSub}
           </p>
         </div>
       </div>
 
       {/* SUCCESS TICKET SUBMISSION BANNER */}
       {submittedTicket && (
-        <div className="p-6 rounded-3xl bg-emerald-950/90 border-2 border-emerald-500 text-white space-y-4 animate-in fade-in">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="h-10 w-10 rounded-2xl bg-emerald-500 text-slate-950 flex items-center justify-center font-bold">
+        <div className="p-6 rounded-3xl bg-emerald-950/90 border-2 border-emerald-500 text-white space-y-4 animate-in fade-in text-white-force">
+          <div className="flex items-center justify-between text-white-force">
+            <div className="flex items-center space-x-3 text-white-force">
+              <div className="h-10 w-10 rounded-2xl bg-emerald-500 text-slate-950 flex items-center justify-center font-bold text-white-force">
                 ✓
               </div>
-              <div>
-                <h3 className="text-base font-bold text-white">Report Successfully Submitted & Routed to Local NGO!</h3>
-                <p className="text-xs text-emerald-300">Tracking Ticket Generated: <strong className="font-mono text-white">{submittedTicket.id}</strong></p>
+              <div className="text-white-force">
+                <h3 className="text-base font-bold text-white text-white-force">Report Successfully Submitted & Routed to Local NGO!</h3>
+                <p className="text-xs text-emerald-300 text-white-force">Tracking Ticket Generated: <strong className="font-mono text-white text-white-force">{submittedTicket.id}</strong></p>
               </div>
             </div>
 
@@ -142,18 +145,18 @@ export default function CivicReportingView({ currentUser, onAddRuralIssue }) {
             </button>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-            <div>
-              <span className="text-slate-400 block">Assigned Destination:</span>
-              <span className="font-semibold text-emerald-400">{submittedTicket.department}</span>
+          <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-white-force">
+            <div className="text-white-force">
+              <span className="text-slate-400 block text-white-force">Assigned Destination:</span>
+              <span className="font-semibold text-emerald-400 text-white-force">{submittedTicket.department}</span>
             </div>
-            <div>
-              <span className="text-slate-400 block">Location Tagged:</span>
-              <span className="font-semibold text-slate-200">{submittedTicket.village}, {submittedTicket.location}</span>
+            <div className="text-white-force">
+              <span className="text-slate-400 block text-white-force">Location Tagged:</span>
+              <span className="font-semibold text-slate-200 text-white-force">{submittedTicket.village}, {submittedTicket.location}</span>
             </div>
-            <div>
-              <span className="text-slate-400 block">Target Resolution:</span>
-              <span className="font-semibold text-slate-200">{submittedTicket.estimatedResolution}</span>
+            <div className="text-white-force">
+              <span className="text-slate-400 block text-white-force">Target Resolution:</span>
+              <span className="font-semibold text-slate-200 text-white-force">{submittedTicket.estimatedResolution}</span>
             </div>
           </div>
         </div>
@@ -164,33 +167,33 @@ export default function CivicReportingView({ currentUser, onAddRuralIssue }) {
         
         {/* Form Column */}
         <div className="lg:col-span-6 space-y-6">
-          <div className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-6">
-            <h2 className="text-base font-bold text-white flex items-center space-x-2">
-              <Sparkles className="h-5 w-5 text-emerald-400" />
-              <span>Post a Problem in Your Rural Area / Village</span>
+          <div className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
+            <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+              <Sparkles className="h-5 w-5 text-emerald-500" />
+              <span>{t.postProblemCardTitle}</span>
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               
               {/* Category selector grid */}
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-2">Select Problem Category</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">{t.selectCategoryLabel}</label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                   {issueCategories.map((cat) => {
                     const Icon = cat.icon;
-                    const isSelected = issueType === cat.name;
+                    const isSelected = issueType === cat.key;
                     return (
                       <div
-                        key={cat.name}
-                        onClick={() => setIssueType(cat.name)}
-                        className={`p-3 rounded-2xl cursor-pointer border text-xs font-semibold flex items-center space-x-2 transition-all ${
+                        key={cat.key}
+                        onClick={() => setIssueType(cat.key)}
+                        className={`p-3 rounded-2xl cursor-pointer border text-xs font-bold flex items-center space-x-2 transition-all ${
                           isSelected 
-                            ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300 shadow-md' 
-                            : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:border-slate-700'
+                            ? 'bg-emerald-500/20 border-emerald-500 text-emerald-700 dark:text-emerald-300 shadow-md font-extrabold' 
+                            : 'bg-slate-100 dark:bg-slate-950/60 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-400 hover:border-slate-400'
                         }`}
                       >
                         <Icon className={`h-4 w-4 ${cat.color}`} />
-                        <span className="truncate">{cat.name}</span>
+                        <span className="truncate">{cat.label}</span>
                       </div>
                     );
                   })}
@@ -199,60 +202,60 @@ export default function CivicReportingView({ currentUser, onAddRuralIssue }) {
 
               {/* Title */}
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Issue Title</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.issueTitleLabel}</label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Major water pipe burst causing water wastage"
+                  placeholder={t.issueTitlePlaceholder}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-emerald-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 text-xs focus:outline-none focus:border-emerald-500 font-medium"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">Rural District</label>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.ruralDistrictLabel}</label>
                   <input
                     type="text"
                     required
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-emerald-500 font-medium"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">Village / Ward Name</label>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.villageWardLabel}</label>
                   <input
                     type="text"
                     required
                     value={village}
                     onChange={(e) => setVillage(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-emerald-500 font-medium"
                   />
                 </div>
               </div>
 
               {/* Description */}
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Detailed Description of Problem</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.descLabel}</label>
                 <textarea
                   rows={3}
                   required
-                  placeholder="Describe the severity, duration, and exact location..."
+                  placeholder={t.descPlaceholder}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-emerald-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 text-xs focus:outline-none focus:border-emerald-500 font-medium"
                 />
               </div>
 
               {/* Photo Upload area */}
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Upload Photo Evidence (Photo sent to NGO)</label>
-                <label className="flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-950/60 border-2 border-dashed border-slate-800 hover:border-emerald-500/40 cursor-pointer transition-colors">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Upload Photo Evidence (Photo sent to NGO)</label>
+                <label className="flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-100 dark:bg-slate-950/60 border-2 border-dashed border-slate-300 dark:border-slate-800 hover:border-emerald-500/40 cursor-pointer transition-colors">
                   <Upload className="h-6 w-6 text-slate-500 mb-1" />
-                  <span className="text-xs text-slate-400">Click to select photo or take picture</span>
+                  <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">Click to select photo or take picture</span>
                   <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                 </label>
                 {imagePreview && (
@@ -264,10 +267,10 @@ export default function CivicReportingView({ currentUser, onAddRuralIssue }) {
 
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs hover:shadow-xl hover:shadow-emerald-500/30 transition-all flex items-center justify-center space-x-2"
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-extrabold text-xs hover:shadow-xl transition-all flex items-center justify-center space-x-2"
               >
                 <Send className="h-4 w-4" />
-                <span>Submit Grievance to Local NGO Field Team</span>
+                <span>{t.submitCivicReportBtn}</span>
               </button>
             </form>
           </div>
@@ -275,11 +278,11 @@ export default function CivicReportingView({ currentUser, onAddRuralIssue }) {
 
         {/* Existing Tracked Reports Column */}
         <div className="lg:col-span-6 space-y-6">
-          <div className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+          <div className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm">
             <div className="flex items-center justify-between">
-              <h2 className="text-base font-bold text-white flex items-center space-x-2">
-                <Clock className="h-5 w-5 text-emerald-400" />
-                <span>Your Active Tracked Issues ({reports.length})</span>
+              <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+                <Clock className="h-5 w-5 text-emerald-500" />
+                <span>{t.activeTrackedCardTitle} ({reports.length})</span>
               </h2>
             </div>
 
@@ -287,22 +290,22 @@ export default function CivicReportingView({ currentUser, onAddRuralIssue }) {
               {reports.map((rpt) => {
                 const rptSdgs = (rpt.sdgs || []).map(id => SDG_GOALS.find(g => g.id === id)).filter(Boolean);
                 return (
-                  <div key={rpt.id} className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+                  <div key={rpt.id} className="p-4 rounded-2xl bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 space-y-3 shadow-sm">
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                      <span className="font-mono text-xs font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
                         {rpt.id}
                       </span>
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                        rpt.status === 'Resolved' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-300'
+                        rpt.status === 'Resolved' ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-400' : 'bg-amber-500/20 text-amber-700 dark:text-amber-300'
                       }`}>
                         {rpt.status}
                       </span>
                     </div>
 
-                    <h4 className="text-xs font-bold text-white">{rpt.title}</h4>
-                    <p className="text-[11px] text-slate-400">{rpt.description}</p>
+                    <h4 className="text-xs font-bold text-slate-900 dark:text-white">{rpt.title}</h4>
+                    <p className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">{rpt.description}</p>
 
-                    <div className="flex items-center justify-between text-[10px] text-slate-400 pt-2 border-t border-slate-900">
+                    <div className="flex items-center justify-between text-[10px] text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-200 dark:border-slate-900 font-semibold">
                       <span>{rpt.location}</span>
                       <span>Dept: {rpt.department}</span>
                     </div>
