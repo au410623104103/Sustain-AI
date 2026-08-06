@@ -46,6 +46,110 @@ export const TRANSLATIONS = {
     badgeFreeCamps: "Free Camps",
     badgePostIssue: "Post Issue",
 
+    // Landing Page
+    landingTag: "Human-Centric AI Intelligence Platform for Sustainable Development",
+    heroTitle: "One Platform. Every Citizen. Every Service. Every SDG.",
+    heroSub: "Connecting rural citizens, field NGOs, and tech developers into one compassionate ecosystem. We understand who you are and what your community needs.",
+    launchGateway: "Launch Citizen Gateway",
+    exploreSdgs: "Explore 17 UN SDGs",
+    fastPassTitle: "Hackathon Evaluator Fast Pass",
+    fastPassSub: "One-click demo login as Arun Kumar (20yo Low-Income Student)",
+    demoLoginBtn: "Demo Login",
+    feature1Title: "AI-Powered Scheme Discovery",
+    feature1Desc: "Match citizens to government grants & scholarships automatically.",
+    feature2Title: "NGO Field Issue Clearance",
+    feature2Desc: "Field officers track rural grievances and disaster relief in real-time.",
+    feature3Title: "Developer Open-Source Hub",
+    feature3Desc: "Software engineers build technology apps to solve rural challenges.",
+
+    // Clean Energy Page (SDG 7)
+    cleanTag: "UN SDG 7 - AFFORDABLE & CLEAN RENEWABLE ENERGY GATEWAY",
+    cleanTitle: "Clean Renewable Energy & Solar Subsidy Portal",
+    cleanSub: "Calculate your rooftop solar bill savings, apply for government solar grants, and access clean cooking LPG connections.",
+    pmSuryaBadge: "PM Surya Ghar: Up to 300 Units Free Electricity",
+    solarCalcTitle: "Rooftop Solar & Government Subsidy Calculator",
+    solarCalcSub: "Adjust your average monthly electricity bill to calculate subsidy grants and annual savings.",
+    monthlyBillLabel: "Monthly Electricity Bill:",
+    recommendedSolarSize: "Recommended Solar Size",
+    govtGrantSubsidy: "Govt Grant Subsidy",
+    annualSavings: "Annual Bill Savings",
+    co2Saved: "CO₂ Emissions Saved",
+    subsidizedSchemesHeading: "Subsidized Government Clean Energy & Solar Schemes",
+    applySolarGrantBtn: "Apply for Rooftop Solar Grant",
+    directBankCredit: "Direct Bank Credit",
+    billReduction: "Up to 92% Bill Reduction",
+    carbonFootprint: "Carbon Footprint Saved",
+
+    // Disaster & Climate Map
+    disasterTag: "SDG 11 & 13 - RURAL DISASTER RELIEF & RESILIENCE ENGINE",
+    disasterTitle: "Disaster Weather Forecast & Relief Operations Map",
+    disasterSub: "Real-time rainfall radar, satellite flood mapping, and NGO emergency evacuation routing for rural Karnataka.",
+    radarHeading: "Karnataka Live Radar & Satellite Precipitation",
+    activeAlerts: "Active Climate Emergency Alerts",
+    cycloneAlert: "Flash Flood & Heavy Rainfall Alert",
+    shelterCapacity: "Emergency Shelters Active:",
+    evacuateBtn: "Request NGO Emergency Evacuation",
+
+    // Education Sponsors Page
+    sponsorsTag: "SDG 4 - PHILANTHROPY & CSR EDUCATION SPONSORSHIP HUB",
+    sponsorsTitle: "Verified Education Sponsors & CSR Book Grants",
+    sponsorsSub: "Direct philanthropic support for low-income students seeking laptop grants, college tuition waivers, and study materials.",
+    verifiedSponsor: "Verified CSR Partner",
+    fundingGranted: "Total Granted:",
+    studentsHelped: "Students Supported:",
+    applySponsorshipBtn: "Apply for Education Sponsorship",
+
+    // Healthcare Page
+    healthTag: "SDG 3 - RURAL COMMUNITY HEALTH & CLINIC NETWORK",
+    healthTitle: "Rural Free Medical Camps & Doctor Appointments",
+    healthSub: "Schedule free diagnostic checkups, maternal care clinics, eye screenings, and medicine distribution in your village.",
+    upcomingCamps: "Upcoming Free Rural Medical Camps",
+    bookAppointment: "Book Free Appointment Slot",
+    doctorsAvailable: "Doctors On Duty:",
+
+    // Smart Scheme Finder Page
+    schemeFinderTag: "AI-POWERED GOVERNMENT SCHEME MATCHING ENGINE",
+    schemeFinderTitle: "Smart Public Welfare & Subsidy Scheme Finder",
+    schemeFinderSub: "Filter 17+ government schemes categorized by eligibility, age group, income tier, and UN SDG goals.",
+    allCategories: "All Categories",
+    matchScoreLabel: "Match Score:",
+    applyEligibilityBtn: "Check & Apply Eligibility",
+
+    // SDG Dashboard Page
+    sdgImpactTag: "UNITED NATIONS AGENDA 2030 INTELLIGENCE PLATFORM",
+    sdgImpactTitle: "Complete 17 UN SDG Impact Dashboard",
+    sdgImpactSub: "Every public service, scholarship, emergency hotline, and civic report is mapped directly to the 17 United Nations SDGs.",
+    allSdgsActive: "All 17 SDGs Active",
+    activateAll: "Activate All 17 SDGs",
+    scoreDistribution: "17 UN SDG Impact Score Distribution",
+    sdgRegistry: "17 UN Sustainable Development Goals Registry",
+    matchedSchemesCount: "Matched Schemes",
+
+    // NGO Operations Panel
+    ngoPanelTag: "SDG 1-17 FIELD OPERATIONS & DISASTER CLEARANCE HUB",
+    ngoPanelTitle: "Rural NGO Field Operations & Grievance Panel",
+    ngoPanelSub: "Clear citizen issues, manage disaster loss analytics, inspect solar subsidy applications, and manage evacuation shuttles.",
+    issuesQueue: "Field Grievance Inspection Queue",
+    solarSubsidyQueue: "SDG 7 Rooftop Solar Application Queue",
+    clearIssueBtn: "Approve & Mark Cleared",
+    approveSolarBtn: "Approve Solar Site Survey",
+    uploadRuralIssue: "Upload Rural Issue (With Photo)",
+    disasterLossHeading: "NGO Disaster Area Loss, Relief Funding & Migration Operations",
+    migrationWorkflowHeading: "Working Citizen Evacuation & Migration 4-Step Workflow",
+    step1Reg: "Step 1: Registration",
+    step2Bus: "Step 2: Bus Shuttle",
+    step3Camp: "Step 3: Camp Check-in",
+    step4Rehab: "Step 4: Rehabilitation",
+
+    // Developer Hub
+    devHubTag: "DEVELOPER & TECH INNOVATOR CHALLENGE PORTAL",
+    devHubTitle: "Rural SDG Tech Solution Hub",
+    devHubSub: "Software engineers & innovators build AI models, web apps, and tech clearance reports to solve rural issues uploaded by field NGOs.",
+    activeChallenges: "Active NGO Rural Challenges Awaiting Tech Solutions",
+    submitDevSolution: "Submit Tech Solution Report",
+    githubCode: "GitHub Code",
+    webDemo: "Web App Demo",
+
     // Auth View
     welcomeAuthTitle: "Welcome to SustainAI Ecosystem",
     welcomeAuthSub: "Connect as a Citizen, NGO Field Officer, or Tech Developer to solve SDGs 1-17.",
@@ -121,13 +225,6 @@ export const TRANSLATIONS = {
     donateFood: "Donate Excess Food",
     claimMeal: "Claim Surplus Meal",
 
-    // 17 SDGs Dashboard
-    sdgTitle: "17 UN Sustainable Development Goals Framework",
-    sdgSubtitle: "Comprehensive alignment index categorizing public schemes, field issues, and community initiatives.",
-    activeImpact: "Active Impact",
-    matchedSchemes: "Matched Schemes",
-    inspectGoal: "Inspect Goal",
-
     // Education & Career Hub
     eduHubTitle: "Education & Career Empowerment Hub",
     eduHubSubtitle: "Discover scholarships, green internships, digital skill bootcamps, and career grants.",
@@ -136,24 +233,6 @@ export const TRANSLATIONS = {
     bootcampsTab: "Skill Bootcamps",
     checkEligibility: "Check Scholarship Eligibility",
     stipendBenefit: "Stipend / Benefit:",
-
-    // NGO Operations Panel
-    ngoTitle: "NGO Field & Rural Issue Clearance Center",
-    ngoSubtitle: "Upload field issues with photo evidence, manage disaster loss analytics, track citizen migration workflows.",
-    uploadRuralIssue: "Upload Rural Issue (With Photo)",
-    disasterLossHeading: "NGO Disaster Area Loss, Relief Funding & Migration Operations",
-    migrationWorkflowHeading: "Working Citizen Evacuation & Migration 4-Step Workflow",
-    step1Reg: "Step 1: Registration",
-    step2Bus: "Step 2: Bus Shuttle",
-    step3Camp: "Step 3: Camp Check-in",
-    step4Rehab: "Step 4: Rehabilitation",
-
-    // Developer Hub
-    devHubTitle: "Developer Open Source Innovation Hub",
-    devHubSubtitle: "Build and deploy open-source technology apps for rural field issues logged by NGOs.",
-    submitSolution: "Submit Tech Solution Report",
-    githubCode: "GitHub Code",
-    webDemo: "Web App Demo",
 
     // Common
     targetVillage: "Target Village:",
@@ -206,6 +285,110 @@ export const TRANSLATIONS = {
     badge17Schemes: "17 योजनाएं",
     badgeFreeCamps: "मुफ्त शिविर",
     badgePostIssue: "समस्या दर्ज करें",
+
+    // Landing Page
+    landingTag: "सतत विकास के लिए मानव-केंद्रित एआई इंटेलिजेंस प्लेटफॉर्म",
+    heroTitle: "एक मंच। हर नागरिक। हर सेवा। हर एसडीजी।",
+    heroSub: "ग्रामीण नागरिकों, क्षेत्र एनजीओ और तकनीकी डेवलपर्स को एक करुणामय पारिस्थितिकी तंत्र में जोड़ना। हम समझते हैं कि आप कौन हैं और आपके समुदाय को क्या चाहिए।",
+    launchGateway: "नागरिक गेटवे शुरू करें",
+    exploreSdgs: "17 यूएन एसडीजी देखें",
+    fastPassTitle: "हैकथॉन मूल्यांकनकर्ता त्वरित पास",
+    fastPassSub: "अरुण कुमार के रूप में एक-क्लिक डेमो लॉगिन (20 वर्षीय कम आय वाला छात्र)",
+    demoLoginBtn: "डेमो लॉगिन",
+    feature1Title: "एआई-संचालित योजना खोज",
+    feature1Desc: "नागरिकों को सरकारी अनुदान और छात्रवृत्तियों से स्वचालित रूप से मिलाएं।",
+    feature2Title: "एनजीओ फील्ड समस्या समाधान",
+    feature2Desc: "फील्ड अधिकारी वास्तविक समय में ग्रामीण शिकायतों और आपदा राहत को ट्रैक करते हैं।",
+    feature3Title: "डेवलपर ओपन-सोर्स हब",
+    feature3Desc: "सॉफ्टवेयर इंजीनियर ग्रामीण चुनौतियों को हल करने के लिए प्रौद्योगिकी ऐप बनाते हैं।",
+
+    // Clean Energy Page (SDG 7)
+    cleanTag: "यूएन एसडीजी 7 - किफायती और स्वच्छ नवीकरणीय ऊर्जा गेटवे",
+    cleanTitle: "स्वच्छ नवीकरणीय ऊर्जा और सौर सब्सिडी पोर्टल",
+    cleanSub: "अपनी छत पर सोलर बिल की बचत की गणना करें, सरकारी सौर अनुदान के लिए आवेदन करें, और स्वच्छ रसोई एलपीजी कनेक्शन प्राप्त करें।",
+    pmSuryaBadge: "पीएम सूर्य घर: 300 यूनिट तक मुफ्त बिजली",
+    solarCalcTitle: "रूफटॉप सोलर और सरकारी सब्सिडी कैलकुलेटर",
+    solarCalcSub: "सब्सिडी अनुदान और वार्षिक बचत की गणना करने के लिए अपने औसत मासिक बिजली बिल को समायोजित करें।",
+    monthlyBillLabel: "मासिक बिजली बिल:",
+    recommendedSolarSize: "अनुशंसित सोलर आकार",
+    govtGrantSubsidy: "सरकारी अनुदान सब्सिडी",
+    annualSavings: "वार्षिक बिल बचत",
+    co2Saved: "सीओ₂ उत्सर्जन बचाया",
+    subsidizedSchemesHeading: "सब्सिडी वाली सरकारी स्वच्छ ऊर्जा और सौर योजनाएं",
+    applySolarGrantBtn: "रूफटॉप सोलर ग्रांट के लिए आवेदन करें",
+    directBankCredit: "सीधा बैंक क्रेडिट",
+    billReduction: "92% तक बिल में कमी",
+    carbonFootprint: "कार्बन पदचिह्न बचाया गया",
+
+    // Disaster & Climate Map
+    disasterTag: "एसडीजी 11 और 13 - ग्रामीण आपदा राहत और लचीलापन इंजन",
+    disasterTitle: "आपदा मौसम पूर्वानुमान और राहत कार्य मानचित्र",
+    disasterSub: "ग्रामीण कर्नाटक के लिए वास्तविक समय वर्षा रडार, उपग्रह बाढ़ मानचित्रण, और एनजीओ आपातकालीन निकासी मार्ग।",
+    radarHeading: "कर्नाटक लाइव रडार और सैटेलाइट बारिश",
+    activeAlerts: "सक्रिय जलवायु आपातकालीन अलर्ट",
+    cycloneAlert: "अचानक बाढ़ और भारी बारिश का अलर्ट",
+    shelterCapacity: "सक्रिय आपातकालीन आश्रय:",
+    evacuateBtn: "एनजीओ आपातकालीन निकासी का अनुरोध करें",
+
+    // Education Sponsors Page
+    sponsorsTag: "एसडीजी 4 - परोपकार और सीएसआर शिक्षा प्रायोजन हब",
+    sponsorsTitle: "सत्यापित शिक्षा प्रायोजक और सीएसआर पुस्तक अनुदान",
+    sponsorsSub: "लैपटॉप अनुदान, कॉलेज शुल्क छूट और अध्ययन सामग्री की तलाश कर रहे कम आय वाले छात्रों के लिए सीधा परोपकारी समर्थन।",
+    verifiedSponsor: "सत्यापित सीएसआर भागीदार",
+    fundingGranted: "कुल स्वीकृत अनुदान:",
+    studentsHelped: "सहायता प्राप्त छात्र:",
+    applySponsorshipBtn: "शिक्षा प्रायोजन के लिए आवेदन करें",
+
+    // Healthcare Page
+    healthTag: "एसडीजी 3 - ग्रामीण सामुदायिक स्वास्थ्य एवं क्लिनिक नेटवर्क",
+    healthTitle: "ग्रामीण मुफ्त चिकित्सा शिविर और डॉक्टर अपॉइंटमेंट",
+    healthSub: "अपने गांव में मुफ्त नैदानिक जांच, मातृ देखभाल क्लिनिक, नेत्र जांच और दवा वितरण का समय निर्धारित करें।",
+    upcomingCamps: "आगामी मुफ्त ग्रामीण चिकित्सा शिविर",
+    bookAppointment: "मुफ्त अपॉइंटमेंट स्लॉट बुक करें",
+    doctorsAvailable: "ड्यूटी पर डॉक्टर:",
+
+    // Smart Scheme Finder Page
+    schemeFinderTag: "एआई-संचालित सरकारी योजना मिलान इंजन",
+    schemeFinderTitle: "स्मार्ट जन कल्याण एवं सब्सिडी योजना खोजक",
+    schemeFinderSub: "पात्रता, आयु वर्ग, आय स्तर और यूएन एसडीजी लक्ष्यों द्वारा वर्गीकृत 17+ सरकारी योजनाओं को फ़िल्टर करें।",
+    allCategories: "सभी श्रेणियां",
+    matchScoreLabel: "मिलान स्कोर:",
+    applyEligibilityBtn: "पात्रता जांचें और लागू करें",
+
+    // SDG Dashboard Page
+    sdgImpactTag: "संयुक्त राष्ट्र एजेंडा 2030 इंटेलिजेंस प्लेटफॉर्म",
+    sdgImpactTitle: "संपूर्ण 17 यूएन एसडीजी प्रभाव डैशबोर्ड",
+    sdgImpactSub: "प्रत्येक सार्वजनिक सेवा, छात्रवृत्ति, आपातकालीन हेल्पलाइन और नागरिक रिपोर्ट को सीधे 17 संयुक्त राष्ट्र एसडीजी में मैप किया गया है।",
+    allSdgsActive: "सभी 17 एसडीजी सक्रिय",
+    activateAll: "सभी 17 एसडीजी सक्रिय करें",
+    scoreDistribution: "17 यूएन एसडीजी प्रभाव स्कोर वितरण",
+    sdgRegistry: "17 संयुक्त राष्ट्र सतत विकास लक्ष्य रजिस्ट्री",
+    matchedSchemesCount: "मिलान की गई योजनाएं",
+
+    // NGO Operations Panel
+    ngoPanelTag: "एसडीजी 1-17 फील्ड ऑपरेशंस और आपदा मंजूरी हब",
+    ngoPanelTitle: "ग्रामीण एनजीओ फील्ड ऑपरेशंस और शिकायत पैनल",
+    ngoPanelSub: "नागरिक समस्याओं का निवारण करें, आपदा नुकसान विश्लेषण प्रबंधित करें, सौर सब्सिडी आवेदनों का निरीक्षण करें और निकासी शटल का प्रबंधन करें।",
+    issuesQueue: "फील्ड शिकायत निरीक्षण कतार",
+    solarSubsidyQueue: "एसडीजी 7 रूफटॉप सोलर आवेदन कतार",
+    clearIssueBtn: "स्वीकृत करें और समाधान चिह्नित करें",
+    approveSolarBtn: "सोलर साइट सर्वेक्षण स्वीकृत करें",
+    uploadRuralIssue: "ग्रामीण समस्या अपलोड करें (फोटो के साथ)",
+    disasterLossHeading: "एनजीओ आपदा नुकसान, राहत अनुदान और निकासी संचालन",
+    migrationWorkflowHeading: "नागरिक निकासी 4-स्तरीय कार्यप्रणाली",
+    step1Reg: "चरण 1: पंजीकरण",
+    step2Bus: "चरण 2: बस शटल",
+    step3Camp: "चरण 3: शिविर चेक-इन",
+    step4Rehab: "चरण 4: पुनर्वास",
+
+    // Developer Hub
+    devHubTag: "डेवलपर और टेक इनोंवेटर चुनौती पोर्टल",
+    devHubTitle: "ग्रामीण एसडीजी टेक सॉल्यूशन हब",
+    devHubSub: "सॉफ्टवेयर इंजीनियर और नवप्रवर्तक एनजीओ द्वारा दर्ज ग्रामीण मुद्दों को हल करने के लिए एआई मॉडल, वेब ऐप और टेक रिपोर्ट बनाते हैं।",
+    activeChallenges: "सक्रिय एनजीओ ग्रामीण चुनौतियां तकनीकी समाधान की प्रतीक्षा में",
+    submitDevSolution: "तकनीकी समाधान रिपोर्ट जमा करें",
+    githubCode: "गिटहब कोड",
+    webDemo: "वेब ऐप डेमो",
 
     // Auth View
     welcomeAuthTitle: "सस्टेन-एआई पारिस्थितिकी तंत्र में आपका स्वागत है",
@@ -282,13 +465,6 @@ export const TRANSLATIONS = {
     donateFood: "अतिरिक्त भोजन दान करें",
     claimMeal: "भोजन का दावा करें",
 
-    // 17 SDGs Dashboard
-    sdgTitle: "17 संयुक्त राष्ट्र सतत विकास लक्ष्य ढांचा",
-    sdgSubtitle: "सरकारी योजनाओं, ग्रामीण मुद्दों और सामुदायिक पहलों को वर्गीकृत करने वाली व्यापक अनुक्रमणिका।",
-    activeImpact: "सक्रिय प्रभाव",
-    matchedSchemes: "मिलान की गई योजनाएं",
-    inspectGoal: "लक्ष्य का निरीक्षण करें",
-
     // Education & Career Hub
     eduHubTitle: "शिक्षा एवं करियर सशक्तिकरण हब",
     eduHubSubtitle: "छात्रवृत्तियों, हरित इंटर्नशिप, डिजिटल कौशल बूटकैंप और करियर अनुदान की खोज करें।",
@@ -297,24 +473,6 @@ export const TRANSLATIONS = {
     bootcampsTab: "कौशल बूटकैंप",
     checkEligibility: "छात्रवृत्ति पात्रता की जांच करें",
     stipendBenefit: "वजीफा / लाभ:",
-
-    // NGO Operations Panel
-    ngoTitle: "एनजीओ फील्ड और ग्रामीण समस्या समाधान केंद्र",
-    ngoSubtitle: "फोटो साक्ष्य के साथ ग्रामीण मुद्दों को अपलोड करें, आपदा नुकसान का प्रबंधन करें और निकासी प्रक्रियाओं को ट्रैक करें।",
-    uploadRuralIssue: "ग्रामीण समस्या अपलोड करें (फोटो के साथ)",
-    disasterLossHeading: "एनजीओ आपदा नुकसान, राहत अनुदान और निकासी संचालन",
-    migrationWorkflowHeading: "नागरिक निकासी 4-स्तरीय कार्यप्रणाली",
-    step1Reg: "चरण 1: पंजीकरण",
-    step2Bus: "चरण 2: बस शटल",
-    step3Camp: "चरण 3: शिविर चेक-इन",
-    step4Rehab: "चरण 4: पुनर्वास",
-
-    // Developer Hub
-    devHubTitle: "डेवलपर ओपन सोर्स इनोवेशन हब",
-    devHubSubtitle: "एनजीओ द्वारा दर्ज ग्रामीण समस्याओं के लिए ओपन-सोर्स समाधान ऐप बनाएं और तैनात करें।",
-    submitSolution: "तकनीकी समाधान रिपोर्ट जमा करें",
-    githubCode: "गिटहब कोड",
-    webDemo: "वेब ऐप डेमो",
 
     // Common
     targetVillage: "लक्ष्य गांव:",
@@ -367,6 +525,110 @@ export const TRANSLATIONS = {
     badge17Schemes: "17 పథకాలు",
     badgeFreeCamps: "ఉచిత శిబిరాలు",
     badgePostIssue: "సమస్యను నమోదు చేయండి",
+
+    // Landing Page
+    landingTag: "సుస్థిరాభివృద్ధి కోసం మానవ-కేంద్రీకృత AI ఇంటెలిజెన్స్ ప్లాట్‌ఫారమ్",
+    heroTitle: "ఒకే ప్లాట్‌ఫారమ్. ప్రతి పౌరుడు. ప్రతి సేవ. ప్రతి SDG.",
+    heroSub: "గ్రామీణ పౌరులను, ఫీల్డ్ NGOలను మరియు టెక్ డెవలపర్లను ఒకే కరుణాపూర్వక వ్యవస్థలోకి అనుసంధానిస్తుంది. మీరు ఎవరో మరియు మీ సమాజానికి ఏమి కావాలో మేము అర్థం చేసుకుంటాము.",
+    launchGateway: "పౌర గేట్‌వేని ప్రారంభించండి",
+    exploreSdgs: "17 UN SDGs అన్వేషించండి",
+    fastPassTitle: "హాకథాన్ మూల్యాంకనదారుని ఫాస్ట్ పాస్",
+    fastPassSub: "అరుణ్ కుమార్ గా ఒకే క్లిక్‌తో డెమో లాగిన్ (20 ఏళ్ల తక్కువ ఆదాయ విద్యార్థి)",
+    demoLoginBtn: "డెమో లాగిన్",
+    feature1Title: "AI-ఆధారిత పథకాల గుర్తింపు",
+    feature1Desc: "పౌరులను ప్రభుత్వ నిధులు మరియు స్కాలర్‌షిప్‌లతో స్వయంచాలకంగా జత చేస్తుంది.",
+    feature2Title: "NGO ఫీల్డ్ సమస్యల పరిష్కారం",
+    feature2Desc: "ఫీల్డ్ అధికారులు గ్రామీణ సమస్యలు మరియు విపత్తు సహాయాన్ని నిజ సమయంలో ట్రాక్ చేస్తారు.",
+    feature3Title: "డెవలపర్ ఓపెన్-సోర్స్ హబ్",
+    feature3Desc: "గ్రామీణ సవాళ్లను పరిష్కరించడానికి సాఫ్ట్‌వేర్ ఇంజనీర్లు సాంకేతిక యాప్‌లను నిర్మిస్తారు.",
+
+    // Clean Energy Page (SDG 7)
+    cleanTag: "UN SDG 7 - సరసమైన మరియు స్వచ్ఛమైన పునరుత్పాదక ఇంధన గేట్‌వే",
+    cleanTitle: "స్వచ్ఛమైన పునరుత్పాదక ఇంధనం & సోలార్ సబ్సిడీ పోర్టల్",
+    cleanSub: "మీ రూఫ్‌టాప్ సోలార్ బిల్లు పొదుపులను లెక్కించండి, ప్రభుత్వ సోలార్ గ్రాంట్ల కోసం దరఖాస్తు చేయండి మరియు స్వచ్ఛమైన వంట గ్యాస్ కనెక్షన్‌లను పొందండి.",
+    pmSuryaBadge: "PM సూర్య ఘర్: 300 యూనిట్ల వరకు ఉచిత విద్యుత్",
+    solarCalcTitle: "రూఫ్‌టాప్ సోలార్ & ప్రభుత్వ సబ్సిడీ క్యాలిక్యులేటర్",
+    solarCalcSub: "సబ్సిడీ నిధులు మరియు వార్షిక పొదుపులను లెక్కించడానికి మీ సగటు నెలవారీ విద్యుత్ బిల్లును సర్దుబాటు చేయండి.",
+    monthlyBillLabel: "నెలవారీ విద్యుత్ బిల్లు:",
+    recommendedSolarSize: "సిఫార్సు చేయబడిన సోలార్ పరిమాణం",
+    govtGrantSubsidy: "ప్రభుత్వ సబ్సిడీ నిధి",
+    annualSavings: "వార్షిక బిల్లు పొదుపు",
+    co2Saved: "తగ్గించబడిన CO₂ ఉద్గారాలు",
+    subsidizedSchemesHeading: "సబ్సిడీ ఆధారిత ప్రభుత్వ స్వచ్ఛమైన ఇంధన & సోలార్ పథకాలు",
+    applySolarGrantBtn: "రూఫ్‌టాప్ సోలార్ గ్రాంట్ కోసం దరఖాస్తు చేయండి",
+    directBankCredit: "నేరుగా బ్యాంక్ క్రెడిట్",
+    billReduction: "92% వరకు బిల్లు తగ్గింపు",
+    carbonFootprint: "తగ్గించబడిన కార్బన్ ఉద్గారాలు",
+
+    // Disaster & Climate Map
+    disasterTag: "SDG 11 & 13 - గ్రామీణ విపత్తు ఉపశమనం & దెబ్బతినని సామర్థ్య ఇంజిన్",
+    disasterTitle: "విపత్తు వాతావరణ ముందస్తు సమాచారం & సహాయ చర్యల పటం",
+    disasterSub: "గ్రామీణ కర్ణాటక కోసం నిజ-సమయ వర్షపాతం రాడార్, ఉపగ్రహ వరద పటం మరియు NGO అత్యవసర తరలింపు మార్గాలు.",
+    radarHeading: "కర్ణాటక లైవ్ రాడార్ & సాటిలైట్ వర్షపాతం",
+    activeAlerts: "చురుకైన వాతావరణ అత్యవసర హెచ్చరికలు",
+    cycloneAlert: "అకస్మాత్తుగా వచ్చే వరదలు & భారీ వర్షపాతం హెచ్చరిక",
+    shelterCapacity: "సక్రియ అత్యవసర పునరావాస కేంద్రాలు:",
+    evacuateBtn: "NGO అత్యవసర తరలింపును అభ్యర్థించండి",
+
+    // Education Sponsors Page
+    sponsorsTag: "SDG 4 - దాతృత్వం & CSR విద్య సహాయ పోర్టల్",
+    sponsorsTitle: "ధృవీకరించబడిన విద్య సహాయకులు & CSR పుస్తకాల నిధులు",
+    sponsorsSub: "ల్యాప్‌టాప్‌లు, కాలేజీ ఫీజు మినహాయింపులు మరియు అధ్యయన సామగ్రిని కోరుకునే తక్కువ ఆదాయ విద్యార్థులకు నేరుగా దాతృత్వ మద్దతు.",
+    verifiedSponsor: "ధృవీకరించబడిన CSR భాగస్వామి",
+    fundingGranted: "మొత్తం మంజూరు చేసిన నిధులు:",
+    studentsHelped: "సహాయం పొందిన విద్యార్థులు:",
+    applySponsorshipBtn: "విద్య సహాయం కోసం దరఖాస్తు చేయండి",
+
+    // Healthcare Page
+    healthTag: "SDG 3 - గ్రామీణ సమాజ ఆరోగ్య & క్లినిక్ నెట్‌వర్క్",
+    healthTitle: "గ్రామీణ ఉచిత వైద్య శిబిరాలు & వైద్యుల అపాయింట్‌మెంట్‌లు",
+    healthSub: "మీ గ్రామంలో ఉచిత వైద్య పరీక్షలు, మాతృ సంరక్షణ క్లినిక్‌లు, కంటి పరీక్షలు మరియు ఔషధాల పంపిణీని షెడ్యూల్ చేయండి.",
+    upcomingCamps: "రాబోయే ఉచిత గ్రామీణ వైద్య శిబిరాలు",
+    bookAppointment: "ఉచిత అపాయింట్‌మెంట్ స్లాట్‌ను బుక్ చేయండి",
+    doctorsAvailable: "విధుల్లో ఉన్న వైద్యులు:",
+
+    // Smart Scheme Finder Page
+    schemeFinderTag: "AI-ఆధారిత ప్రభుత్వ పథకాల జతచేసే ఇంజిన్",
+    schemeFinderTitle: "స్మార్ట్ ప్రజా సంక్షేమ & సబ్సిడీ పథకాల శోధన",
+    schemeFinderSub: "అర్హత, వయోపరిమితి, ఆదాయ పరిమితి మరియు UN SDG లక్ష్యాల ఆధారంగా 17+ ప్రభుత్వ పథకాలను ఫిల్టర్ చేయండి.",
+    allCategories: "అన్ని వర్గాలు",
+    matchScoreLabel: "సరిపోలిక స్కోర్:",
+    applyEligibilityBtn: "అర్హతను తనిఖీ చేసి దరఖాస్తు చేయండి",
+
+    // SDG Dashboard Page
+    sdgImpactTag: "ఐక్యరాజ్యసమితి ఎజెండా 2030 ఇంటెలిజెన్స్ ప్లాట్‌ఫారమ్",
+    sdgImpactTitle: "సమగ్ర 17 UN SDG ప్రభావ డాష్‌బోర్డ్",
+    sdgImpactSub: "ప్రతి ప్రజా సేవ, స్కాలర్‌షిప్, అత్యవసర హెల్ప్‌లైన్ మరియు పౌరుల నివేదిక నేరుగా 17 ఐక్యరాజ్యసమితి SDGs కు అనుసంధానించబడింది.",
+    allSdgsActive: "అన్ని 17 SDGs చురుగ్గా ఉన్నాయి",
+    activateAll: "అన్ని 17 SDGs ని సక్రియం చేయండి",
+    scoreDistribution: "17 UN SDG ప్రభావ స్కోర్ పంపిణీ",
+    sdgRegistry: "17 UN సుస్థిరాభివృద్ధి లక్ష్యాల రిజిస్ట్రీ",
+    matchedSchemesCount: "సరిపోలిన పథకాలు",
+
+    // NGO Operations Panel
+    ngoPanelTag: "SDG 1-17 ఫీల్డ్ ఆపరేషన్స్ & విపత్తు పరిపరిష్కార హబ్",
+    ngoPanelTitle: "గ్రామీణ NGO ఫీల్డ్ ఆపరేషన్స్ & ఫిర్యాదుల ప్యానెల్",
+    ngoPanelSub: "పౌరుల సమస్యలను పరిష్కరించండి, విపత్తు నష్టాల విశ్లేషణను నిర్వహించండి, సోలార్ సబ్సిడీ దరఖాస్తులను తనిఖీ చేయండి మరియు తరలింపు బస్సులను నిర్వహించండి.",
+    issuesQueue: "ఫీల్డ్ ఫిర్యాదుల తనిఖీ వరుస",
+    solarSubsidyQueue: "SDG 7 రూఫ్‌టాప్ సోలార్ దరఖాస్తుల వరుస",
+    clearIssueBtn: "ఆమోదించండి & పరిష్కరించినట్లు మార్క్ చేయండి",
+    approveSolarBtn: "సోలార్ సర్వేను ఆమోదించండి",
+    uploadRuralIssue: "గ్రామీణ సమస్యను అప్‌లోడ్ చేయండి (ఫోటోతో)",
+    disasterLossHeading: "NGO విపత్తు నష్టం, సహాయ నిధులు & తరలింపు చర్యలు",
+    migrationWorkflowHeading: "పౌర తరలింపు 4-దశల పనితీరు",
+    step1Reg: "దశ 1: నమోదు",
+    step2Bus: "దశ 2: బస్సు షటిల్",
+    step3Camp: "దశ 3: క్యాంప్ చెక్-ఇన్",
+    step4Rehab: "దశ 4: పునరావాసం",
+
+    // Developer Hub
+    devHubTag: "డెవలపర్ & టెక్ ఇన్నోవేటర్ సవాళ్ల పోర్టల్",
+    devHubTitle: "గ్రామీణ SDG టెక్ సొల్యూషన్ హబ్",
+    devHubSub: "NGOలు నమోదు చేసిన గ్రామీణ సమస్యలను పరిష్కరించడానికి సాఫ్ట్‌వేర్ ఇంజనీర్లు మరియు ఇన్నోవేటర్లు AI నమూనాలు, వెబ్ యాప్‌లు మరియు నివేదికలను నిర్మిస్తారు.",
+    activeChallenges: "సాంకేతిక పరిష్కారాల కోసం నిరీక్షిస్తున్న చురుకైన NGO గ్రామీణ సవాళ్లు",
+    submitDevSolution: "సాంకేతిక పరిష్కార నివేదికను సమర్పించండి",
+    githubCode: "గిట్‌హబ్ కోడ్",
+    webDemo: "వెబ్ యాప్ డెమో",
 
     // Auth View
     welcomeAuthTitle: "సస్టెయిన్-AI వ్యవస్థకు స్వాగతం",
@@ -443,13 +705,6 @@ export const TRANSLATIONS = {
     donateFood: "అదనపు ఆహారాన్ని విరాళంగా ఇవ్వండి",
     claimMeal: "భోజనాన్ని పొందండి",
 
-    // 17 SDGs Dashboard
-    sdgTitle: "17 UN సుస్థిరాభివృద్ధి లక్ష్యాల చట్రం",
-    sdgSubtitle: "ప్రభుత్వ పథకాలు, గ్రామీణ సమస్యలు మరియు సమాజ కార్యక్రమాలను వర్గీకరించే సమగ్ర సూచిక.",
-    activeImpact: "సక్రియ ప్రభావం",
-    matchedSchemes: "సరిపోలిన పథకాలు",
-    inspectGoal: "లక్ష్యాన్ని తనిఖీ చేయండి",
-
     // Education & Career Hub
     eduHubTitle: "విద్య & కెరీర్ సాధికారత హబ్",
     eduHubSubtitle: "స్కాలర్‌షిప్‌లు, గ్రీన్ ఇంటర్న్‌షిప్‌లు, డిజిటల్ స్కిల్ బూట్‌క్యాంప్‌లు మరియు కెరీర్ గ్రాంట్‌లను కనుగొనండి.",
@@ -458,24 +713,6 @@ export const TRANSLATIONS = {
     bootcampsTab: "స్కిల్ బూట్‌క్యాంప్‌లు",
     checkEligibility: "స్కాలర్‌షిప్ అర్హతను తనిఖీ చేయండి",
     stipendBenefit: "స్టైపెండ్ / ప్రయోజనం:",
-
-    // NGO Operations Panel
-    ngoTitle: "NGO ఫీల్డ్ మరియు గ్రామీణ సమస్యల పరిష్కార కేంద్రం",
-    ngoSubtitle: "ఫోటో ఆధారాలతో సమస్యలను నమోదు చేయండి, విపత్తు నష్టాలను నిర్వహించండి మరియు పౌర తరలింపును ట్రాక్ చేయండి.",
-    uploadRuralIssue: "గ్రామీణ సమస్యను అప్‌లోడ్ చేయండి (ఫోటోతో)",
-    disasterLossHeading: "NGO విపత్తు నష్టం, సహాయ నిధులు & తరలింపు చర్యలు",
-    migrationWorkflowHeading: "పౌర తరలింపు 4-దశల పనితీరు",
-    step1Reg: "దశ 1: నమోదు",
-    step2Bus: "దశ 2: బస్సు షటిల్",
-    step3Camp: "దశ 3: క్యాంప్ చెక్-ఇన్",
-    step4Rehab: "దశ 4: పునరావాసం",
-
-    // Developer Hub
-    devHubTitle: "డెవలపర్ ఓపెన్ సోర్స్ ఇన్నోవేషన్ హబ్",
-    devHubSubtitle: "NGOలు నమోదు చేసిన గ్రామీణ సమస్యల కోసం ఓపెన్ సోర్స్ అప్లికేషన్‌లను రూపొందించండి.",
-    submitSolution: "సాంకేతిక పరిష్కార నివేదికను సమర్పించండి",
-    githubCode: "గిట్‌హబ్ కోడ్",
-    webDemo: "వెబ్ యాప్ డెమో",
 
     // Common
     targetVillage: "లక్ష్య గ్రామం:",
@@ -528,6 +765,110 @@ export const TRANSLATIONS = {
     badge17Schemes: "17 திட்டங்கள்",
     badgeFreeCamps: "இலவச முகாம்கள்",
     badgePostIssue: "புகாரைப் பதிவுசெய்",
+
+    // Landing Page
+    landingTag: "நிலையான வளர்ச்சிக்கான மனித-மையப்படுத்தப்பட்ட AI அறிவாண்மை தளம்",
+    heroTitle: "ஒரே தளம். ஒவ்வொரு குடிமகனும். ஒவ்வொரு சேவையும். ஒவ்வொரு எஸ்டிஜியும்.",
+    heroSub: "கிராமப்புற குடிமக்கள், கள என்ஜிஓக்கள் மற்றும் தொழில் நுட்ப டெவலப்பர்களை ஒரு இரக்கமுள்ள சூழலில் இணைக்கிறது. நீங்கள் யார் என்பதும் உங்கள் சமூகத்திற்கு என்ன தேவை என்பதும் எங்களுக்குப் புரியும்.",
+    launchGateway: "குடிமக்கள் நுழைவாயிலைத் தொடங்குங்கள்",
+    exploreSdgs: "17 ஐ.நா. எஸ்டிஜிக்களை ஆராயுங்கள்",
+    fastPassTitle: "ஹேக்கத்தான் மதிப்பீட்டாளர் விரைவு பாஸ்",
+    fastPassSub: "அருண் குமாராக ஒரே கிளிக்கில் டெமோ உள்நுழைவு (20 வயது குறைந்த வருமான மாணவர்)",
+    demoLoginBtn: "டெமோ உள்நுழைவு",
+    feature1Title: "AI-இயக்கப்படும் திட்டக் கண்டுபிடிப்பு",
+    feature1Desc: "குடிமக்களை அரசு மானியங்கள் மற்றும் உதவித்தொகைகளுடன் தானாகப் பொருத்துங்கள்.",
+    feature2Title: "என்ஜிஓ களப் பிரச்சனை தீர்வு",
+    feature2Desc: "கள அதிகாரிகள் கிராமப்புறப் புகார்கள் மற்றும் பேரிடர் நிவாரணத்தைக் நிகழ்நேரத்தில் கண்காணிக்கின்றனர்.",
+    feature3Title: "டெவலப்பர் திறந்த மூல மையம்",
+    feature3Desc: "கிராமப்புற சவால்களைத் தீர்க்க மென்பொருள் பொறியாளர்கள் தொழில்நுட்ப பயன்பாடுகளை உருவாக்குகிறார்கள்.",
+
+    // Clean Energy Page (SDG 7)
+    cleanTag: "ஐ.நா. எஸ்டிஜி 7 - மலிவான மற்றும் தூய்மையான புதுப்பிக்கத்தக்க ஆற்றல் நுழைவாயில்",
+    cleanTitle: "தூய்மையான புதுப்பிக்கத்தக்க ஆற்றல் & சூரிய மானியத் தளம்",
+    cleanSub: "உங்கள் கூரை சூரிய மின்சார சேமிப்பைக் கணக்கிடுங்கள், அரசு சூரிய மானியங்களுக்கு விண்ணப்பியுங்கள், மற்றும் தூய்மையான சமையல் எரிவாயுவைப் பெறுங்கள்.",
+    pmSuryaBadge: "பிஎம் சூர்யா கர்: 300 யூனிட்கள் வரை இலவச மின்சாரம்",
+    solarCalcTitle: "கூரை சூரிய மின்சாரம் & அரசு மானியக் கணக்கிப்பான்",
+    solarCalcSub: "மானிய உதவி மற்றும் வருடாந்திர சேமிப்பைக் கணக்கிட உங்கள் சராசரி மாதாந்திர மின்சாரக் கட்டணத்தைச் சரிசெய்யவும்.",
+    monthlyBillLabel: "மாதாந்திர மின்சாரக் கட்டணம்:",
+    recommendedSolarSize: "பரிந்துரைக்கப்பட்ட சூரிய அளவு",
+    govtGrantSubsidy: "அரசு மானிய உதவி",
+    annualSavings: "வருடாந்திரக் கட்டண சேமிப்பு",
+    co2Saved: "சேமிக்கப்பட்ட CO₂ உமிழ்வு",
+    subsidizedSchemesHeading: "மானியத்துடன் கூடிய அரசு தூய்மை ஆற்றல் & சூரிய மின்சாரத் திட்டங்கள்",
+    applySolarGrantBtn: "கூரை சூரிய மானியத்திற்கு விண்ணப்பிக்கவும்",
+    directBankCredit: "நேரடி வங்கி வரவு",
+    billReduction: "92% வரை கட்டணக் குறைப்பு",
+    carbonFootprint: "சேமிக்கப்பட்ட கார்பன் தடம்",
+
+    // Disaster & Climate Map
+    disasterTag: "எஸ்டிஜி 11 & 13 - கிராமப்புற பேரிடர் நிவாரணம் & மீள்தன்மை எஞ்சின்",
+    disasterTitle: "பேரிடர் வானிலை முன்னறிவிப்பு & நிவாரண நடவடிக்கை வரைபடம்",
+    disasterSub: "கிராமப்புற கர்நாடகாவிற்கான நிகழ்நேர மழைப்பொழிவு ரேடார், செயற்கைக்கோள் வெள்ள வரைபடம் மற்றும் என்ஜிஓ அவசர வெளியேற்ற வழிகள்.",
+    radarHeading: "கர்நாடகா நேரலை ரேடார் & செயற்கைக்கோள் மழைப்பொழிவு",
+    activeAlerts: "செயலில் உள்ள காலநிலை அவசர எச்சரிக்கைகள்",
+    cycloneAlert: "திடீர் வெள்ளம் & கனமழை எச்சரிக்கை",
+    shelterCapacity: "செயலில் உள்ள அவசர நிவாரண முகாம்கள்:",
+    evacuateBtn: "என்ஜிஓ அவசர வெளியேற்றத்தைக் கோருங்கள்",
+
+    // Education Sponsors Page
+    sponsorsTag: "எஸ்டிஜி 4 - அறக்கட்டளை & சிஎஸ்ஆர் கல்வி ஆதரவு மையம்",
+    sponsorsTitle: "சரிபார்க்கப்பட்ட கல்வி ஆதரவாளர்கள் & சிஎஸ்ஆர் புத்தக மானியங்கள்",
+    sponsorsSub: "மடிக்கணினி மானியம், கல்லூரி கட்டண விலக்கு மற்றும் படிப்புப் பொருட்களைத் தேடும் குறைந்த வருமான மாணவர்களுக்கான நேரடி ஆதரவு.",
+    verifiedSponsor: "சரிபார்க்கப்பட்ட சிஎஸ்ஆர் கூட்டாளி",
+    fundingGranted: "மொத்த மானியம் வழங்கப்பட்டது:",
+    studentsHelped: "ஆதரவு பெற்ற மாணவர்கள்:",
+    applySponsorshipBtn: "கல்வி ஆதரவிற்கு விண்ணப்பிக்கவும்",
+
+    // Healthcare Page
+    healthTag: "எஸ்டிஜி 3 - கிராமப்புற சமூக சுகாதார & மருத்துவமனை வலையமைப்பு",
+    healthTitle: "கிராமப்புற இலவச மருத்துவ முகாம்கள் & மருத்துவர் முன்பதிவு",
+    healthSub: "உங்கள் கிராமத்தில் இலவச மருத்துவப் பரிசோதனைகள், தாய்மைப் பராமரிப்பு, கண் பரிசோதனைகளை முன்பதிவு செய்யுங்கள்.",
+    upcomingCamps: "வரவிருக்கும் இலவச கிராமப்புற மருத்துவ முகாம்கள்",
+    bookAppointment: "இலவச முன்பதிவு நேரத்தைச் சேமி",
+    doctorsAvailable: "பணியில் உள்ள மருத்துவர்கள்:",
+
+    // Smart Scheme Finder Page
+    schemeFinderTag: "AI-இயக்கப்படும் அரசுத் திட்டப் பொருத்த எஞ்சின்",
+    schemeFinderTitle: "ஸ்மார்ட் மக்கள் நலன் & மானியத் திட்டக் கண்டுபிடிப்பான்",
+    schemeFinderSub: "தகுதி, வயது வரம்பு, வருமான நிலை ஆகியவற்றின் அடிப்படையில் 17+ அரசுத் திட்டங்களை வடிகட்டவும்.",
+    allCategories: "எல்லா வகைகளும்",
+    matchScoreLabel: "பொருத்த மதிப்பெண்:",
+    applyEligibilityBtn: "தகுதியைச் சரிபார்த்து விண்ணப்பிக்கவும்",
+
+    // SDG Dashboard Page
+    sdgImpactTag: "ஐக்கிய நாடுகள் சபை நிகழ்ச்சி நிரல் 2030 அறிவாண்மை தளம்",
+    sdgImpactTitle: "முழுமையான 17 ஐ.நா. எஸ்டிஜி தாக்க டாஷ்போர்டு",
+    sdgImpactSub: "ஒவ்வொரு பொதுச் சேவையும் நேரடியாக 17 ஐக்கிய நாடுகள் சபையின் எஸ்டிஜிக்களுடன் வரைபடமாக்கப்பட்டுள்ளது.",
+    allSdgsActive: "எல்லா 17 எஸ்டிஜிக்களும் செயலில் உள்ளன",
+    activateAll: "எல்லா 17 எஸ்டிஜிக்களையும் செயல்படுத்துங்கள்",
+    scoreDistribution: "17 ஐ.நா. எஸ்டிஜி தாக்க மதிப்பெண் பரவல்",
+    sdgRegistry: "17 ஐ.நா. நிலையான வளர்ச்சி இலக்குகள் பதிவேடு",
+    matchedSchemesCount: "பொருந்திய திட்டங்கள்",
+
+    // NGO Operations Panel
+    ngoPanelTag: "எஸ்டிஜி 1-17 கள நடவடிக்கைகள் & பேரிடர் தீர்வு மையம்",
+    ngoPanelTitle: "கிராமப்புற என்ஜிஓ கள நடவடிக்கைகள் & புகார்கள் குழு",
+    ngoPanelSub: "குடிமக்கள் புகார்களைத் தீருங்கள், பேரிடர் இழப்புகளை நிர்வகியுங்கள், சூரிய மானிய விண்ணப்பங்களை ஆய்வு செய்யுங்கள்.",
+    issuesQueue: "களப் புகார்கள் ஆய்வு வரிசை",
+    solarSubsidyQueue: "எஸ்டிஜி 7 கூரை சூரிய மானிய விண்ணப்ப வரிசை",
+    clearIssueBtn: "அங்கீகரித்துத் தீர்க்கப்பட்டதாகக் குறி",
+    approveSolarBtn: "சூரிய கள ஆய்வை அங்கீகரி",
+    uploadRuralIssue: "பிரச்சனையைப் பதிவேற்று (புகைப்படத்துடன்)",
+    disasterLossHeading: "என்ஜிஓ பேரிடர் இழப்பு, நிவாரண நிதி & வெளியேற்ற நடவடிக்கை",
+    migrationWorkflowHeading: "குடிமக்கள் வெளியேற்றம் 4-படிமுறை பணிப்பாய்வு",
+    step1Reg: "படி 1: பதிவு",
+    step2Bus: "படி 2: பேருந்து பயணம்",
+    step3Camp: "படி 3: முகாம் சரிபார்ப்பு",
+    step4Rehab: "படி 4: மறுவாழ்வு",
+
+    // Developer Hub
+    devHubTag: "டெவலப்பர் & தொழில்நுட்ப கண்டுபிடிப்பாளர் சவால் தளம்",
+    devHubTitle: "கிராமப்புற எஸ்டிஜி தொழில்நுட்ப தீர்வு மையம்",
+    devHubSub: "என்ஜிஓக்கள் பதிவு செய்த கிராமப்புறப் பிரச்சனைகளைத் தீர்க்க மென்பொருள் பொறியாளர்கள் தொழில்நுட்ப அறிக்கைகளை உருவாக்குகிறார்கள்.",
+    activeChallenges: "தொழில்நுட்ப தீர்வுகளுக்காகக் காத்திருக்கும் கிராமப்புற சவால்கள்",
+    submitDevSolution: "தொழில்நுட்ப தீர்வு அறிக்கையைச் சமர்ப்பி",
+    githubCode: "கிட்ஹப் குறியீடு",
+    webDemo: "வெப் ஆப் டெமோ",
 
     // Auth View
     welcomeAuthTitle: "சஸ்டைன்-AI சூழலுக்கு வரவேற்கிறோம்",
@@ -604,13 +945,6 @@ export const TRANSLATIONS = {
     donateFood: "மீதமான உணவை தானம் செய்",
     claimMeal: "உணவைக் கோருங்கள்",
 
-    // 17 SDGs Dashboard
-    sdgTitle: "17 ஐ.நா. நிலையான வளர்ச்சி இலக்குகள்",
-    sdgSubtitle: "அரசுத் திட்டங்கள், கிராமப்புறப் பிரச்சனைகளை வகைப்படுத்தும் விரிவான குறியீடு.",
-    activeImpact: "செயலில் உள்ள தாக்கம்",
-    matchedSchemes: "பொருந்திய திட்டங்கள்",
-    inspectGoal: "இலக்கை ஆய்வு செய்",
-
     // Education & Career Hub
     eduHubTitle: "கல்வி மற்றும் தொழில் அதிகார மையம்",
     eduHubSubtitle: "உதவித்தொகைகள், பசுமை பயிற்சி, டிஜிட்டல் திறன் பயிற்சி முகாம்களைக் கண்டறியவும்.",
@@ -619,24 +953,6 @@ export const TRANSLATIONS = {
     bootcampsTab: "திறன் முகாம்கள்",
     checkEligibility: "தகுதியைச் சரிபார்க்கவும்",
     stipendBenefit: "உதவித்தொகை / பயன்:",
-
-    // NGO Operations Panel
-    ngoTitle: "என்ஜிஓ கள மற்றும் கிராமப்புற பிரச்சனை தீர்வு மையம்",
-    ngoSubtitle: "புகைப்பட ஆதாரத்துடன் சிக்கல்களைப் பதிவேற்றவும், பேரிடர் இழப்புகளை நிர்வகிக்கவும், வெளியேற்றத்தைக் கண்காணிக்கவும்.",
-    uploadRuralIssue: "பிரச்சனையைப் பதிவேற்று (புகைப்படத்துடன்)",
-    disasterLossHeading: "என்ஜிஓ பேரிடர் இழப்பு, நிவாரண நிதி & வெளியேற்ற நடவடிக்கை",
-    migrationWorkflowHeading: "குடிமக்கள் வெளியேற்றம் 4-படிமுறை பணிப்பாய்வு",
-    step1Reg: "படி 1: பதிவு",
-    step2Bus: "படி 2: பேருந்து பயணம்",
-    step3Camp: "படி 3: முகாம் சரிபார்ப்பு",
-    step4Rehab: "படி 4: மறுவாழ்வு",
-
-    // Developer Hub
-    devHubTitle: "டெவலப்பர் திறந்த மூல கண்டுபிடிப்பு மையம்",
-    devHubSubtitle: "என்ஜிஓக்கள் பதிவு செய்த கிராமப்புறப் பிரச்சனைகளுக்குத் தொழில்நுட்ப தீர்வுகளை உருவாக்குங்கள்.",
-    submitSolution: "தொழில்நுட்ப தீர்வு அறிக்கையைச் சமர்ப்பி",
-    githubCode: "கிட்ஹப் குறியீடு",
-    webDemo: "வெப் ஆப் டெமோ",
 
     // Common
     targetVillage: "இலக்கு கிராமம்:",

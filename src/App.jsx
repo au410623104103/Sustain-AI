@@ -188,6 +188,7 @@ export default function App() {
                 else setActiveView('auth');
               }}
               setActiveView={setActiveView}
+              currentLanguage={currentLanguage}
             />
           )}
 
@@ -222,6 +223,7 @@ export default function App() {
             <CleanEnergyView
               currentUser={currentUser}
               onApplyCleanEnergy={handleApplyCleanEnergy}
+              currentLanguage={currentLanguage}
             />
           )}
 

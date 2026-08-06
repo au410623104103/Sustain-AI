@@ -24,8 +24,11 @@ import {
   Code
 } from 'lucide-react';
 import { SDG_GOALS } from '../data/sdgData';
+import { TRANSLATIONS } from '../data/translations';
 
-export default function LandingView({ onGetStarted, onExploreServices, setActiveView }) {
+export default function LandingView({ onGetStarted, onExploreServices, setActiveView, currentLanguage }) {
+  const t = TRANSLATIONS[currentLanguage || 'English'] || TRANSLATIONS.English;
+
   const serviceCategories = [
     { icon: Activity, name: 'Healthcare', color: 'from-emerald-500 to-teal-500', desc: 'Free clinics, health insurance, emergency response & OPD', sdg: 'SDG 3' },
     { icon: GraduationCap, name: 'Education', color: 'from-blue-500 to-indigo-500', desc: 'Scholarships, tuition fee waivers, digital skill courses', sdg: 'SDG 4' },
@@ -74,59 +77,59 @@ export default function LandingView({ onGetStarted, onExploreServices, setActive
         <div className="absolute top-1/3 left-1/3 w-64 h-64 bg-teal-500/10 rounded-full blur-[100px] pointer-events-none"></div>
 
         {/* Humanized Badge */}
-        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-6 animate-pulse">
-          <Heart className="h-4 w-4 text-emerald-400 fill-emerald-400/20" />
-          <span>Human-Centric AI Intelligence Platform for Sustainable Development</span>
+        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-6 animate-pulse">
+          <Heart className="h-4 w-4 text-emerald-500 fill-emerald-500/20" />
+          <span>{t.landingTag}</span>
         </div>
 
         {/* Main Title */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-          Sustain<span className="gradient-text">AI</span>
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 leading-tight">
+          Sustain<span className="gradient-text-emerald">AI</span>
         </h1>
 
         {/* Tagline */}
-        <p className="text-xl sm:text-2xl font-medium text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed">
-          “One Platform. Every Citizen. Every Service. Every SDG.”
+        <p className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed">
+          “{t.heroTitle}”
         </p>
 
-        <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Connecting rural citizens, field NGOs, and tech developers into one compassionate ecosystem. We understand who you are and what your community needs.
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+          {t.heroSub}
         </p>
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
           <button
             onClick={onGetStarted}
-            className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-400 text-slate-950 font-bold text-base hover:shadow-2xl hover:shadow-emerald-500/30 hover:scale-105 transition-all flex items-center justify-center space-x-2 group"
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-400 text-slate-950 font-extrabold text-base hover:shadow-2xl hover:scale-105 transition-all flex items-center justify-center space-x-2 group"
           >
-            <span>Launch Citizen Gateway</span>
+            <span>{t.launchGateway}</span>
             <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </button>
 
           <button
             onClick={onExploreServices}
-            className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-slate-900 border border-slate-700 text-slate-200 hover:text-white hover:bg-slate-800 hover:border-slate-600 font-semibold text-base transition-all flex items-center justify-center space-x-2"
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-extrabold text-base transition-all flex items-center justify-center space-x-2 shadow-sm"
           >
-            <span>Explore 17 UN SDGs</span>
+            <span>{t.exploreSdgs}</span>
           </button>
         </div>
 
         {/* Demo Fast Pass */}
-        <div className="mt-12 p-4 rounded-2xl glass-panel border border-slate-800 max-w-xl mx-auto flex items-center justify-between">
+        <div className="mt-12 p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 max-w-xl mx-auto flex items-center justify-between shadow-sm">
           <div className="flex items-center space-x-3 text-left">
-            <div className="h-10 w-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+            <div className="h-10 w-10 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
               ⚡
             </div>
             <div>
-              <p className="text-xs font-bold text-white">Hackathon Evaluator Fast Pass</p>
-              <p className="text-[11px] text-slate-400">One-click demo login as Arun Kumar (20yo Low-Income Student)</p>
+              <p className="text-xs font-bold text-slate-900 dark:text-white">{t.fastPassTitle}</p>
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">{t.fastPassSub}</p>
             </div>
           </div>
           <button
             onClick={onGetStarted}
-            className="px-3.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 font-semibold text-xs border border-emerald-500/40 transition-colors"
+            className="px-3.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-bold text-xs border border-emerald-500/40 transition-colors"
           >
-            Demo Login →
+            {t.demoLoginBtn} →
           </button>
         </div>
       </section>
@@ -134,38 +137,38 @@ export default function LandingView({ onGetStarted, onExploreServices, setActive
       {/* Multi-Role Humanized Ecosystem Section */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Multi-Role Collaboration</span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white mt-1 mb-3">How SustainAI Connects People & Technology</h2>
-          <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">Empowering rural citizens, field NGOs, and developers in a unified compassionate loop.</p>
+          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Multi-Role Collaboration</span>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1 mb-3">How SustainAI Connects People & Technology</h2>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-xl mx-auto font-medium">Empowering rural citizens, field NGOs, and developers in a unified compassionate loop.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-3xl glass-panel border border-slate-800 space-y-3 text-center flex flex-col items-center">
-            <div className="h-12 w-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center font-bold text-xl mb-2">
+          <div className="p-6 rounded-3xl glass-panel border border-slate-200 dark:border-slate-800 space-y-3 text-center flex flex-col items-center shadow-sm">
+            <div className="h-12 w-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-xl mb-2">
               🏡
             </div>
-            <h3 className="text-base font-bold text-white">1. Rural Citizens</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">{t.roleCitizen}</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
               Select your village, discover local helping NGOs, ask AI for scholarships, and verify government scheme eligibility.
             </p>
           </div>
 
-          <div className="p-6 rounded-3xl glass-panel border border-slate-800 space-y-3 text-center flex flex-col items-center">
-            <div className="h-12 w-12 rounded-2xl bg-teal-500/20 border border-teal-500/40 text-teal-400 flex items-center justify-center font-bold text-xl mb-2">
+          <div className="p-6 rounded-3xl glass-panel border border-slate-200 dark:border-slate-800 space-y-3 text-center flex flex-col items-center shadow-sm">
+            <div className="h-12 w-12 rounded-2xl bg-teal-500/20 border border-teal-500/40 text-teal-600 dark:text-teal-400 flex items-center justify-center font-bold text-xl mb-2">
               🤝
             </div>
-            <h3 className="text-base font-bold text-white">2. NGO Field Officers</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">{t.roleNgo}</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
               Visit rural villages, upload field issues across all 17 SDGs, collaborate with tech developers, and clear community issues.
             </p>
           </div>
 
-          <div className="p-6 rounded-3xl glass-panel border border-slate-800 space-y-3 text-center flex flex-col items-center">
-            <div className="h-12 w-12 rounded-2xl bg-purple-500/20 border border-purple-500/40 text-purple-400 flex items-center justify-center font-bold text-xl mb-2">
+          <div className="p-6 rounded-3xl glass-panel border border-slate-200 dark:border-slate-800 space-y-3 text-center flex flex-col items-center shadow-sm">
+            <div className="h-12 w-12 rounded-2xl bg-purple-500/20 border border-purple-500/40 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-xl mb-2">
               💻
             </div>
-            <h3 className="text-base font-bold text-white">3. Tech Developers</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">{t.roleDev}</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
               Browse rural SDG problems, build AI models or web dashboards, submit solution reports, and earn developer impact scores.
             </p>
           </div>
@@ -175,25 +178,25 @@ export default function LandingView({ onGetStarted, onExploreServices, setActive
       {/* Human Stories & Citizen Testimonials */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Community Voices</span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white mt-1 mb-3">Real Stories & Human Impact</h2>
-          <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">Hear from real villagers, students, and rural health officers benefiting from SustainAI.</p>
+          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Community Voices</span>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1 mb-3">Real Stories & Human Impact</h2>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-xl mx-auto font-medium">Hear from real villagers, students, and rural health officers benefiting from SustainAI.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {communityStories.map((story, idx) => (
-            <div key={idx} className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4 flex flex-col justify-between hover:border-emerald-500/40 transition-all">
+            <div key={idx} className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-4 flex flex-col justify-between hover:border-emerald-500/40 transition-all shadow-sm">
               <div>
-                <Quote className="h-8 w-8 text-emerald-400/40 mb-2" />
-                <p className="text-xs text-slate-200 leading-relaxed italic">"{story.quote}"</p>
+                <Quote className="h-8 w-8 text-emerald-500/40 mb-2" />
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed italic font-medium">"{story.quote}"</p>
               </div>
 
-              <div className="pt-4 border-t border-slate-800 flex items-center space-x-3">
+              <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center space-x-3">
                 <img src={story.avatar} alt={story.author} className="h-10 w-10 rounded-full object-cover border border-emerald-500/40" />
                 <div>
-                  <h4 className="text-xs font-bold text-white">{story.author}</h4>
-                  <p className="text-[10px] text-slate-400">{story.role} • {story.location}</p>
-                  <span className="text-[9px] font-bold text-emerald-400">{story.sdg}</span>
+                  <h4 className="text-xs font-bold text-slate-900 dark:text-white">{story.author}</h4>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold">{story.role} • {story.location}</p>
+                  <span className="text-[9px] font-bold text-emerald-600 dark:text-emerald-400">{story.sdg}</span>
                 </div>
               </div>
             </div>
@@ -201,54 +204,13 @@ export default function LandingView({ onGetStarted, onExploreServices, setActive
         </div>
       </section>
 
-      {/* Essential Services Categories Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-4xl font-bold text-white mb-3">7 Essential Citizen Service Pillars</h2>
-          <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">Explore all public services brought together under one intelligent AI roof.</p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {serviceCategories.map((cat, idx) => {
-            const Icon = cat.icon;
-            return (
-              <div 
-                key={idx}
-                onClick={onGetStarted}
-                className="glass-panel glass-panel-hover p-6 rounded-3xl cursor-pointer group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`h-12 w-12 rounded-2xl bg-gradient-to-br ${cat.color} p-0.5 shadow-lg flex items-center justify-center`}>
-                      <div className="h-full w-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-                        <Icon className="h-6 w-6 text-white group-hover:scale-110 transition-transform" />
-                      </div>
-                    </div>
-                    <span className="text-[10px] font-bold px-2 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">
-                      {cat.sdg}
-                    </span>
-                  </div>
-                  <h3 className="text-base font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">{cat.name}</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed mb-4">{cat.desc}</p>
-                </div>
-
-                <div className="flex items-center text-xs font-semibold text-emerald-400 group-hover:translate-x-1 transition-transform">
-                  <span>Explore Opportunities</span>
-                  <ArrowRight className="h-3.5 w-3.5 ml-1" />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
       {/* 17 UN SDGs Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 sm:p-12 rounded-3xl glass-panel border border-slate-800 relative overflow-hidden">
+        <div className="p-8 sm:p-12 rounded-3xl glass-panel border border-slate-200 dark:border-slate-800 relative overflow-hidden shadow-sm">
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">United Nations Framework</span>
-            <h2 className="text-3xl font-extrabold text-white mt-1 mb-3">Mapped to 17 Sustainable Development Goals</h2>
-            <p className="text-xs sm:text-sm text-slate-400">
+            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">United Nations Framework</span>
+            <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mt-1 mb-3">Mapped to 17 Sustainable Development Goals</h2>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">
               SustainAI ties every scheme, scholarship, job opportunity, and rural civic report directly to official UN SDG targets.
             </p>
           </div>
@@ -269,8 +231,8 @@ export default function LandingView({ onGetStarted, onExploreServices, setActive
                     {sdg.number}
                   </span>
                 </div>
-                <h4 className="text-xs font-bold text-white leading-tight mb-1">{sdg.shortTitle}</h4>
-                <p className="text-[9px] text-slate-300 line-clamp-2">{sdg.targetFocus}</p>
+                <h4 className="text-xs font-bold text-slate-900 dark:text-white leading-tight mb-1">{sdg.shortTitle}</h4>
+                <p className="text-[9px] text-slate-600 dark:text-slate-300 line-clamp-2 font-medium">{sdg.targetFocus}</p>
               </div>
             ))}
           </div>
@@ -279,16 +241,16 @@ export default function LandingView({ onGetStarted, onExploreServices, setActive
 
       {/* Final CTA Banner */}
       <section className="max-w-5xl mx-auto px-4 text-center">
-        <div className="p-10 rounded-3xl bg-gradient-to-r from-emerald-950 via-slate-900 to-teal-950 border border-emerald-500/30 shadow-2xl relative overflow-hidden">
-          <h2 className="text-3xl font-bold text-white mb-4">Empowering Every Citizen. Leaving No One Behind.</h2>
-          <p className="text-sm text-slate-300 max-w-xl mx-auto mb-8">
-            Experience the future of public service intelligence. Try the live 24-hour hackathon prototype today.
+        <div className="p-10 rounded-3xl bg-gradient-to-r from-emerald-950 via-slate-900 to-teal-950 border border-emerald-500/30 shadow-2xl relative overflow-hidden text-white-force">
+          <h2 className="text-3xl font-bold text-white text-white-force mb-4">Empowering Every Citizen. Leaving No One Behind.</h2>
+          <p className="text-sm text-slate-300 text-white-force max-w-xl mx-auto mb-8 font-medium">
+            Experience the future of public service intelligence. Try the live 24-hour prototype today.
           </p>
           <button
             onClick={onGetStarted}
-            className="px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-extrabold text-sm hover:shadow-xl hover:shadow-emerald-500/30 transition-all inline-flex items-center space-x-2"
+            className="px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-extrabold text-sm hover:shadow-xl transition-all inline-flex items-center space-x-2"
           >
-            <span>Launch SustainAI Gateway</span>
+            <span>{t.launchGateway}</span>
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>

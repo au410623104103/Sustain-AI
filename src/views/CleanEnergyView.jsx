@@ -15,14 +15,17 @@ import {
   Phone
 } from 'lucide-react';
 import { SAMPLE_CLEAN_ENERGY_SCHEMES } from '../data/mockDatabase';
+import { TRANSLATIONS } from '../data/translations';
 
-export default function CleanEnergyView({ currentUser, onApplyCleanEnergy }) {
+export default function CleanEnergyView({ currentUser, onApplyCleanEnergy, currentLanguage }) {
   const [monthlyBill, setMonthlyBill] = useState(2500); // ₹2500 per month default
   const [selectedScheme, setSelectedScheme] = useState(null);
   const [applicantName, setApplicantName] = useState(currentUser?.name || 'Arun Kumar');
   const [applicantPhone, setApplicantPhone] = useState('+91 98450 11223');
   const [rooftopArea, setRooftopArea] = useState('350 sq ft (Sufficient for 3 kW Solar)');
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
+
+  const t = TRANSLATIONS[currentLanguage || 'English'] || TRANSLATIONS.English;
 
   // Solar Calculations based on Monthly Bill
   const recommendedKw = Math.min(10, Math.max(1, (monthlyBill / 800))).toFixed(1);
@@ -64,30 +67,30 @@ export default function CleanEnergyView({ currentUser, onApplyCleanEnergy }) {
         <div>
           <div className="flex items-center space-x-2 text-amber-600 dark:text-amber-400 text-xs font-semibold uppercase tracking-wider mb-1">
             <Zap className="h-4 w-4" />
-            <span>UN SDG 7 - Affordable & Clean Renewable Energy Gateway</span>
+            <span>{t.cleanTag}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold">Clean Renewable Energy & Solar Subsidy Portal</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">{t.cleanTitle}</h1>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1">
-            Calculate your rooftop solar bill savings, apply for government solar grants, and access clean cooking LPG connections.
+            {t.cleanSub}
           </p>
         </div>
 
         <div className="flex items-center space-x-2 p-2 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-bold">
           <Sun className="h-5 w-5 text-amber-500 animate-spin-slow" />
-          <span>PM Surya Ghar: Up to 300 Units Free Electricity</span>
+          <span>{t.pmSuryaBadge}</span>
         </div>
       </div>
 
       {/* INTERACTIVE ROOFTOP SOLAR & SUBSIDY SAVINGS CALCULATOR */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl border-2 border-amber-500/40 space-y-6">
+      <div className="glass-panel p-6 sm:p-8 rounded-3xl border-2 border-amber-500/40 space-y-6 shadow-sm">
         <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
           <div className="flex items-center space-x-3">
             <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-500 text-slate-950 flex items-center justify-center font-bold text-xl shadow-md">
               <Calculator className="h-6 w-6 text-white text-white-force" />
             </div>
             <div>
-              <h2 className="text-lg font-bold">Rooftop Solar & Government Subsidy Calculator</h2>
-              <p className="text-xs text-slate-600 dark:text-slate-400">Adjust your average monthly electricity bill to calculate subsidy grants and annual savings.</p>
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white">{t.solarCalcTitle}</h2>
+              <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">{t.solarCalcSub}</p>
             </div>
           </div>
         </div>
@@ -98,7 +101,7 @@ export default function CleanEnergyView({ currentUser, onApplyCleanEnergy }) {
           {/* Slider Controls */}
           <div className="lg:col-span-1 p-5 rounded-2xl bg-slate-100/90 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-600 dark:text-slate-400">Monthly Electricity Bill:</span>
+              <span className="text-xs font-bold text-slate-600 dark:text-slate-400">{t.monthlyBillLabel}</span>
               <strong className="text-xl font-black text-amber-600 dark:text-amber-400">₹{monthlyBill.toLocaleString()} / mo</strong>
             </div>
 
@@ -123,27 +126,27 @@ export default function CleanEnergyView({ currentUser, onApplyCleanEnergy }) {
           <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
             
             <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1 shadow-sm">
-              <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">Recommended Solar Size</span>
+              <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">{t.recommendedSolarSize}</span>
               <strong className="text-lg font-black text-slate-900 dark:text-white">{recommendedKw} kW</strong>
               <span className="text-[10px] text-slate-500 block">Rooftop Solar Plant</span>
             </div>
 
             <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/30 space-y-1 shadow-sm">
-              <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">Govt Grant Subsidy</span>
+              <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">{t.govtGrantSubsidy}</span>
               <strong className="text-lg font-black text-emerald-700 dark:text-emerald-400">₹{governmentGrantSubsidy.toLocaleString()}</strong>
-              <span className="text-[10px] text-emerald-600 dark:text-emerald-400 block font-semibold">Direct Bank Credit</span>
+              <span className="text-[10px] text-emerald-600 dark:text-emerald-400 block font-semibold">{t.directBankCredit}</span>
             </div>
 
             <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-500/30 space-y-1 shadow-sm">
-              <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">Annual Bill Savings</span>
+              <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">{t.annualSavings}</span>
               <strong className="text-lg font-black text-amber-700 dark:text-amber-400">₹{annualBillSavings.toLocaleString()} / yr</strong>
-              <span className="text-[10px] text-amber-600 dark:text-amber-400 block font-semibold">Up to 92% Bill Reduction</span>
+              <span className="text-[10px] text-amber-600 dark:text-amber-400 block font-semibold">{t.billReduction}</span>
             </div>
 
             <div className="p-4 rounded-2xl bg-teal-50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-500/30 space-y-1 shadow-sm">
-              <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">CO₂ Emissions Saved</span>
+              <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">{t.co2Saved}</span>
               <strong className="text-lg font-black text-teal-700 dark:text-teal-400">{annualCo2Saved} Tons</strong>
-              <span className="text-[10px] text-teal-600 dark:text-teal-400 block font-semibold">Carbon Footprint Saved</span>
+              <span className="text-[10px] text-teal-600 dark:text-teal-400 block font-semibold">{t.carbonFootprint}</span>
             </div>
 
           </div>
@@ -154,9 +157,9 @@ export default function CleanEnergyView({ currentUser, onApplyCleanEnergy }) {
       {/* CLEAN RENEWABLE ENERGY SCHEME REGISTRY */}
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-bold flex items-center space-x-2">
+          <h2 className="text-base font-bold flex items-center space-x-2 text-slate-900 dark:text-white">
             <Zap className="h-5 w-5 text-amber-500" />
-            <span>Subsidized Government Clean Energy & Solar Schemes</span>
+            <span>{t.subsidizedSchemesHeading}</span>
           </h2>
         </div>
 
@@ -164,7 +167,7 @@ export default function CleanEnergyView({ currentUser, onApplyCleanEnergy }) {
           {SAMPLE_CLEAN_ENERGY_SCHEMES.map((scheme) => (
             <div 
               key={scheme.id}
-              className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-4"
+              className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-4 shadow-sm"
             >
               <div>
                 <div className="flex items-center justify-between mb-2">
@@ -174,8 +177,8 @@ export default function CleanEnergyView({ currentUser, onApplyCleanEnergy }) {
                   <span className="text-[10px] font-extrabold text-emerald-700 dark:text-emerald-400">98% Eligible</span>
                 </div>
 
-                <h3 className="text-base font-bold mb-1">{scheme.name}</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">Provider: <strong className="text-slate-900 dark:text-slate-200">{scheme.provider}</strong></p>
+                <h3 className="text-base font-bold mb-1 text-slate-900 dark:text-white">{scheme.name}</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">Provider: <strong className="text-slate-900 dark:text-slate-200">{scheme.provider}</strong></p>
 
                 <div className="p-3 rounded-2xl bg-slate-100/90 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 space-y-2 text-xs">
                   <div>
@@ -191,13 +194,13 @@ export default function CleanEnergyView({ currentUser, onApplyCleanEnergy }) {
               </div>
 
               <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold">{scheme.eligibility}</span>
+                <span className="text-[10px] text-slate-600 dark:text-slate-400 font-semibold">{scheme.eligibility}</span>
 
                 <button
                   onClick={() => setSelectedScheme(scheme)}
                   className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-extrabold text-xs hover:shadow-lg transition-all"
                 >
-                  Apply Solar Subsidy
+                  {t.applySolarGrantBtn}
                 </button>
               </div>
             </div>
