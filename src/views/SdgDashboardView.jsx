@@ -18,6 +18,33 @@ import { SDG_GOALS } from '../data/sdgData';
 import { SAMPLE_SCHEMES } from '../data/mockDatabase';
 import { TRANSLATIONS } from '../data/translations';
 
+// Custom Bright Tooltip for SDG Bar Chart (100% Legible & High Contrast)
+const CustomSdgTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    return (
+      <div className="p-3.5 rounded-2xl bg-slate-900 border-2 border-emerald-500 shadow-2xl space-y-1.5 z-50 text-white-force">
+        <div className="flex items-center space-x-2">
+          <span 
+            className="text-[10px] font-extrabold px-2.5 py-0.5 rounded text-white shadow-sm" 
+            style={{ backgroundColor: data.color }}
+          >
+            {data.name}
+          </span>
+          <span className="text-xs font-black text-white">{data.fullName}</span>
+        </div>
+        <div className="text-xs font-extrabold text-emerald-400">
+          Impact Score: <span className="text-white font-bold">{data.score} PTS</span>
+        </div>
+        <p className="text-[11px] text-slate-200 font-semibold">
+          Matched Schemes: <strong className="text-amber-400">{data.matchedCount} Active Schemes</strong>
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
+
 export default function SdgDashboardView({ currentUser, onCheckEligibility, currentLanguage }) {
   // Toggle for activating all 17 SDGs for full demo showcase
   const [activateAllSdgs, setActivateAllSdgs] = useState(true);
@@ -63,7 +90,7 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility, curr
     return {
       name: sdg.number,
       fullName: sdg.shortTitle,
-      score: isActive ? 70 + (sdg.id * 1.5) % 28 : 20,
+      score: isActive ? Math.round(70 + (sdg.id * 1.5) % 28) : 20,
       color: sdg.color,
       matchedCount: matchedCount
     };
@@ -134,17 +161,7 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility, curr
             <BarChart data={chartData} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
               <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} tickLine={false} />
               <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} domain={[0, 100]} />
-              <Tooltip
-                contentStyle={{ 
-                  backgroundColor: '#0f172a', 
-                  borderColor: '#334155', 
-                  borderRadius: '12px',
-                  color: '#fff',
-                  fontSize: '12px',
-                  fontWeight: 'bold'
-                }}
-                formatter={(value, name, props) => [`Score: ${value} PTS (${props.payload.matchedCount} Schemes)`, props.payload.fullName]}
-              />
+              <Tooltip content={<CustomSdgTooltip />} />
               <Bar dataKey="score" radius={[6, 6, 0, 0]}>
                 {chartData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
@@ -217,65 +234,16 @@ export default function SdgDashboardView({ currentUser, onCheckEligibility, curr
                 </div>
 
                 <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
-                  <div className="text-[10px] font-semibold text-slate-600 dark:text-slate-400">
-                    <span className="text-slate-500 block text-[9px] uppercase tracking-wider font-bold">{t.targetPriorityLabel}</span>
-                    <span className="text-slate-900 dark:text-slate-200 font-bold">{sdg.targetFocus}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-1">
-                    <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                      {matchedSchemes.length} {t.matchedSchemesCount}
-                    </span>
-
-                    <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 flex items-center space-x-0.5 group-hover:text-emerald-600 dark:group-hover:text-white transition-colors">
-                      <span>{t.inspectBtn}</span>
-                      <ChevronRight className="h-3 w-3" />
-                    </span>
+                  <div className="text-[10px] font-semibold text-slate-600 dark:text-slate-400 flex items-center justify-between">
+                    <span>Matched Govt Schemes:</span>
+                    <strong className="text-emerald-600 dark:text-emerald-400 font-extrabold">{matchedSchemes.length} Schemes</strong>
                   </div>
                 </div>
-
               </div>
             );
           })}
         </div>
       </div>
-
-      {/* Selected SDG Matched Schemes Drill-Down Section */}
-      {selectedSdgObj && (
-        <div className="p-6 rounded-3xl glass-panel border-2 border-emerald-500/50 space-y-4 animate-in fade-in">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <span className="text-xs font-extrabold px-2.5 py-0.5 rounded text-white" style={{ backgroundColor: selectedSdgObj.color }}>
-                {selectedSdgObj.number}
-              </span>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">Matched Services for {selectedSdgObj.title}</h3>
-            </div>
-            <button onClick={() => setSelectedSdgFilter(null)} className="text-xs text-slate-400 hover:text-white">✕ Close Filter</button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {filteredSchemesForSdg.length === 0 ? (
-              <p className="text-xs text-slate-500 col-span-full">No active schemes mapped directly to this SDG ID.</p>
-            ) : (
-              filteredSchemesForSdg.map((scheme) => (
-                <div key={scheme.id} className="p-4 rounded-2xl bg-slate-100/90 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 space-y-2">
-                  <h4 className="text-xs font-bold text-slate-900 dark:text-white">{scheme.name}</h4>
-                  <p className="text-[11px] text-slate-700 dark:text-slate-300 font-medium">{scheme.description}</p>
-                  <div className="pt-2 border-t border-slate-200 dark:border-slate-900 flex items-center justify-between text-xs">
-                    <span className="text-emerald-700 dark:text-emerald-400 font-bold">{scheme.benefits}</span>
-                    <button
-                      onClick={() => onCheckEligibility(scheme)}
-                      className="px-3 py-1 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs"
-                    >
-                      Apply / Eligibility
-                    </button>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-      )}
 
     </div>
   );
