@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Bell, Key, User, Menu, X, Building2, Code, Globe, CheckCircle2, Sun, Moon, Heart, Home, Languages, RefreshCw, Radio, LogOut, ShieldCheck, ArrowRightLeft } from 'lucide-react';
+import { Sparkles, Bell, Key, User, Menu, X, CheckCircle2, Sun, Moon, Languages, RefreshCw, Radio, LogOut, ShieldCheck } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
 
 export default function Navbar({ 
@@ -16,8 +16,7 @@ export default function Navbar({
   currentLanguage,
   setCurrentLanguage,
   onResetDatabase,
-  onLogout,
-  onSwitchRole
+  onLogout
 }) {
   const [showNotifications, setShowNotifications] = useState(false);
   const unreadCount = notifications.filter(n => !n.read).length;
@@ -37,14 +36,12 @@ export default function Navbar({
 
   const defaultAvatar = currentUser ? `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(currentUser.name)}` : '';
 
-  const roleBadges = {
-    citizen: { label: '👤 Citizen', color: 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30' },
-    ngo: { label: '🤝 NGO Partner', color: 'bg-purple-500/20 text-purple-600 dark:text-purple-400 border-purple-500/30' },
-    developer: { label: '💻 Developer', color: 'bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border-cyan-500/30' },
-    sdg_admin: { label: '🌍 SDG Admin', color: 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/30' }
+  const roleTitles = {
+    citizen: '👤 Citizen Portal',
+    ngo: '🤝 NGO Partner Network',
+    developer: '💻 Developer Hub',
+    sdg_admin: '🌍 SDG Administrator Command'
   };
-
-  const currentRoleBadge = roleBadges[currentUser?.role || 'citizen'] || roleBadges.citizen;
 
   return (
     <header className="sticky top-0 z-40 w-full glass-panel border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
@@ -63,8 +60,8 @@ export default function Navbar({
                 <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-white">
                   Sustain<span className="text-emerald-500">AI</span>
                 </span>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hidden sm:inline-block">
-                  AI OS Platform
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                  {roleTitles[currentUser?.role || 'citizen'] || 'Portal'}
                 </span>
               </div>
               
@@ -76,43 +73,7 @@ export default function Navbar({
             </div>
           </div>
 
-          {/* Quick Role Navigation Pills */}
-          <div className="hidden lg:flex items-center space-x-1 p-1 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs">
-            <button
-              onClick={() => setActiveView('dashboard')}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
-                activeView === 'dashboard' ? 'bg-emerald-500 text-slate-950 shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              Citizen OS
-            </button>
-            <button
-              onClick={() => setActiveView('ngo-panel')}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
-                activeView === 'ngo-panel' ? 'bg-purple-600 text-white shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              NGO Panel
-            </button>
-            <button
-              onClick={() => setActiveView('developer-hub')}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
-                activeView === 'developer-hub' ? 'bg-cyan-500 text-slate-950 shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              Dev Hub
-            </button>
-            <button
-              onClick={() => setActiveView('sdg-impact')}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
-                activeView === 'sdg-impact' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              SDG Analytics
-            </button>
-          </div>
-
-          {/* Right Controls: Language, Theme, API Key, Notifications, Role Badge & Logout */}
+          {/* Right Controls: Language, Theme, API Key, Notifications, Avatar & Logout */}
           <div className="flex items-center space-x-3">
             
             {/* Multilingual Selector */}
@@ -230,20 +191,9 @@ export default function Navbar({
               </div>
             )}
 
-            {/* Profile Avatar / Active Role Badge & Logout */}
+            {/* User Profile Box & Logout Button */}
             {currentUser ? (
               <div className="flex items-center space-x-2 pl-2 border-l border-slate-200 dark:border-slate-800">
-                {/* Active Role Badge */}
-                <button
-                  onClick={onSwitchRole}
-                  className={`hidden sm:flex items-center space-x-1 px-2.5 py-1 rounded-xl text-xs font-extrabold border ${currentRoleBadge.color}`}
-                  title="Click to Switch Portal Role"
-                >
-                  <span>{currentRoleBadge.label}</span>
-                  <ArrowRightLeft className="h-3 w-3 ml-0.5" />
-                </button>
-
-                {/* Profile Box */}
                 <div 
                   onClick={() => setActiveView('profile')}
                   className="flex items-center space-x-2 cursor-pointer group"
@@ -255,7 +205,7 @@ export default function Navbar({
                       className="h-full w-full object-cover rounded-full"
                     />
                   </div>
-                  <div className="hidden xl:block text-left">
+                  <div className="hidden sm:block text-left">
                     <p className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors leading-tight">{currentUser.name}</p>
                     <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">{currentUser.ruralDistrict || 'Ramanagara District'}</p>
                   </div>
@@ -270,14 +220,7 @@ export default function Navbar({
                   <LogOut className="h-4 w-4" />
                 </button>
               </div>
-            ) : (
-              <button
-                onClick={onSwitchRole}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-extrabold text-xs hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
-              >
-                Sign In
-              </button>
-            )}
+            ) : null}
 
             {/* Mobile menu trigger */}
             <button

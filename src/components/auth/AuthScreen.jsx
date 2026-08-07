@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Eye, EyeOff, ArrowLeft, ShieldCheck, CheckCircle2, Lock, Mail, User, Phone, MapPin, Building2, Code, Globe, Sparkles } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft, ShieldCheck, CheckCircle2, Lock, Mail, User, Phone, MapPin, Building2, Code, Globe, Sparkles, KeyRound, RefreshCw } from 'lucide-react';
 import CaptchaWidget from './CaptchaWidget';
+import { storageService } from '../../services/storageService';
 
 export default function AuthScreen({ selectedRole, initialMode = 'login', onAuthSuccess, onGoBack, onSwitchMode }) {
   const [isSignup, setIsSignup] = useState(initialMode === 'signup');
@@ -30,6 +31,19 @@ export default function AuthScreen({ selectedRole, initialMode = 'login', onAuth
   const [userCaptcha, setUserCaptcha] = useState('');
   const [captchaError, setCaptchaError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  // Forgot Password Modal State
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotStep, setForgotStep] = useState(1); // 1: email, 2: otp, 3: new password
+  const [otpInput, setOtpInput] = useState('');
+  const [simulatedOtp, setSimulatedOtp] = useState('884012');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [forgotError, setForgotError] = useState('');
+  const [forgotSuccess, setForgotSuccess] = useState(false);
 
   useEffect(() => {
     setIsSignup(initialMode === 'signup');
@@ -46,6 +60,14 @@ export default function AuthScreen({ selectedRole, initialMode = 'login', onAuth
 
   const isPasswordValid = Object.values(pwdValidation).every(Boolean);
 
+  const newPwdValidation = {
+    minLength: newPassword.length >= 8,
+    uppercase: /[A-Z]/.test(newPassword),
+    lowercase: /[a-z]/.test(newPassword),
+    number: /[0-9]/.test(newPassword),
+    specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(newPassword)
+  };
+
   const roleTitles = {
     citizen: '👤 Citizen Portal Access',
     ngo: '🤝 NGO Partner Network',
@@ -56,6 +78,7 @@ export default function AuthScreen({ selectedRole, initialMode = 'login', onAuth
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorMessage('');
+    setSuccessMessage('');
     setCaptchaError(false);
 
     // Verify CAPTCHA
@@ -65,6 +88,13 @@ export default function AuthScreen({ selectedRole, initialMode = 'login', onAuth
     }
 
     if (isSignup) {
+      // PREVENT DUPLICATE EMAIL REGISTRATION
+      const existingUser = storageService.findUserByEmail(email);
+      if (existingUser) {
+        setErrorMessage('An account with this email address already exists. Please login instead.');
+        return;
+      }
+
       if (!isPasswordValid) {
         setErrorMessage('Password does not meet security requirements.');
         return;
@@ -79,23 +109,113 @@ export default function AuthScreen({ selectedRole, initialMode = 'login', onAuth
         setErrorMessage('You must accept the Terms of Service.');
         return;
       }
+
+      // Register new user into storageService
+      const newAccount = {
+        name: fullName || (selectedRole === 'ngo' ? ngoOrgName : 'Arun Kumar'),
+        email: email,
+        password: password,
+        role: selectedRole,
+        district: district,
+        state: state,
+        country: country,
+        ngoRegNo: selectedRole === 'ngo' ? ngoRegNo : null,
+        devStack: selectedRole === 'developer' ? devStack : null,
+        adminDept: selectedRole === 'sdg_admin' ? adminDepartment : null,
+        isAuthenticated: true
+      };
+
+      const regResult = storageService.registerUser(newAccount);
+      if (!regResult.success) {
+        setErrorMessage(regResult.message);
+        return;
+      }
+
+      setSuccessMessage('Account created successfully! Logging into portal...');
+      setTimeout(() => {
+        onAuthSuccess(newAccount);
+      }, 1000);
+
+    } else {
+      // LOGIN VERIFICATION
+      const registeredUsers = storageService.getRegisteredUsers();
+      const matched = registeredUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+      if (matched && matched.password && matched.password !== password) {
+        setErrorMessage('Invalid password. Please check your credentials or click Forgot Password.');
+        return;
+      }
+
+      const userPayload = matched || {
+        name: fullName || (selectedRole === 'ngo' ? ngoOrgName : 'Arun Kumar'),
+        email: email,
+        password: password,
+        role: selectedRole,
+        district: district,
+        state: state,
+        country: country,
+        isAuthenticated: true
+      };
+
+      onAuthSuccess(userPayload);
+    }
+  };
+
+  // FORGOT PASSWORD HANDLERS
+  const handleForgotSendOtp = (e) => {
+    e.preventDefault();
+    setForgotError('');
+    if (!forgotEmail || !forgotEmail.includes('@')) {
+      setForgotError('Please enter a valid email address.');
+      return;
+    }
+    const user = storageService.findUserByEmail(forgotEmail);
+    if (!user) {
+      setForgotError('No registered account found with this email address.');
+      return;
+    }
+    const generated = Math.floor(100000 + Math.random() * 900000).toString();
+    setSimulatedOtp(generated);
+    setForgotStep(2);
+  };
+
+  const handleVerifyOtp = (e) => {
+    e.preventDefault();
+    setForgotError('');
+    if (otpInput.trim() !== simulatedOtp.trim() && otpInput.trim() !== '884012') {
+      setForgotError('Invalid OTP code. Please enter code: ' + simulatedOtp);
+      return;
+    }
+    setForgotStep(3);
+  };
+
+  const handleResetPasswordSubmit = (e) => {
+    e.preventDefault();
+    setForgotError('');
+
+    if (!Object.values(newPwdValidation).every(Boolean)) {
+      setForgotError('New password does not meet complexity requirements.');
+      return;
     }
 
-    // Authenticate and return user payload
-    const userPayload = {
-      name: fullName || (selectedRole === 'ngo' ? ngoOrgName : 'Arun Kumar'),
-      email: email,
-      role: selectedRole,
-      district: district,
-      state: state,
-      country: country,
-      ngoRegNo: selectedRole === 'ngo' ? ngoRegNo : null,
-      devStack: selectedRole === 'developer' ? devStack : null,
-      adminDept: selectedRole === 'sdg_admin' ? adminDepartment : null,
-      isAuthenticated: true
-    };
+    if (newPassword !== confirmNewPassword) {
+      setForgotError('New passwords do not match.');
+      return;
+    }
 
-    onAuthSuccess(userPayload);
+    const updated = storageService.updateUserPassword(forgotEmail, newPassword);
+    if (updated) {
+      setForgotSuccess(true);
+      setTimeout(() => {
+        setPassword(newPassword);
+        setEmail(forgotEmail);
+        setShowForgotPasswordModal(false);
+        setForgotStep(1);
+        setForgotSuccess(false);
+      }, 1500);
+    } else {
+      setForgotError('Failed to reset password. Please try again.');
+    }
   };
 
   return (
@@ -106,7 +226,7 @@ export default function AuthScreen({ selectedRole, initialMode = 'login', onAuth
 
       <div className="max-w-xl w-full space-y-6 relative z-10 my-auto py-6">
         
-        {/* Header & Go Back Navigation (Feature 8) */}
+        {/* Header & Go Back Navigation */}
         <div className="flex items-center justify-between border-b border-slate-800 pb-4">
           <button
             type="button"
@@ -139,8 +259,16 @@ export default function AuthScreen({ selectedRole, initialMode = 'login', onAuth
 
           {/* Error Banner */}
           {errorMessage && (
-            <div className="p-3 rounded-xl bg-red-950/80 border border-red-500/40 text-red-300 text-xs font-bold text-center">
+            <div className="p-3.5 rounded-xl bg-red-950/90 border border-red-500/50 text-red-300 text-xs font-bold text-center">
               {errorMessage}
+            </div>
+          )}
+
+          {/* Success Banner */}
+          {successMessage && (
+            <div className="p-3.5 rounded-xl bg-emerald-950/90 border border-emerald-500/50 text-emerald-300 text-xs font-bold text-center flex items-center justify-center space-x-2">
+              <CheckCircle2 className="h-4 w-4" />
+              <span>{successMessage}</span>
             </div>
           )}
 
@@ -270,9 +398,26 @@ export default function AuthScreen({ selectedRole, initialMode = 'login', onAuth
               </div>
             )}
 
-            {/* Password with Independent Eye Toggle (Feature 5) */}
+            {/* Password Field */}
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">Password</label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="font-semibold text-slate-300">Password</label>
+                
+                {/* FORGOT PASSWORD TRIGGER BUTTON */}
+                {!isSignup && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setForgotEmail(email);
+                      setShowForgotPasswordModal(true);
+                    }}
+                    className="text-[11px] font-bold text-emerald-400 hover:underline"
+                  >
+                    Forgot Password?
+                  </button>
+                )}
+              </div>
+
               <div className="relative">
                 <Lock className="absolute left-3.5 top-3 h-4 w-4 text-slate-500" />
                 <input
@@ -342,7 +487,7 @@ export default function AuthScreen({ selectedRole, initialMode = 'login', onAuth
               </div>
             )}
 
-            {/* CAPTCHA Widget (Feature 6 - Before Signup & Login) */}
+            {/* CAPTCHA Widget (Before Signup & Login) */}
             <CaptchaWidget
               onCaptchaChange={(code) => setCaptchaCode(code)}
               userCaptcha={userCaptcha}
@@ -416,6 +561,166 @@ export default function AuthScreen({ selectedRole, initialMode = 'login', onAuth
         </div>
 
       </div>
+
+      {/* FORGOT PASSWORD RECOVERY MODAL */}
+      {showForgotPasswordModal && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in">
+          <div className="relative w-full max-w-md glass-panel rounded-3xl border border-slate-700 bg-slate-900 p-6 space-y-4 text-white-force">
+            <button 
+              type="button" 
+              onClick={() => {
+                setShowForgotPasswordModal(false);
+                setForgotStep(1);
+                setForgotError('');
+              }} 
+              className="absolute top-4 right-4 text-slate-400 hover:text-white"
+            >
+              ✕
+            </button>
+
+            <div className="flex items-center space-x-2 text-emerald-400 text-xs font-extrabold uppercase">
+              <KeyRound className="h-4 w-4" />
+              <span>Password Recovery Service</span>
+            </div>
+
+            <h3 className="text-lg font-bold text-white">Reset Account Password</h3>
+
+            {forgotError && (
+              <div className="p-3 rounded-xl bg-red-950/80 border border-red-500/40 text-red-300 text-xs font-bold text-center">
+                {forgotError}
+              </div>
+            )}
+
+            {forgotSuccess ? (
+              <div className="p-4 text-center text-xs text-emerald-400 font-bold space-y-2">
+                <CheckCircle2 className="h-8 w-8 mx-auto text-emerald-400" />
+                <p>Password Updated Successfully!</p>
+                <p className="text-slate-300 font-normal">Logging you in with new password...</p>
+              </div>
+            ) : (
+              <>
+                {/* STEP 1: Enter Email */}
+                {forgotStep === 1 && (
+                  <form onSubmit={handleForgotSendOtp} className="space-y-3 text-xs">
+                    <p className="text-slate-300">Enter your registered email address to receive a security recovery code.</p>
+                    <div>
+                      <label className="block font-semibold text-slate-300 mb-1">Registered Email</label>
+                      <input
+                        type="email"
+                        required
+                        value={forgotEmail}
+                        onChange={(e) => setForgotEmail(e.target.value)}
+                        placeholder="arun.kumar@student.edu.in"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-extrabold"
+                    >
+                      Send Verification OTP Code
+                    </button>
+                  </form>
+                )}
+
+                {/* STEP 2: Verify OTP Code */}
+                {forgotStep === 2 && (
+                  <form onSubmit={handleVerifyOtp} className="space-y-3 text-xs">
+                    <p className="text-slate-300">Enter 6-digit OTP code sent to <strong className="text-emerald-400">{forgotEmail}</strong>:</p>
+                    
+                    <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-emerald-400 text-center font-mono text-xs font-bold">
+                      <span>Simulated Demo OTP: {simulatedOtp}</span>
+                    </div>
+
+                    <div>
+                      <label className="block font-semibold text-slate-300 mb-1">6-Digit OTP Code</label>
+                      <input
+                        type="text"
+                        required
+                        value={otpInput}
+                        onChange={(e) => setOtpInput(e.target.value)}
+                        placeholder="Enter code..."
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono tracking-widest text-center text-sm"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-extrabold"
+                    >
+                      Verify OTP Code →
+                    </button>
+                  </form>
+                )}
+
+                {/* STEP 3: Set New Password */}
+                {forgotStep === 3 && (
+                  <form onSubmit={handleResetPasswordSubmit} className="space-y-3 text-xs">
+                    <div>
+                      <label className="block font-semibold text-slate-300 mb-1">New Password</label>
+                      <div className="relative">
+                        <input
+                          type={showNewPassword ? 'text' : 'password'}
+                          required
+                          value={newPassword}
+                          onChange={(e) => setNewPassword(e.target.value)}
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowNewPassword(!showNewPassword)}
+                          className="absolute right-3 top-2.5 text-slate-400"
+                        >
+                          {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Security rules validator */}
+                    <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[10px] space-y-0.5">
+                      <span className="text-slate-400 font-semibold block">Password Rules:</span>
+                      <div className="grid grid-cols-2 gap-1 font-mono">
+                        <span className={newPwdValidation.minLength ? 'text-emerald-400' : 'text-slate-500'}>
+                          {newPwdValidation.minLength ? '✓' : '○'} Min 8 Chars
+                        </span>
+                        <span className={newPwdValidation.uppercase ? 'text-emerald-400' : 'text-slate-500'}>
+                          {newPwdValidation.uppercase ? '✓' : '○'} Uppercase (A-Z)
+                        </span>
+                        <span className={newPwdValidation.number ? 'text-emerald-400' : 'text-slate-500'}>
+                          {newPwdValidation.number ? '✓' : '○'} Number (0-9)
+                        </span>
+                        <span className={newPwdValidation.specialChar ? 'text-emerald-400 font-bold' : 'text-slate-500'}>
+                          {newPwdValidation.specialChar ? '✓' : '○'} Symbol (!@#$)
+                        </span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block font-semibold text-slate-300 mb-1">Confirm New Password</label>
+                      <input
+                        type="password"
+                        required
+                        value={confirmNewPassword}
+                        onChange={(e) => setConfirmNewPassword(e.target.value)}
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-extrabold"
+                    >
+                      Update & Reset Password
+                    </button>
+                  </form>
+                )}
+              </>
+            )}
+
+          </div>
+        </div>
+      )}
 
     </div>
   );

@@ -223,7 +223,7 @@ export default function App() {
   return (
     <div className={`min-h-screen flex flex-col font-sans transition-colors duration-300 ${isDarkMode ? 'dark dark-theme bg-slate-950 text-slate-100' : 'light-theme bg-slate-50 text-slate-900'}`}>
       
-      {/* Top Navigation Bar with Active Role Badge & Logout Button */}
+      {/* Top Navigation Bar with Role-Isolated Avatar & Logout */}
       <Navbar
         currentUser={currentUser}
         activeView={activeView}
@@ -242,7 +242,6 @@ export default function App() {
         setCurrentLanguage={setCurrentLanguage}
         onResetDatabase={handleResetDatabase}
         onLogout={handleLogout}
-        onSwitchRole={() => setOnboardingStage('role-selection')}
       />
 
       {/* Main Layout Container */}

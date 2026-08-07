@@ -23,34 +23,46 @@ export default function Sidebar({ activeView, setActiveView, currentUser, onLogo
   if (!currentUser) return null;
 
   const t = TRANSLATIONS[currentLanguage || 'English'] || TRANSLATIONS.English;
-
-  const isCitizenRole = activeView === 'dashboard' || activeView === 'profile' || activeView === 'ai-assistant' || activeView === 'schemes' || activeView === 'education-jobs' || activeView === 'healthcare' || activeView === 'civic-reporting' || activeView === 'landing' || activeView === 'food-donation' || activeView === 'education-sponsors' || activeView === 'disaster-support' || activeView === 'clean-energy';
-  const isNgoRole = activeView === 'ngo-panel';
-  const isDevRole = activeView === 'developer-hub';
+  const role = currentUser.role || 'citizen';
 
   const defaultAvatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(currentUser.name || 'User')}`;
 
-  const navItems = [
-    { id: 'dashboard', label: t.navDashboard, icon: LayoutDashboard, badge: null },
-    { id: 'clean-energy', label: t.navCleanEnergy, icon: Zap, badge: t.badgeSolarLpg },
-    { id: 'disaster-support', label: t.navDisasterMap, icon: AlertTriangle, badge: t.badgeSdg11_13 },
-    { id: 'food-donation', label: t.navFoodDonation, icon: UtensilsCrossed, badge: t.badgeZeroWaste },
-    { id: 'education-sponsors', label: t.navEduSponsors, icon: GraduationCap, badge: t.badgeLaptopFee },
-    { id: 'ngo-panel', label: t.navNgoPanel, icon: Building2, badge: t.badge17Sdgs },
-    { id: 'developer-hub', label: t.navDevHub, icon: Code, badge: t.badgeTechSolutions },
-    { id: 'ai-assistant', label: t.navAskAi, icon: Sparkles, badge: t.badgeAi },
-    { id: 'schemes', label: t.navSchemeFinder, icon: Landmark, badge: t.badge17Schemes },
-    { id: 'education-jobs', label: t.navEduCareer, icon: GraduationCap, badge: null },
-    { id: 'healthcare', label: t.navHealthCamps, icon: Activity, badge: t.badgeFreeCamps },
-    
-    // RESTRICT CIVIC & ENVIRONMENT REPORTING TO CITIZENS ONLY!
-    ...(isCitizenRole || activeView === 'sdg-impact' ? [
-      { id: 'civic-reporting', label: t.navCivicReporting, icon: FileText, badge: t.badgePostIssue }
-    ] : []),
+  // Role-Specific Authorized Navigation Items (Strict Role Isolation)
+  let navItems = [];
 
-    { id: 'sdg-impact', label: t.navSdgImpact, icon: Globe, badge: t.badge17Sdgs },
-    { id: 'profile', label: t.navProfile, icon: User, badge: null },
-  ];
+  if (role === 'ngo') {
+    navItems = [
+      { id: 'ngo-panel', label: '🤝 NGO Field Panel', icon: Building2, badge: '17 SDGs' },
+      { id: 'sdg-impact', label: '🌍 SDG Analytics', icon: Globe, badge: 'Monitoring' },
+      { id: 'profile', label: '👤 NGO Profile', icon: User, badge: null }
+    ];
+  } else if (role === 'developer') {
+    navItems = [
+      { id: 'developer-hub', label: '💻 Developer Hub', icon: Code, badge: 'APIs & AI' },
+      { id: 'sdg-impact', label: '🌍 SDG Impact Data', icon: Globe, badge: 'Analytics' },
+      { id: 'profile', label: '👤 Dev Profile', icon: User, badge: null }
+    ];
+  } else if (role === 'sdg_admin') {
+    navItems = [
+      { id: 'sdg-impact', label: '🌍 SDG Monitoring OS', icon: Globe, badge: '17 SDGs' },
+      { id: 'profile', label: '👤 Admin Profile', icon: User, badge: null }
+    ];
+  } else {
+    // Default Citizen Role Navigation
+    navItems = [
+      { id: 'dashboard', label: t.navDashboard || 'Citizen OS', icon: LayoutDashboard, badge: null },
+      { id: 'ai-assistant', label: t.navAskAi || 'SustainAI Assistant', icon: Sparkles, badge: 'AI' },
+      { id: 'schemes', label: t.navSchemeFinder || 'Smart Scheme Finder', icon: Landmark, badge: 'Schemes' },
+      { id: 'education-jobs', label: t.navEduCareer || 'Education & Career', icon: GraduationCap, badge: null },
+      { id: 'healthcare', label: t.navHealthCamps || 'Healthcare Camps', icon: Activity, badge: 'Free Camps' },
+      { id: 'clean-energy', label: t.navCleanEnergy || 'Clean Solar Grants', icon: Zap, badge: 'Solar & LPG' },
+      { id: 'disaster-support', label: t.navDisasterMap || 'Disaster Climate Map', icon: AlertTriangle, badge: 'Radar Map' },
+      { id: 'food-donation', label: t.navFoodDonation || 'Excess Food Hub', icon: UtensilsCrossed, badge: 'Zero Waste' },
+      { id: 'civic-reporting', label: t.navCivicReporting || 'Civic Issue Reporting', icon: FileText, badge: 'Report' },
+      { id: 'sdg-impact', label: t.navSdgImpact || '17 SDGs Analytics', icon: Globe, badge: 'Analytics' },
+      { id: 'profile', label: t.navProfile || 'My Profile', icon: User, badge: null }
+    ];
+  }
 
   return (
     <>
@@ -74,7 +86,7 @@ export default function Sidebar({ activeView, setActiveView, currentUser, onLogo
               <div className="flex items-center space-x-1 mt-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping"></span>
                 <span className="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
-                  {isNgoRole ? t.ngoActive : isDevRole ? t.devActive : t.citizenActive}
+                  {role.toUpperCase()} PORTAL ACTIVE
                 </span>
               </div>
             </div>
@@ -83,7 +95,7 @@ export default function Sidebar({ activeView, setActiveView, currentUser, onLogo
 
         {/* Navigation Menu */}
         <div className="flex-1 space-y-1 overflow-y-auto">
-          <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-3 mb-2">{t.ecosystemNav}</p>
+          <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-3 mb-2">Authorized Navigation</p>
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeView === item.id;
@@ -123,7 +135,7 @@ export default function Sidebar({ activeView, setActiveView, currentUser, onLogo
               <ShieldCheck className="h-4 w-4" />
               <span>{t.universalScore}: {currentUser.impactScore || 840}</span>
             </div>
-            <p className="text-[10px] text-slate-600 dark:text-slate-400 leading-tight">Supporting Citizens, Field NGOs & Developers across 17 SDGs.</p>
+            <p className="text-[10px] text-slate-600 dark:text-slate-400 leading-tight">Strict Role Isolation Enabled for {role.toUpperCase()}.</p>
           </div>
 
           <button

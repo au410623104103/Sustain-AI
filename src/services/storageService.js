@@ -1,226 +1,206 @@
 import { 
+  DEFAULT_DEMO_USER, 
+  SAMPLE_SCHEMES, 
+  SAMPLE_OPPORTUNITIES, 
+  SAMPLE_MEDICAL_CAMPS, 
+  SAMPLE_CLEAN_ENERGY_SCHEMES,
+  SAMPLE_FOOD_DONATIONS, 
   SAMPLE_RURAL_ISSUES, 
   SAMPLE_DEVELOPER_SOLUTIONS, 
-  SAMPLE_NOTIFICATIONS, 
-  SAMPLE_MEDICAL_CAMPS 
+  SAMPLE_NGOS 
 } from '../data/mockDatabase';
 
 const STORAGE_KEYS = {
-  CURRENT_USER: 'sustainai_current_user',
-  RURAL_ISSUES: 'sustainai_rural_issues',
-  DEVELOPER_SOLUTIONS: 'sustainai_dev_solutions',
-  CLEAN_ENERGY_REQUESTS: 'sustainai_clean_energy_reqs',
-  NOTIFICATIONS: 'sustainai_notifications',
-  FOOD_ITEMS: 'sustainai_food_items',
-  MEDICAL_CAMPS: 'sustainai_medical_camps',
-  LANGUAGE: 'sustainai_language',
-  DARK_MODE: 'sustainai_dark_mode',
-  RURAL_DISTRICT: 'sustainai_rural_district'
-};
-
-const SAMPLE_FOOD_SEED = [
-  {
-    id: 'FOOD-101',
-    donorName: 'Bengaluru Convention Hall CSR',
-    foodType: 'Cooked Veg Rice & Gravy (120 Servings)',
-    quantity: '120 Meals',
-    cookedTime: 'Today 1:00 PM',
-    expiryTime: 'Tonight 10:00 PM',
-    location: 'Ramanagara Ward 2 Shelter Kiosk',
-    contactPhone: '+91 98450 33445',
-    status: 'Available'
-  },
-  {
-    id: 'FOOD-102',
-    donorName: 'Gram Samriddhi Wedding Caterers',
-    foodType: 'Fresh Roti, Dal & Sabzi (80 Servings)',
-    quantity: '80 Meals',
-    cookedTime: 'Today 2:30 PM',
-    expiryTime: 'Tonight 11:30 PM',
-    location: 'Mandya Hamlet Field Kitchen',
-    contactPhone: '+91 98450 55667',
-    status: 'Available'
-  }
-];
-
-// Helper: Safe getItem from localStorage
-const getItem = (key, fallback) => {
-  try {
-    const data = localStorage.getItem(key);
-    return data ? JSON.parse(data) : fallback;
-  } catch (e) {
-    console.warn(`[storageService] Error loading key ${key}:`, e);
-    return fallback;
-  }
-};
-
-// Helper: Safe setItem to localStorage
-const setItem = (key, value) => {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-  } catch (e) {
-    console.warn(`[storageService] Error saving key ${key}:`, e);
-  }
+  CURRENT_USER: 'sustain_ai_current_user',
+  REGISTERED_USERS: 'sustain_ai_registered_users',
+  RURAL_ISSUES: 'sustain_ai_rural_issues',
+  DEVELOPER_SOLUTIONS: 'sustain_ai_developer_solutions',
+  CLEAN_ENERGY_REQUESTS: 'sustain_ai_clean_energy_requests',
+  NOTIFICATIONS: 'sustain_ai_notifications',
+  IS_DARK_MODE: 'sustain_ai_dark_mode',
+  CURRENT_LANGUAGE: 'sustain_ai_language',
+  RURAL_DISTRICT: 'sustain_ai_rural_district'
 };
 
 export const storageService = {
   // Initialize storage with seeds if empty
   init() {
     if (!localStorage.getItem(STORAGE_KEYS.RURAL_ISSUES)) {
-      setItem(STORAGE_KEYS.RURAL_ISSUES, SAMPLE_RURAL_ISSUES);
+      localStorage.setItem(STORAGE_KEYS.RURAL_ISSUES, JSON.stringify(SAMPLE_RURAL_ISSUES));
     }
     if (!localStorage.getItem(STORAGE_KEYS.DEVELOPER_SOLUTIONS)) {
-      setItem(STORAGE_KEYS.DEVELOPER_SOLUTIONS, SAMPLE_DEVELOPER_SOLUTIONS);
-    }
-    if (!localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS)) {
-      setItem(STORAGE_KEYS.NOTIFICATIONS, SAMPLE_NOTIFICATIONS);
+      localStorage.setItem(STORAGE_KEYS.DEVELOPER_SOLUTIONS, JSON.stringify(SAMPLE_DEVELOPER_SOLUTIONS));
     }
     if (!localStorage.getItem(STORAGE_KEYS.CLEAN_ENERGY_REQUESTS)) {
-      setItem(STORAGE_KEYS.CLEAN_ENERGY_REQUESTS, [
+      localStorage.setItem(STORAGE_KEYS.CLEAN_ENERGY_REQUESTS, JSON.stringify([]));
+    }
+    if (!localStorage.getItem(STORAGE_KEYS.REGISTERED_USERS)) {
+      localStorage.setItem(STORAGE_KEYS.REGISTERED_USERS, JSON.stringify([DEFAULT_DEMO_USER]));
+    }
+    if (!localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS)) {
+      const initialNotifs = [
         {
-          id: 'SOLAR-REQ-101',
-          schemeName: 'PM Surya Ghar: Subsidized Rooftop Solar',
-          applicantName: 'Ramesh Patel',
-          applicantPhone: '+91 98450 66778',
-          district: 'Ramanagara Rural District',
-          village: 'Ramanagara Village Ward 4',
-          solarCapacity: '3.0 kW Rooftop Solar',
-          subsidyGrant: '₹78,000',
-          status: 'Site Inspection Required',
-          submittedDate: '2026-08-05'
+          id: 'NOTIF-01',
+          title: '🚨 RED ALERT: Flash Flood Warning',
+          message: 'River Arkavathi water levels +2.4m above danger mark in Ramanagara. Emergency evacuation shuttles active.',
+          timestamp: '10 mins ago',
+          read: false,
+          type: 'alert',
+          link: 'disaster'
+        },
+        {
+          id: 'NOTIF-02',
+          title: '🏥 Free Medical Camp Tomorrow',
+          message: 'Specialist eye checkup & OPD clinic at Ramanagara Primary School (2 km away).',
+          timestamp: '1 hour ago',
+          read: false,
+          type: 'health',
+          link: 'healthcare'
         }
-      ]);
-    }
-    if (!localStorage.getItem(STORAGE_KEYS.FOOD_ITEMS)) {
-      setItem(STORAGE_KEYS.FOOD_ITEMS, SAMPLE_FOOD_SEED);
-    }
-    if (!localStorage.getItem(STORAGE_KEYS.MEDICAL_CAMPS)) {
-      setItem(STORAGE_KEYS.MEDICAL_CAMPS, SAMPLE_MEDICAL_CAMPS);
+      ];
+      localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(initialNotifs));
     }
   },
 
-  // Reset Storage to Fresh Seeds
-  resetToSeeds() {
-    setItem(STORAGE_KEYS.RURAL_ISSUES, SAMPLE_RURAL_ISSUES);
-    setItem(STORAGE_KEYS.DEVELOPER_SOLUTIONS, SAMPLE_DEVELOPER_SOLUTIONS);
-    setItem(STORAGE_KEYS.NOTIFICATIONS, SAMPLE_NOTIFICATIONS);
-    setItem(STORAGE_KEYS.FOOD_ITEMS, SAMPLE_FOOD_SEED);
-    setItem(STORAGE_KEYS.MEDICAL_CAMPS, SAMPLE_MEDICAL_CAMPS);
-    setItem(STORAGE_KEYS.CLEAN_ENERGY_REQUESTS, [
-      {
-        id: 'SOLAR-REQ-101',
-        schemeName: 'PM Surya Ghar: Subsidized Rooftop Solar',
-        applicantName: 'Ramesh Patel',
-        applicantPhone: '+91 98450 66778',
-        district: 'Ramanagara Rural District',
-        village: 'Ramanagara Village Ward 4',
-        solarCapacity: '3.0 kW Rooftop Solar',
-        subsidyGrant: '₹78,000',
-        status: 'Site Inspection Required',
-        submittedDate: '2026-08-05'
-      }
-    ]);
-  },
-
-  // User Auth & Profile
+  // User Session & Registration Persistence
   getCurrentUser() {
-    return getItem(STORAGE_KEYS.CURRENT_USER, null);
+    const data = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
+    return data ? JSON.parse(data) : null;
   },
+
   setCurrentUser(userObj) {
-    setItem(STORAGE_KEYS.CURRENT_USER, userObj);
+    if (userObj) {
+      localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(userObj));
+    } else {
+      localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
+    }
   },
 
-  // Preferences
-  getLanguage() {
-    return getItem(STORAGE_KEYS.LANGUAGE, 'English');
-  },
-  setLanguage(lang) {
-    setItem(STORAGE_KEYS.LANGUAGE, lang);
+  // Registered Users Registry for Duplicate Email Prevention & Password Recovery
+  getRegisteredUsers() {
+    const data = localStorage.getItem(STORAGE_KEYS.REGISTERED_USERS);
+    return data ? JSON.parse(data) : [DEFAULT_DEMO_USER];
   },
 
-  getDarkMode() {
-    return getItem(STORAGE_KEYS.DARK_MODE, true);
-  },
-  setDarkMode(isDark) {
-    setItem(STORAGE_KEYS.DARK_MODE, isDark);
+  registerUser(userObj) {
+    const users = this.getRegisteredUsers();
+    const existing = users.find(u => u.email.toLowerCase() === userObj.email.toLowerCase());
+    if (existing) {
+      return { success: false, message: 'An account with this email address already exists. Please login instead.' };
+    }
+    users.push(userObj);
+    localStorage.setItem(STORAGE_KEYS.REGISTERED_USERS, JSON.stringify(users));
+    return { success: true, user: userObj };
   },
 
-  getRuralDistrict() {
-    return getItem(STORAGE_KEYS.RURAL_DISTRICT, 'Ramanagara Rural District');
+  findUserByEmail(email) {
+    const users = this.getRegisteredUsers();
+    return users.find(u => u.email.toLowerCase() === email.toLowerCase()) || null;
   },
-  setRuralDistrict(district) {
-    setItem(STORAGE_KEYS.RURAL_DISTRICT, district);
+
+  updateUserPassword(email, newPassword) {
+    const users = this.getRegisteredUsers();
+    const idx = users.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
+    if (idx !== -1) {
+      users[idx].password = newPassword;
+      localStorage.setItem(STORAGE_KEYS.REGISTERED_USERS, JSON.stringify(users));
+
+      // Also update current user if logged in
+      const current = this.getCurrentUser();
+      if (current && current.email.toLowerCase() === email.toLowerCase()) {
+        current.password = newPassword;
+        this.setCurrentUser(current);
+      }
+      return true;
+    }
+    return false;
   },
 
   // Rural Issues CRUD
   getRuralIssues() {
-    return getItem(STORAGE_KEYS.RURAL_ISSUES, SAMPLE_RURAL_ISSUES);
+    const data = localStorage.getItem(STORAGE_KEYS.RURAL_ISSUES);
+    return data ? JSON.parse(data) : SAMPLE_RURAL_ISSUES;
   },
+
   saveRuralIssues(issues) {
-    setItem(STORAGE_KEYS.RURAL_ISSUES, issues);
+    localStorage.setItem(STORAGE_KEYS.RURAL_ISSUES, JSON.stringify(issues));
   },
+
   addRuralIssue(newIssue) {
-    const current = this.getRuralIssues();
-    const updated = [newIssue, ...current];
+    const issues = this.getRuralIssues();
+    const updated = [newIssue, ...issues];
     this.saveRuralIssues(updated);
     return updated;
   },
 
   // Developer Solutions CRUD
   getDeveloperSolutions() {
-    return getItem(STORAGE_KEYS.DEVELOPER_SOLUTIONS, SAMPLE_DEVELOPER_SOLUTIONS);
-  },
-  saveDeveloperSolutions(solutions) {
-    setItem(STORAGE_KEYS.DEVELOPER_SOLUTIONS, solutions);
-  },
-  addDeveloperSolution(newSolution) {
-    const current = this.getDeveloperSolutions();
-    const updated = [newSolution, ...current];
-    this.saveDeveloperSolutions(updated);
-    return updated;
+    const data = localStorage.getItem(STORAGE_KEYS.DEVELOPER_SOLUTIONS);
+    return data ? JSON.parse(data) : SAMPLE_DEVELOPER_SOLUTIONS;
   },
 
-  // Clean Energy Solar Requests CRUD
+  saveDeveloperSolutions(sols) {
+    localStorage.setItem(STORAGE_KEYS.DEVELOPER_SOLUTIONS, JSON.stringify(sols));
+  },
+
+  // Clean Energy Requests CRUD
   getCleanEnergyRequests() {
-    return getItem(STORAGE_KEYS.CLEAN_ENERGY_REQUESTS, []);
+    const data = localStorage.getItem(STORAGE_KEYS.CLEAN_ENERGY_REQUESTS);
+    return data ? JSON.parse(data) : [];
   },
+
   saveCleanEnergyRequests(reqs) {
-    setItem(STORAGE_KEYS.CLEAN_ENERGY_REQUESTS, reqs);
-  },
-  addCleanEnergyRequest(newReq) {
-    const current = this.getCleanEnergyRequests();
-    const updated = [newReq, ...current];
-    this.saveCleanEnergyRequests(updated);
-    return updated;
+    localStorage.setItem(STORAGE_KEYS.CLEAN_ENERGY_REQUESTS, JSON.stringify(reqs));
   },
 
   // Notifications CRUD
   getNotifications() {
-    return getItem(STORAGE_KEYS.NOTIFICATIONS, SAMPLE_NOTIFICATIONS);
+    const data = localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS);
+    return data ? JSON.parse(data) : [];
   },
+
   saveNotifications(notifs) {
-    setItem(STORAGE_KEYS.NOTIFICATIONS, notifs);
+    localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(notifs));
   },
-  addNotification(newNotif) {
-    const current = this.getNotifications();
-    const updated = [newNotif, ...current];
+
+  addNotification(notif) {
+    const notifs = this.getNotifications();
+    const updated = [notif, ...notifs];
     this.saveNotifications(updated);
     return updated;
   },
 
-  // Food Donation Items CRUD
-  getFoodItems() {
-    return getItem(STORAGE_KEYS.FOOD_ITEMS, SAMPLE_FOOD_SEED);
-  },
-  saveFoodItems(items) {
-    setItem(STORAGE_KEYS.FOOD_ITEMS, items);
+  // Settings & Theme
+  getDarkMode() {
+    const val = localStorage.getItem(STORAGE_KEYS.IS_DARK_MODE);
+    return val ? JSON.parse(val) : true;
   },
 
-  // Medical Camps CRUD
-  getMedicalCamps() {
-    return getItem(STORAGE_KEYS.MEDICAL_CAMPS, SAMPLE_MEDICAL_CAMPS);
+  setDarkMode(isDark) {
+    localStorage.setItem(STORAGE_KEYS.IS_DARK_MODE, JSON.stringify(isDark));
   },
-  saveMedicalCamps(camps) {
-    setItem(STORAGE_KEYS.MEDICAL_CAMPS, camps);
+
+  getLanguage() {
+    return localStorage.getItem(STORAGE_KEYS.CURRENT_LANGUAGE) || 'English';
+  },
+
+  setLanguage(lang) {
+    localStorage.setItem(STORAGE_KEYS.CURRENT_LANGUAGE, lang);
+  },
+
+  getRuralDistrict() {
+    return localStorage.getItem(STORAGE_KEYS.RURAL_DISTRICT) || 'Ramanagara Rural District';
+  },
+
+  setRuralDistrict(district) {
+    localStorage.setItem(STORAGE_KEYS.RURAL_DISTRICT, district);
+  },
+
+  resetToSeeds() {
+    localStorage.setItem(STORAGE_KEYS.RURAL_ISSUES, JSON.stringify(SAMPLE_RURAL_ISSUES));
+    localStorage.setItem(STORAGE_KEYS.DEVELOPER_SOLUTIONS, JSON.stringify(SAMPLE_DEVELOPER_SOLUTIONS));
+    localStorage.setItem(STORAGE_KEYS.CLEAN_ENERGY_REQUESTS, JSON.stringify([]));
+    localStorage.setItem(STORAGE_KEYS.REGISTERED_USERS, JSON.stringify([DEFAULT_DEMO_USER]));
+    localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
   }
 };
