@@ -51,9 +51,14 @@ export default function App() {
   const [initialAiQuery, setInitialAiQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Sync state changes to storageService
+  // Sync dark theme class to root html element & storage
   useEffect(() => {
     storageService.setDarkMode(isDarkMode);
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }, [isDarkMode]);
 
   useEffect(() => {
@@ -152,7 +157,7 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-300 ${isDarkMode ? 'dark-theme bg-slate-950 text-slate-100' : 'light-theme bg-slate-50 text-slate-900'}`}>
+    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-300 ${isDarkMode ? 'dark dark-theme bg-slate-950 text-slate-100' : 'light-theme bg-slate-50 text-slate-900'}`}>
       
       {/* Top Navigation Bar with Role Switcher, Theme Toggle, Multilingual Selector & Realtime Sync Indicator */}
       <Navbar

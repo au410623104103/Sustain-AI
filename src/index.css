@@ -18,6 +18,33 @@
   color: #0f172a;
 }
 
+/* Explicit Heading & Content Color Rules for Dark & Light Themes */
+.dark-theme h1,
+.dark-theme h2,
+.dark-theme h3,
+.dark-theme h4,
+.dark-theme h5,
+.dark-theme h6 {
+  color: #ffffff !important;
+}
+
+.light-theme h1,
+.light-theme h2,
+.light-theme h3,
+.light-theme h4,
+.light-theme h5,
+.light-theme h6 {
+  color: #0f172a !important;
+}
+
+.dark-theme p {
+  color: #cbd5e1;
+}
+
+.light-theme p {
+  color: #334155;
+}
+
 /* Glassmorphism Styles */
 .glass-panel {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
