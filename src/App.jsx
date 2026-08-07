@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import EligibilityModal from './components/EligibilityModal';
@@ -21,66 +21,84 @@ import EducationSponsorsView from './views/EducationSponsorsView';
 import DisasterSupportView from './views/DisasterSupportView';
 import CleanEnergyView from './views/CleanEnergyView';
 
-import { 
-  DEFAULT_DEMO_USER, 
-  SAMPLE_NOTIFICATIONS, 
-  SAMPLE_RURAL_ISSUES, 
-  SAMPLE_DEVELOPER_SOLUTIONS 
-} from './data/mockDatabase';
-import { TRANSLATIONS } from './data/translations';
+import { storageService } from './services/storageService';
+import { realtimeService, REALTIME_EVENTS } from './services/realtimeService';
+import { apiService } from './services/apiService';
+import { DEFAULT_DEMO_USER } from './data/mockDatabase';
 
 export default function App() {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [activeView, setActiveView] = useState('landing');
-  const [notifications, setNotifications] = useState(SAMPLE_NOTIFICATIONS);
+  // Initialize storage seeds if empty
+  storageService.init();
+
+  // Persistent React State from storageService
+  const [currentUser, setCurrentUser] = useState(() => storageService.getCurrentUser());
+  const [activeView, setActiveView] = useState(() => storageService.getCurrentUser() ? 'dashboard' : 'landing');
+  const [notifications, setNotifications] = useState(() => storageService.getNotifications());
   
-  // Theme State: Dark Mode (default true) or Light Mode (false)
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  // Theme & Language Persistence
+  const [isDarkMode, setIsDarkMode] = useState(() => storageService.getDarkMode());
+  const [currentLanguage, setCurrentLanguage] = useState(() => storageService.getLanguage());
 
-  // Multilingual Support: English, Hindi, Telugu, Tamil
-  const [currentLanguage, setCurrentLanguage] = useState('English');
-
-  // Ecosystem Multi-Role State
-  const [ruralIssues, setRuralIssues] = useState(SAMPLE_RURAL_ISSUES);
-  const [developerSolutions, setDeveloperSolutions] = useState(SAMPLE_DEVELOPER_SOLUTIONS);
-  const [ruralDistrict, setRuralDistrict] = useState('Ramanagara Rural District');
-
-  // SDG 7 Clean Energy Requests State (Streams to NGO Panel)
-  const [cleanEnergyRequests, setCleanEnergyRequests] = useState([
-    {
-      id: 'SOLAR-REQ-101',
-      schemeName: 'PM Surya Ghar: Subsidized Rooftop Solar',
-      applicantName: 'Ramesh Patel',
-      applicantPhone: '+91 98450 66778',
-      district: 'Ramanagara Rural District',
-      village: 'Ramanagara Village Ward 4',
-      solarCapacity: '3.0 kW Rooftop Solar',
-      subsidyGrant: '₹78,000',
-      status: 'Awaiting NGO Field Site Inspection',
-      submittedDate: '2026-08-05'
-    }
-  ]);
+  // Ecosystem Data Persistence
+  const [ruralIssues, setRuralIssues] = useState(() => storageService.getRuralIssues());
+  const [developerSolutions, setDeveloperSolutions] = useState(() => storageService.getDeveloperSolutions());
+  const [cleanEnergyRequests, setCleanEnergyRequests] = useState(() => storageService.getCleanEnergyRequests());
+  const [ruralDistrict, setRuralDistrict] = useState(() => storageService.getRuralDistrict());
 
   const [apiKey, setApiKey] = useState('');
   const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
   const [selectedSchemeForModal, setSelectedSchemeForModal] = useState(null);
-  
   const [initialAiQuery, setInitialAiQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Sync state changes to storageService
+  useEffect(() => {
+    storageService.setDarkMode(isDarkMode);
+  }, [isDarkMode]);
+
+  useEffect(() => {
+    storageService.setLanguage(currentLanguage);
+  }, [currentLanguage]);
+
+  useEffect(() => {
+    storageService.setRuralDistrict(ruralDistrict);
+  }, [ruralDistrict]);
+
+  // Real-Time Cross-Tab Live Event Subscriber
+  useEffect(() => {
+    const unsubscribe = realtimeService.subscribe((event) => {
+      console.log('[App RealTime Sync] Event Received:', event);
+      
+      // Reload fresh persistent data from storageService upon broadcast
+      setRuralIssues(storageService.getRuralIssues());
+      setDeveloperSolutions(storageService.getDeveloperSolutions());
+      setCleanEnergyRequests(storageService.getCleanEnergyRequests());
+      setNotifications(storageService.getNotifications());
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   // Handlers
   const handleLoginSuccess = (userObj) => {
-    setCurrentUser(userObj || DEFAULT_DEMO_USER);
+    const userToSave = userObj || DEFAULT_DEMO_USER;
+    setCurrentUser(userToSave);
+    storageService.setCurrentUser(userToSave);
     setActiveView('dashboard');
   };
 
   const handleLogout = () => {
     setCurrentUser(null);
+    storageService.setCurrentUser(null);
     setActiveView('landing');
   };
 
   const handleSaveProfile = (updatedProfile) => {
-    setCurrentUser(prev => ({ ...prev, ...updatedProfile }));
+    setCurrentUser(prev => {
+      const merged = { ...prev, ...updatedProfile };
+      storageService.setCurrentUser(merged);
+      return merged;
+    });
   };
 
   const handleDashboardSearchSubmit = (queryText) => {
@@ -92,38 +110,18 @@ export default function App() {
     setSelectedSchemeForModal(scheme);
   };
 
-  // Stream Clean Energy Grant Request to NGO Queue
-  const handleApplyCleanEnergy = (newReq) => {
-    setCleanEnergyRequests(prev => [newReq, ...prev]);
-
-    // Send notification to NGO panel
-    const notif = {
-      id: `NOTIF-${Date.now()}`,
-      title: '☀️ New Solar Subsidy Application Streamed',
-      message: `${newReq.applicantName} applied for ${newReq.solarCapacity} grant in ${newReq.village}. NGO field site inspection required.`,
-      timestamp: 'Just now',
-      read: false,
-      type: 'opportunity',
-      link: 'ngo-panel'
-    };
-    setNotifications(prev => [notif, ...prev]);
+  // Stream Clean Energy Grant Request to persistent storage + API
+  const handleApplyCleanEnergy = async (newReq) => {
+    const res = await apiService.applySolarGrant(newReq);
+    setCleanEnergyRequests(res.data);
+    setNotifications(storageService.getNotifications());
   };
 
   // Add rural issue (from NGO upload or Citizen Civic Report)
-  const handleAddRuralIssue = (newIssue) => {
-    setRuralIssues(prev => [newIssue, ...prev]);
-
-    // Send notification to NGO dashboard
-    const notif = {
-      id: `NOTIF-${Date.now()}`,
-      title: '📩 New Citizen Grievance Posted',
-      message: `${newIssue.title} in ${newIssue.village} routed to NGO Operations Dashboard for clearance.`,
-      timestamp: 'Just now',
-      read: false,
-      type: 'opportunity',
-      link: 'ngo-panel'
-    };
-    setNotifications(prev => [notif, ...prev]);
+  const handleAddRuralIssue = async (newIssue) => {
+    const res = await apiService.createRuralIssue(newIssue);
+    setRuralIssues(res.data);
+    setNotifications(storageService.getNotifications());
   };
 
   const handleApplySuccess = (scheme) => {
@@ -137,19 +135,35 @@ export default function App() {
       type: 'opportunity',
       link: 'schemes'
     };
-    setNotifications(prev => [newNotif, ...prev]);
+    const updated = storageService.addNotification(newNotif);
+    setNotifications(updated);
+  };
+
+  // Reset database to fresh seeds
+  const handleResetDatabase = () => {
+    if (window.confirm('Reset persistent database to fresh seed data?')) {
+      storageService.resetToSeeds();
+      setRuralIssues(storageService.getRuralIssues());
+      setDeveloperSolutions(storageService.getDeveloperSolutions());
+      setCleanEnergyRequests(storageService.getCleanEnergyRequests());
+      setNotifications(storageService.getNotifications());
+      realtimeService.broadcast(REALTIME_EVENTS.DATABASE_RESET);
+    }
   };
 
   return (
     <div className={`min-h-screen flex flex-col font-sans transition-colors duration-300 ${isDarkMode ? 'dark-theme bg-slate-950 text-slate-100' : 'light-theme bg-slate-50 text-slate-900'}`}>
       
-      {/* Top Navigation Bar with Role Switcher, Theme Toggle & Multilingual Language Selector */}
+      {/* Top Navigation Bar with Role Switcher, Theme Toggle, Multilingual Selector & Realtime Sync Indicator */}
       <Navbar
         currentUser={currentUser}
         activeView={activeView}
         setActiveView={setActiveView}
         notifications={notifications}
-        setNotifications={setNotifications}
+        setNotifications={(notifs) => {
+          setNotifications(notifs);
+          storageService.saveNotifications(notifs);
+        }}
         onOpenApiKeyModal={() => setIsApiKeyModalOpen(true)}
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
@@ -157,6 +171,7 @@ export default function App() {
         setIsDarkMode={setIsDarkMode}
         currentLanguage={currentLanguage}
         setCurrentLanguage={setCurrentLanguage}
+        onResetDatabase={handleResetDatabase}
       />
 
       {/* Main Layout Container */}
@@ -253,10 +268,16 @@ export default function App() {
           {activeView === 'ngo-panel' && (
             <NgoPanelView
               ruralIssues={ruralIssues}
-              setRuralIssues={setRuralIssues}
+              setRuralIssues={(issues) => {
+                setRuralIssues(issues);
+                storageService.saveRuralIssues(issues);
+              }}
               developerSolutions={developerSolutions}
               cleanEnergyRequests={cleanEnergyRequests}
-              setCleanEnergyRequests={setCleanEnergyRequests}
+              setCleanEnergyRequests={(reqs) => {
+                setCleanEnergyRequests(reqs);
+                storageService.saveCleanEnergyRequests(reqs);
+              }}
               currentLanguage={currentLanguage}
             />
           )}
@@ -265,7 +286,10 @@ export default function App() {
             <DeveloperHubView
               ruralIssues={ruralIssues}
               developerSolutions={developerSolutions}
-              setDeveloperSolutions={setDeveloperSolutions}
+              setDeveloperSolutions={(sols) => {
+                setDeveloperSolutions(sols);
+                storageService.saveDeveloperSolutions(sols);
+              }}
               currentLanguage={currentLanguage}
             />
           )}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Bell, Key, User, Menu, X, Building2, Code, Globe, CheckCircle2, Sun, Moon, Heart, Home, Languages } from 'lucide-react';
+import { Sparkles, Bell, Key, User, Menu, X, Building2, Code, Globe, CheckCircle2, Sun, Moon, Heart, Home, Languages, RefreshCw, Radio } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
 
 export default function Navbar({ 
@@ -14,7 +14,8 @@ export default function Navbar({
   isDarkMode,
   setIsDarkMode,
   currentLanguage,
-  setCurrentLanguage
+  setCurrentLanguage,
+  onResetDatabase
 }) {
   const [showNotifications, setShowNotifications] = useState(false);
   const unreadCount = notifications.filter(n => !n.read).length;
@@ -37,7 +38,7 @@ export default function Navbar({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           
-          {/* Brand Logo */}
+          {/* Brand Logo & Realtime Sync Indicator */}
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveView(currentUser ? 'dashboard' : 'landing')}>
             <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 p-0.5 shadow-lg shadow-emerald-900/30 flex items-center justify-center">
               <div className="h-full w-full bg-slate-950 rounded-[10px] flex items-center justify-center">
@@ -47,9 +48,9 @@ export default function Navbar({
             <div>
               <div className="flex items-center space-x-2">
                 <span className="text-xl font-extrabold tracking-tight">Sustain<span className="gradient-text-emerald">AI</span></span>
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center space-x-1">
-                  <Heart className="h-2.5 w-2.5 text-emerald-500 fill-emerald-500" />
-                  <span>Human-Centric SDG 2030</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center space-x-1">
+                  <Radio className="h-2.5 w-2.5 text-emerald-500 animate-pulse" />
+                  <span>Real-Time DB Active</span>
                 </span>
               </div>
               <p className="text-[10px] text-slate-500 dark:text-slate-400 hidden sm:block">Empowering Citizens • Rural Field NGOs • Developers</p>
@@ -149,6 +150,15 @@ export default function Navbar({
                   <span className="hidden lg:inline text-[11px] text-slate-800 font-extrabold">{t.darkMode}</span>
                 </>
               )}
+            </button>
+
+            {/* Reset Database Button */}
+            <button
+              onClick={onResetDatabase}
+              title="Reset Database to Fresh Seeds"
+              className="p-2 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-rose-500 transition-all text-xs hidden lg:flex items-center space-x-1"
+            >
+              <RefreshCw className="h-3.5 w-3.5 text-slate-500" />
             </button>
 
             {/* Gemini API Key Toggle */}

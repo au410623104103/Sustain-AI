@@ -15,8 +15,10 @@ import {
 } from 'lucide-react';
 import { SDG_GOALS } from '../data/sdgData';
 import { SAMPLE_DEVELOPER_SOLUTIONS } from '../data/mockDatabase';
+import { TRANSLATIONS } from '../data/translations';
+import { apiService } from '../services/apiService';
 
-export default function DeveloperHubView({ ruralIssues, developerSolutions, setDeveloperSolutions }) {
+export default function DeveloperHubView({ ruralIssues, developerSolutions, setDeveloperSolutions, currentLanguage }) {
   const [selectedIssueForSolution, setSelectedIssueForSolution] = useState(null);
   const [solutionTitle, setSolutionTitle] = useState('');
   const [developerName, setDeveloperName] = useState('Priya Sharma (Tech Innovator)');
@@ -27,7 +29,9 @@ export default function DeveloperHubView({ ruralIssues, developerSolutions, setD
 
   const [submittedSuccess, setSubmittedSuccess] = useState(false);
 
-  const handleCreateSolution = (e) => {
+  const t = TRANSLATIONS[currentLanguage || 'English'] || TRANSLATIONS.English;
+
+  const handleCreateSolution = async (e) => {
     e.preventDefault();
     if (!selectedIssueForSolution || !solutionTitle.trim() || !reportSummary.trim()) return;
 
@@ -45,12 +49,9 @@ export default function DeveloperHubView({ ruralIssues, developerSolutions, setD
       impactScoreEarned: 400
     };
 
-    setDeveloperSolutions([newSolution, ...developerSolutions]);
+    const res = await apiService.submitDevSolution(newSolution);
+    setDeveloperSolutions(res.data.solutions);
     
-    // Update rural issue developer solution count
-    selectedIssueForSolution.developerSolutionsCount = (selectedIssueForSolution.developerSolutionsCount || 0) + 1;
-    selectedIssueForSolution.status = 'Tech Solution Submitted';
-
     setSubmittedSuccess(true);
     setTimeout(() => {
       setSubmittedSuccess(false);
@@ -68,11 +69,11 @@ export default function DeveloperHubView({ ruralIssues, developerSolutions, setD
         <div>
           <div className="flex items-center space-x-2 text-purple-600 dark:text-purple-400 text-xs font-semibold uppercase tracking-wider mb-1">
             <Code className="h-4 w-4" />
-            <span>Developer & Tech Innovator Challenge Portal</span>
+            <span>{t.devHubTag}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold">Rural SDG Tech Solution Hub</h1>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
-            Software engineers & innovators build AI models, web apps, and tech clearance reports to solve rural issues uploaded by field NGOs.
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">{t.devHubTitle}</h1>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 font-medium">
+            {t.devHubSub}
           </p>
         </div>
 
@@ -86,25 +87,25 @@ export default function DeveloperHubView({ ruralIssues, developerSolutions, setD
 
       {/* Developer Stats Bar */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1">
-          <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Open NGO Challenges</span>
-          <p className="text-xl font-extrabold">{ruralIssues.length} SDG Problems</p>
+        <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1 shadow-sm">
+          <span className="text-xs text-slate-600 dark:text-slate-400 font-bold">Open NGO Challenges</span>
+          <p className="text-xl font-extrabold text-slate-900 dark:text-white">{ruralIssues.length} SDG Problems</p>
         </div>
-        <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1">
-          <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Solutions Deployed in Field</span>
+        <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1 shadow-sm">
+          <span className="text-xs text-slate-600 dark:text-slate-400 font-bold">Solutions Deployed in Field</span>
           <p className="text-xl font-extrabold text-purple-700 dark:text-purple-400">{developerSolutions.length} Apps & Web Tools</p>
         </div>
-        <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1">
-          <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Developer Impact Badges</span>
+        <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1 shadow-sm">
+          <span className="text-xs text-slate-600 dark:text-slate-400 font-bold">Developer Impact Badges</span>
           <p className="text-xl font-extrabold text-emerald-700 dark:text-emerald-400">1,250 Dev PTS</p>
         </div>
       </div>
 
       {/* Main Grid: NGO Issues needing Tech Solutions */}
       <div className="space-y-6">
-        <h2 className="text-lg font-bold flex items-center space-x-2">
+        <h2 className="text-lg font-bold flex items-center space-x-2 text-slate-900 dark:text-white">
           <Terminal className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-          <span>Active NGO Rural Challenges Awaiting Tech Solutions</span>
+          <span>{t.activeChallenges}</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -150,11 +151,11 @@ export default function DeveloperHubView({ ruralIssues, developerSolutions, setD
                           <div className="flex items-center space-x-3 text-[10px] text-purple-700 dark:text-purple-300 mt-2 font-bold">
                             <a href={sol.githubUrl} target="_blank" rel="noreferrer" className="flex items-center space-x-1 hover:underline">
                               <GitBranch className="h-3 w-3" />
-                              <span>GitHub Code</span>
+                              <span>{t.githubCode}</span>
                             </a>
                             <a href={sol.demoUrl} target="_blank" rel="noreferrer" className="flex items-center space-x-1 hover:underline">
                               <ExternalLink className="h-3 w-3" />
-                              <span>Web App Demo</span>
+                              <span>{t.webDemo}</span>
                             </a>
                           </div>
                         </div>
@@ -164,14 +165,14 @@ export default function DeveloperHubView({ ruralIssues, developerSolutions, setD
                 </div>
 
                 <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                  <span className="text-[10px] text-slate-600 dark:text-slate-400 font-semibold">Severity: <strong className="text-amber-700 dark:text-amber-400">{issue.severity}</strong></span>
+                  <span className="text-[10px] text-slate-600 dark:text-slate-400 font-semibold">{t.severity} <strong className="text-amber-700 dark:text-amber-400">{issue.severity}</strong></span>
 
                   <button
                     onClick={() => setSelectedIssueForSolution(issue)}
                     className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-extrabold text-xs hover:shadow-lg transition-all flex items-center space-x-1"
                   >
                     <Plus className="h-3.5 w-3.5" />
-                    <span>Submit Tech Solution Report</span>
+                    <span>{t.submitDevSolution}</span>
                   </button>
                 </div>
               </div>
@@ -183,105 +184,105 @@ export default function DeveloperHubView({ ruralIssues, developerSolutions, setD
       {/* SUBMIT SOLUTION MODAL */}
       {selectedIssueForSolution && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-in fade-in">
-          <div className="relative w-full max-w-2xl glass-panel rounded-3xl border border-slate-700 bg-slate-900 shadow-2xl p-6 sm:p-8 text-white-force">
+          <div className="relative w-full max-w-2xl glass-panel rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-2xl p-6 sm:p-8 text-slate-900 dark:text-white-force">
             <button 
               onClick={() => setSelectedIssueForSolution(null)}
-              className="absolute top-5 right-5 p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white"
+              className="absolute top-5 right-5 p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             >
               ✕
             </button>
 
-            <div className="flex items-center space-x-2 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-1 text-white-force">
+            <div className="flex items-center space-x-2 text-purple-600 dark:text-purple-400 text-xs font-semibold uppercase tracking-wider mb-1">
               <Code className="h-4 w-4" />
               <span>Developer Solution Clearance Form</span>
             </div>
 
-            <h2 className="text-xl font-bold text-white text-white-force mb-1">Submit Application / Web Tool Solution</h2>
-            <p className="text-xs text-slate-400 text-white-force mb-4">Solving: <strong className="text-slate-200">{selectedIssueForSolution.title}</strong> ({selectedIssueForSolution.village})</p>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1">Submit Application / Web Tool Solution</h2>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">Solving: <strong className="text-slate-900 dark:text-slate-200">{selectedIssueForSolution.title}</strong> ({selectedIssueForSolution.village})</p>
 
             {submittedSuccess ? (
-              <div className="p-8 text-center text-xs text-emerald-400 font-bold space-y-2 text-white-force">
-                <CheckCircle2 className="h-10 w-10 mx-auto text-emerald-400" />
-                <p className="text-base">Developer Tech Solution Submitted & Approved!</p>
-                <p className="text-slate-300 font-normal">NGO field officers notified. 400 Dev Impact PTS awarded to your profile.</p>
+              <div className="p-8 text-center text-xs text-emerald-600 dark:text-emerald-400 font-bold space-y-2">
+                <CheckCircle2 className="h-10 w-10 mx-auto text-emerald-500" />
+                <p className="text-base text-slate-900 dark:text-white">Developer Tech Solution Submitted & Approved!</p>
+                <p className="text-slate-600 dark:text-slate-300 font-normal">NGO field officers notified. 400 Dev Impact PTS awarded to your profile.</p>
               </div>
             ) : (
-              <form onSubmit={handleCreateSolution} className="space-y-4 text-xs text-white-force">
+              <form onSubmit={handleCreateSolution} className="space-y-4 text-xs">
                 <div>
-                  <label className="block font-semibold text-slate-300 mb-1 text-white-force">Tech Solution Title / Name</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Tech Solution Title / Name</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. SustainAqua: IoT Water Leakage Detection Web App"
                     value={solutionTitle}
                     onChange={(e) => setSolutionTitle(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-white-force focus:border-purple-500 outline-none"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white focus:border-purple-500 outline-none font-medium"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block font-semibold text-slate-300 mb-1 text-white-force">Developer / Team Name</label>
+                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Developer / Team Name</label>
                     <input
                       type="text"
                       required
                       value={developerName}
                       onChange={(e) => setDeveloperName(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-white-force focus:border-purple-500 outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white focus:border-purple-500 outline-none font-medium"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-slate-300 mb-1 text-white-force">Tech Stack Used</label>
+                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Tech Stack Used</label>
                     <input
                       type="text"
                       required
                       placeholder="React, Node.js, MQTT IoT, Tailwind"
                       value={techStackInput}
                       onChange={(e) => setTechStackInput(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-white-force focus:border-purple-500 outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white focus:border-purple-500 outline-none font-medium"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block font-semibold text-slate-300 mb-1 text-white-force">GitHub Code Repository URL</label>
+                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">GitHub Code Repository URL</label>
                     <input
                       type="url"
                       required
                       value={githubUrl}
                       onChange={(e) => setGithubUrl(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-white-force focus:border-purple-500 outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white focus:border-purple-500 outline-none font-medium"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-slate-300 mb-1 text-white-force">Live Web App Demo Link</label>
+                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Live Web App Demo Link</label>
                     <input
                       type="url"
                       required
                       value={demoUrl}
                       onChange={(e) => setDemoUrl(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-white-force focus:border-purple-500 outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white focus:border-purple-500 outline-none font-medium"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-300 mb-1 text-white-force">Solution Architecture & Field Impact Summary</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Solution Architecture & Field Impact Summary</label>
                   <textarea
                     rows={3}
                     required
                     placeholder="Describe how your code or web tool solves the rural issue..."
                     value={reportSummary}
                     onChange={(e) => setReportSummary(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-white-force focus:border-purple-500 outline-none"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white focus:border-purple-500 outline-none font-medium"
                   />
                 </div>
 
-                <div className="flex items-center justify-end space-x-3 pt-3 border-t border-slate-800">
-                  <button type="button" onClick={() => setSelectedIssueForSolution(null)} className="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl">
+                <div className="flex items-center justify-end space-x-3 pt-3 border-t border-slate-200 dark:border-slate-800">
+                  <button type="button" onClick={() => setSelectedIssueForSolution(null)} className="px-4 py-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-300 rounded-xl font-bold">
                     Cancel
                   </button>
                   <button type="submit" className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-extrabold rounded-xl">
