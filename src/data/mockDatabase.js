@@ -18,7 +18,8 @@ export const DEFAULT_DEMO_USER = {
   impactScore: 840,
   schemesSaved: ['SCH-001', 'SCH-002', 'SCH-004', 'SCH-006'],
   servicesAccessed: 14,
-  civicReportsSubmitted: 4
+  civicReportsSubmitted: 4,
+  role: 'citizen'
 };
 
 export const RURAL_DISTRICTS = [
@@ -59,389 +60,262 @@ export const SAMPLE_NGOS = [
     name: 'Vidya Rural Shiksha Mission',
     registrationNo: 'NGO-KAR-2025-4491',
     headquarters: 'Chikballapur District',
-    operatingDistricts: ['Chikballapur East District', 'Bengaluru Rural'],
+    operatingDistricts: ['Chikballapur East District', 'Raichur South District'],
     primarySdgs: [4, 5, 8, 10],
     impactScore: 3120,
     fieldOfficersCount: 24,
-    activeProjects: ['CSR Laptop Grant Distribution', '100% College Fee Waiver Helpdesk'],
-    clearedIssuesCount: 65
-  }
-];
-
-export const SAMPLE_RURAL_ISSUES = [
-  {
-    id: 'RISS-2026-001',
-    title: 'Main Drinking Water Pipeline Burst Causing Flooding',
-    ruralDistrict: 'Ramanagara Rural District',
-    village: 'Ramanagara Village Ward 4',
-    sdgId: 6,
-    sdgName: 'SDG 6 - Clean Water & Sanitation',
-    category: 'Water Leakage',
-    severity: 'Critical',
-    description: 'The main 8-inch drinking water supply line burst near the primary school. 1,200 households have no clean drinking water and sewage overflow risk is high.',
-    reportedByNgo: 'Gram Vikas Rural Foundation (Citizen Grievance #402)',
-    fieldOfficer: 'Suresh Patil (Field Lead)',
-    status: 'Tech Solution Submitted',
-    dateLogged: '2026-08-04',
-    targetClearanceDate: '2026-08-08',
-    evidencePhotos: ['https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?w=500&auto=format&fit=crop&q=80'],
-    developerSolutionsCount: 2,
-    clearanceNotes: 'IoT telemetry app deployed by Tech Developer Priya Sharma. Pipe repair scheduled.'
-  },
-  {
-    id: 'RISS-2026-002',
-    title: 'Primary Health Clinic Frequent Power Blackouts Endangering Vaccines',
-    ruralDistrict: 'Tumakuru North District',
-    village: 'Gubbi Village Ward 2',
-    sdgId: 7,
-    sdgName: 'SDG 7 - Affordable & Clean Energy',
-    category: 'Clean Energy',
-    severity: 'High',
-    description: 'The village health center suffers 6-hour daily power cuts. Child immunization vaccines and insulin stocks are spoiling due to lack of solar battery backup.',
-    reportedByNgo: 'Seva Arogya Rural Health Trust',
-    fieldOfficer: 'Dr. Ramesh Gowda',
-    status: 'Open',
-    dateLogged: '2026-08-05',
-    targetClearanceDate: '2026-08-10',
-    evidencePhotos: ['https://images.unsplash.com/photo-1509391365360-2e959784a276?w=500&auto=format&fit=crop&q=80'],
-    developerSolutionsCount: 1,
-    clearanceNotes: 'Solar microgrid proposal submitted. Awaiting NGO funding approval.'
-  },
-  {
-    id: 'RISS-2026-003',
-    title: 'High Dropout Rate Among Rural Girl Students Due to Fee Shortfall',
-    ruralDistrict: 'Chikballapur East District',
-    village: 'Sidlaghatta Hamlet',
-    sdgId: 4,
-    sdgName: 'SDG 4 - Quality Education',
-    category: 'Education',
-    severity: 'Medium',
-    description: '35 low-income female students in Sidlaghatta hamlet cannot pay ₹12,000 annual high school tuition fees. CSR sponsorship needed.',
-    reportedByNgo: 'Vidya Rural Shiksha Mission',
-    fieldOfficer: 'Lakshmi Devi (Community Volunteer)',
-    status: 'Cleared',
-    dateLogged: '2026-08-01',
-    targetClearanceDate: '2026-08-06',
-    evidencePhotos: ['https://images.unsplash.com/photo-1577896851231-70ef18881754?w=500&auto=format&fit=crop&q=80'],
-    developerSolutionsCount: 3,
-    clearanceNotes: '100% fee waiver granted through Vidya CSR Sponsor Portal.'
-  }
-];
-
-export const SAMPLE_CIVIC_REPORTS = SAMPLE_RURAL_ISSUES;
-
-export const SAMPLE_DEVELOPER_SOLUTIONS = [
-  {
-    id: 'SOL-201',
-    issueId: 'RISS-2026-001',
-    title: 'SustainAqua: IoT Water Leakage Detection & Pressure Telemetry Dashboard',
-    developerName: 'Priya Sharma (Tech Innovator)',
-    githubUrl: 'https://github.com/priyasharma/sustain-aqua-iot',
-    demoUrl: 'https://sustain-aqua.vercel.app',
-    techStack: ['React', 'Node.js', 'MQTT IoT', 'TailwindCSS'],
-    solutionReport: 'Deploys low-cost ultrasonic water flow sensors connected to an ESP32 micro-controller. Reports real-time pipe bursts and alerts NGO field officers within 30 seconds.',
-    status: 'Approved & Deployed',
-    submittedDate: '2026-08-05',
-    impactScoreEarned: 400
-  },
-  {
-    id: 'SOL-202',
-    issueId: 'RISS-2026-002',
-    title: 'SolarGrid-Watch: Remote Battery & Vaccine Temperature Telemetry App',
-    developerName: 'Karthik Raja (Full-Stack Dev)',
-    githubUrl: 'https://github.com/karthik/solar-grid-watch',
-    demoUrl: 'https://solargrid-watch.vercel.app',
-    techStack: ['Python', 'FastAPI', 'Recharts', 'TailwindCSS'],
-    solutionReport: 'Monitors clinic solar battery charge levels and sends automated WhatsApp alerts to health officers if vaccine fridge temperature drops.',
-    status: 'Under NGO Field Evaluation',
-    submittedDate: '2026-08-06',
-    impactScoreEarned: 350
-  }
-];
-
-export const SAMPLE_DISASTER_ZONES = [
-  {
-    id: 'DIS-101',
-    district: 'Ramanagara Rural District',
-    lossPercentage: 65,
-    affectedCitizens: 1240,
-    evacuatedCitizens: 890,
-    requiredFunding: '₹15,000,000',
-    allocatedFunding: '₹9,800,000',
-    hazardType: 'Flash Flood & Reservoir Overflow',
-    sheltersActive: 4
-  },
-  {
-    id: 'DIS-102',
-    district: 'Mandya Rural District',
-    lossPercentage: 40,
-    affectedCitizens: 780,
-    evacuatedCitizens: 520,
-    requiredFunding: '₹9,000,000',
-    allocatedFunding: '₹6,200,000',
-    hazardType: 'Heavy Rainfall & Agricultural Submergence',
-    sheltersActive: 3
-  }
-];
-
-export const SAMPLE_DOS_AND_DONTS = [
-  {
-    type: 'Do',
-    title: 'Keep Emergency Kit Ready',
-    desc: 'Keep drinking water bottles, dry rations, flashlight, and essential medicines sealed in waterproof bags.'
-  },
-  {
-    type: 'Don’t',
-    title: 'Do Not Cross Flooded Streams',
-    desc: 'Never walk, swim, or drive through fast-flowing flood water or breached canal banks.'
-  }
-];
-
-export const SAMPLE_FOOD_DONATIONS = [
-  {
-    id: 'FOOD-101',
-    donorName: 'Bengaluru Convention Hall CSR',
-    foodType: 'Cooked Veg Rice & Gravy (120 Servings)',
-    quantity: '120 Meals',
-    cookedTime: 'Today 1:00 PM',
-    expiryTime: 'Tonight 10:00 PM',
-    location: 'Ramanagara Ward 2 Shelter Kiosk',
-    contactPhone: '+91 98450 33445',
-    status: 'Available'
-  },
-  {
-    id: 'FOOD-102',
-    donorName: 'Gram Samriddhi Wedding Caterers',
-    foodType: 'Fresh Roti, Dal & Sabzi (80 Servings)',
-    quantity: '80 Meals',
-    cookedTime: 'Today 2:30 PM',
-    expiryTime: 'Tonight 11:30 PM',
-    location: 'Mandya Hamlet Field Kitchen',
-    contactPhone: '+91 98450 55667',
-    status: 'Available'
+    activeProjects: ['Digital Learning Kiosks', 'Girls STEM Fellowship'],
+    clearedIssuesCount: 64
   }
 ];
 
 export const SAMPLE_SCHEMES = [
   {
     id: 'SCH-001',
-    name: 'PM Surya Ghar: Subsidized Rooftop Solar Scheme',
-    category: ['Environment & Energy', 'Government Schemes'],
-    sdgs: [7, 11, 13],
+    name: 'PM Surya Ghar: Muft Bijli Yojana',
+    category: ['Clean Energy', 'SDG 7', 'Subsidies'],
     provider: 'Ministry of New & Renewable Energy (MNRE)',
-    description: 'Provides up to ₹78,000 direct bank grant subsidy for installing 3 kW rooftop solar power plants in rural households. Grants up to 300 units free electricity per month.',
+    description: 'Provides up to 300 units of free electricity per month to rural households through a 40% to 60% direct subsidy for installing rooftop solar panels.',
+    benefits: 'Up to ₹78,000 direct bank grant for 3kW rooftop solar setup + 300 units free monthly power.',
     eligibility: {
-      minAge: 18,
-      maxAge: 75,
-      incomeMax: 'Below ₹8.0 Lakhs',
-      occupation: ['Student', 'Unemployed', 'Farmer', 'Entrepreneur', 'Any']
+      incomeMax: 'Below ₹3.5 Lakhs / Year',
+      occupation: ['Farmer', 'Student', 'Low Income Household', 'Unemployed'],
+      state: 'All States (Priority Karnataka)'
     },
-    benefits: '₹78,000 Direct Bank Grant + 300 Free Electricity Units/Month',
-    type: 'Subsidy / Grant',
     matchScore: 98,
-    deadline: '2026-12-31'
+    sdgs: [7, 11, 13],
+    deadline: 'December 31, 2026'
   },
   {
     id: 'SCH-002',
-    name: 'Post-Matric National Education Scholarship & Laptop Grant',
-    category: ['Education & Financial'],
-    sdgs: [4, 5, 8],
-    provider: 'Ministry of Education & Social Empowerment',
-    description: 'Direct 100% college tuition fee waiver + ₹3,000/month living stipend + free laptop grant for undergraduate students from low-income families.',
+    name: 'Vidya Samriddhi Post-Graduate Scholarship 2026',
+    category: ['Education', 'SDG 4', 'Scholarship'],
+    provider: 'Karnataka State Higher Education Council',
+    description: 'Full college tuition fee reimbursement + ₹5,000 monthly living allowance for meritorious undergraduate and post-graduate students from rural areas.',
+    benefits: '100% Fee Waiver + ₹60,000 annual direct bank stipend + free laptop.',
     eligibility: {
-      minAge: 17,
-      maxAge: 25,
-      incomeMax: 'Below ₹3.0 Lakhs',
-      occupation: ['Student']
+      incomeMax: 'Below ₹2.5 Lakhs / Year',
+      occupation: ['Student'],
+      state: 'Karnataka'
     },
-    benefits: '100% Tuition Fee Waiver + ₹3,000 Monthly Stipend + Free Laptop',
-    type: 'Scholarship / Grant',
     matchScore: 96,
-    deadline: '2026-09-15'
+    sdgs: [4, 5, 10],
+    deadline: 'August 30, 2026'
   },
   {
     id: 'SCH-003',
-    name: 'PM Kisan Samman Nidhi & Organic Farming Subsidy',
-    category: ['Agriculture & Support'],
-    sdgs: [1, 2, 12, 15],
-    provider: 'Ministry of Agriculture & Farmers Welfare',
-    description: 'Direct financial transfer of ₹6,000/year to small farmers + 80% subsidy on solar water pumps and organic bio-fertilizer kits.',
+    name: 'Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (PM-JAY)',
+    category: ['Healthcare', 'SDG 3', 'Insurance'],
+    provider: 'National Health Authority (NHA)',
+    description: 'Provides free health coverage up to ₹5.0 Lakhs per family per year for secondary and tertiary care hospitalization across empanelled hospitals.',
+    benefits: 'Cashless hospital treatment up to ₹5 Lakhs per family + free post-surgery medicine.',
     eligibility: {
-      minAge: 18,
-      maxAge: 70,
-      incomeMax: 'Below ₹5.0 Lakhs',
-      occupation: ['Farmer']
+      incomeMax: 'Below ₹3.0 Lakhs / Year',
+      occupation: ['Low Income Household', 'Farmer', 'Unemployed', 'Student'],
+      state: 'All India'
     },
-    benefits: '₹6,000 Cash Support + 80% Solar Pump Subsidy',
-    type: 'Financial Entitlement',
-    matchScore: 90,
-    deadline: 'Ongoing'
+    matchScore: 94,
+    sdgs: [3, 10],
+    deadline: 'Ongoing Scheme'
   },
   {
     id: 'SCH-004',
-    name: 'Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (PM-JAY)',
-    category: ['Healthcare'],
-    sdgs: [3, 10],
-    provider: 'National Health Authority (NHA)',
-    description: 'Health insurance coverage of up to ₹5.0 Lakhs per family per year for secondary and tertiary hospitalization across 28,000+ empanelled hospitals.',
+    name: 'PM-KUSUM Solar Agricultural Pump Subsidy',
+    category: ['Agriculture', 'Clean Energy', 'SDG 7'],
+    provider: 'Ministry of Agriculture & MNRE',
+    description: 'Provides 60% government subsidy for installing off-grid solar water pumps for rural farmers to eliminate diesel costs.',
+    benefits: '60% Subsidy on 5HP to 7.5HP Solar Water Pumps + 30% Bank Loan Support.',
     eligibility: {
-      minAge: 0,
-      maxAge: 100,
-      incomeMax: 'Below ₹5.0 Lakhs',
-      occupation: ['Any']
+      incomeMax: 'Open to All Small & Marginal Farmers',
+      occupation: ['Farmer'],
+      state: 'All States'
     },
-    benefits: '₹5.0 Lakhs Free Annual Health Insurance Cover',
-    type: 'Health Protection',
-    matchScore: 95,
-    deadline: 'Ongoing'
-  },
-  {
-    id: 'SCH-005',
-    name: 'Green Youth Internship & AI Skill Voucher Scheme',
-    category: ['Employment & Skills'],
-    sdgs: [8, 9, 13],
-    provider: 'Ministry of Skill Development & Entrepreneurship',
-    description: 'Paid 6-month government internships in renewable energy, AI data entry, and climate resilience with a monthly stipend of ₹10,000 + skill certificate.',
-    eligibility: {
-      minAge: 18,
-      maxAge: 29,
-      incomeMax: 'Below ₹6.0 Lakhs',
-      occupation: ['Student', 'Unemployed']
-    },
-    benefits: '₹10,000 Monthly Stipend + Govt Skill Certification',
-    type: 'Paid Internship',
     matchScore: 92,
-    deadline: '2026-10-01'
-  },
-  {
-    id: 'SCH-006',
-    name: 'PM Ujjwala Yojana 2.0: Free LPG Cooking Connection',
-    category: ['Environment & Energy', 'Healthcare'],
-    sdgs: [3, 5, 7],
-    provider: 'Ministry of Petroleum & Natural Gas',
-    description: 'Deposit-free LPG gas connection + free first refill and hotplate stove for adult women from low-income rural households.',
-    eligibility: {
-      minAge: 18,
-      maxAge: 65,
-      incomeMax: 'Below ₹2.5 Lakhs',
-      occupation: ['Any']
-    },
-    benefits: 'Free LPG Connection + First Refill Stove Kit',
-    type: 'Social Entitlement',
-    matchScore: 88,
-    deadline: 'Ongoing'
+    sdgs: [2, 7, 13],
+    deadline: 'November 15, 2026'
   }
 ];
-
-export const SAMPLE_CLEAN_ENERGY_SCHEMES = SAMPLE_SCHEMES.filter(s => s.category.includes('Environment & Energy'));
 
 export const SAMPLE_OPPORTUNITIES = [
   {
-    id: 'OPP-101',
+    id: 'OPP-301',
     title: 'Junior AI Data Annotator & Community Survey Lead',
-    provider: 'SustainAI Rural Tech Initiative',
     type: 'Paid Internship',
-    location: 'Bengaluru Urban / Remote',
-    stipend: '₹12,000 / month',
+    provider: 'SustainAI Rural Tech Collective',
+    location: 'Ramanagara District / Remote Kiosk',
     duration: '6 Months',
-    eligibility: 'Undergraduate Students in STEM / Humanities'
+    stipend: '₹12,000 / month',
+    eligibility: 'Undergraduate or Diploma Students with basic computer literacy',
+    description: 'Lead village household surveys and annotate rural civic issue data for UN SDG impact mapping.',
+    sdgs: [8, 9, 10]
   },
   {
-    id: 'OPP-102',
+    id: 'OPP-302',
     title: 'Solar Microgrid Field Maintenance Trainee',
-    provider: 'Gram Vikas Solar Energy Guild',
     type: 'Skill Apprenticeship',
-    location: 'Ramanagara District',
-    stipend: '₹10,000 / month',
+    provider: 'Gram Vikas Solar Energy Wing',
+    location: 'Mandya & Ramanagara Rural',
     duration: '3 Months',
-    eligibility: 'Diploma / ITI / High School Graduates'
-  }
-];
-
-export const SAMPLE_HEALTHCARE_SERVICES = [
-  {
-    id: 'HCS-01',
-    name: 'Ramanagara General Public Hospital (PHC)',
-    type: 'Government Public Hospital',
-    distance: '3.2 km away',
-    address: 'Near Old Bus Stand, Ramanagara Town',
-    contact: '+91 80 2727 1010',
-    rating: 4.8,
-    timings: '24/7 Emergency & OPD Open',
-    services: ['Free General OPD', 'Free Maternal Care', '24/7 Pharmacy', 'Diagnostic Blood Tests']
-  },
-  {
-    id: 'HCS-02',
-    name: 'Seva Arogya Rural Diagnostic Clinic',
-    type: 'NGO Supported Free Clinic',
-    distance: '5.8 km away',
-    address: 'Primary School Grounds, Ward 4, Ramanagara',
-    contact: '+91 98450 77112',
-    rating: 4.9,
-    timings: 'Mon - Sat (9:00 AM - 5:00 PM)',
-    services: ['Free Eye Screening & Glasses', 'Diabetes & BP Clinic', 'Free ECG Heart Check']
-  },
-  {
-    id: 'HCS-03',
-    name: 'Mandya Community Health Center & Tele-Medicine Hub',
-    type: 'Government Public Hospital',
-    distance: '8.1 km away',
-    address: 'Main Road, Pandavapura, Mandya',
-    contact: '+91 8232 251100',
-    rating: 4.7,
-    timings: '24/7 OPD & Emergency Unit',
-    services: ['Free Tele-Specialist Consultation', 'Pediatric Vaccination', 'Free Blood Transfusion']
+    stipend: '₹10,000 / month',
+    eligibility: 'ITI / Diploma in Electrical or Electronics',
+    description: 'Hands-on training in solar panel cleaning, inverter diagnostics, and battery storage maintenance.',
+    sdgs: [7, 8, 13]
   }
 ];
 
 export const SAMPLE_MEDICAL_CAMPS = [
   {
-    id: 'CAMP-301',
-    title: 'Free Multi-Specialty Health & Eye Checkup Camp',
-    ruralDistrict: 'Ramanagara Rural District',
-    venue: 'Ramanagara Primary School Grounds, Ward 4',
-    date: 'August 14, 2026 (Sunday)',
-    time: '9:00 AM - 4:00 PM',
-    organizer: 'Seva Arogya Trust & Rotary Club Bengaluru',
-    doctorsCount: '12 Specialist Doctors Attending',
-    availableSlots: 45,
-    specialties: ['Free Eye Screening & Glasses', 'General Medicine OPD', 'Blood Sugar & BP Test', 'ECG Heart Check']
+    id: 'CAMP-201',
+    title: 'Free Eye Checkup & Cataract Surgery Camp',
+    location: 'Ramanagara Primary School Hall, Ward 4',
+    date: 'August 14, 2026',
+    timing: '09:00 AM - 04:00 PM',
+    organizer: 'Minto Ophthalmic Hospital & Gram Vikas NGO',
+    specialties: ['Free Spectacles Distribution', 'Cataract Screening', 'Glaucoma Checkup'],
+    doctorsCount: 6,
+    slotsAvailable: 140,
+    fee: '100% Free'
   },
   {
-    id: 'CAMP-302',
-    title: 'Maternal Nutrition & Pediatric Child Immunization Camp',
-    ruralDistrict: 'Mandya Rural District',
-    venue: 'Pandavapura Community Hall',
-    date: 'August 18, 2026 (Thursday)',
-    time: '10:00 AM - 3:00 PM',
-    organizer: 'Vidya Rural Health Mission & UNICEF Volunteer Wing',
-    doctorsCount: '8 Pediatricians & Gynaecologists',
-    availableSlots: 60,
-    specialties: ['Free Immunization Vaccines', 'Maternal Iron Supplementation', 'Child Growth Monitoring']
+    id: 'CAMP-202',
+    title: 'Maternal Health & Pediatric Immunization Clinic',
+    location: 'Mandya Primary Health Center, Pandavapura',
+    date: 'August 18, 2026',
+    timing: '10:00 AM - 03:00 PM',
+    organizer: 'District Health Society & UNICEF Partner',
+    specialties: ['Ultrasound Scan', 'Iron & Folic Supplementation', 'Child Vaccination'],
+    doctorsCount: 8,
+    slotsAvailable: 95,
+    fee: '100% Free'
+  }
+];
+
+export const SAMPLE_HEALTHCARE_SERVICES = [
+  {
+    id: 'HSER-101',
+    title: 'Ayushman Bharat Golden Health Card Kiosk',
+    category: 'Free Cashless Health Insurance (Up to ₹5 Lakhs)',
+    provider: 'National Health Authority & Karnataka Health Dept',
+    location: 'Ramanagara District Hospital Ward 2',
+    benefits: '100% Cashless Medical Treatment at Empanelled Hospitals',
+    timing: '09:00 AM - 05:00 PM (Daily)',
+    contact: '+91 1800 11 4477'
   },
   {
-    id: 'CAMP-303',
-    title: 'Rural Diabetes & Cardiac Prevention Mega Screening',
-    ruralDistrict: 'Tumakuru North District',
-    venue: 'Gubbi Town Secondary School Campus',
-    date: 'August 22, 2026 (Saturday)',
-    time: '8:30 AM - 5:00 PM',
-    organizer: 'Narayana Health Rural Outreach & CSR Guild',
-    doctorsCount: '15 Cardiologists & Diabetologists',
-    availableSlots: 85,
-    specialties: ['Free Lipid Profile Test', '2D Echo Heart Scan', 'Diabetic Foot Screening']
+    id: 'HSER-102',
+    title: 'Mobile Tele-Medicine & Diagnostic Van',
+    category: 'Primary Healthcare & Diagnostics',
+    provider: 'Gram Vikas Mobile Health Unit',
+    location: 'Visiting Ramanagara Villages (Tuesdays & Fridays)',
+    benefits: 'Free Blood Sugar Test, ECG & Tele-Consultation with Doctors',
+    timing: '10:00 AM - 02:00 PM',
+    contact: '+91 98450 11223'
+  }
+];
+
+export const SAMPLE_CLEAN_ENERGY_SCHEMES = [
+  {
+    id: 'CES-101',
+    name: 'PM Surya Ghar Rooftop Solar Scheme',
+    category: ['Rooftop Solar', 'SDG 7'],
+    provider: 'MNRE & Bescom Karnataka',
+    description: 'Up to ₹78,000 grant subsidy for 3 kW rooftop solar installation. Saves up to 90% monthly power bill.',
+    subsidyAmount: 'Up to ₹78,000 Direct Bank Credit',
+    estimatedMonthlySavings: 'Save ₹2,200 - ₹3,500 / month',
+    deadline: 'Dec 31, 2026'
   },
   {
-    id: 'CAMP-304',
-    title: 'Senior Citizen Free Dental & Joint Mobility Camp',
-    ruralDistrict: 'Chikballapur East District',
-    venue: 'Sidlaghatta Panchayat Grounds',
-    date: 'August 28, 2026 (Friday)',
-    time: '9:30 AM - 3:30 PM',
-    organizer: 'Seva Arogya Trust & Manipal Dental Foundation',
-    doctorsCount: '10 Dentists & Orthopedicians',
-    availableSlots: 50,
-    specialties: ['Free Denture Fitting', 'Arthritis Physiotherapy', 'Calcium Supplement Distribution']
+    id: 'CES-102',
+    name: 'PM-KUSUM Solar Irrigation Pump Subsidy',
+    category: ['Agricultural Solar', 'SDG 7'],
+    provider: 'Ministry of Agriculture',
+    description: '60% subsidy for 5 HP solar water pumps replacing diesel generators for farmers.',
+    subsidyAmount: '60% Govt Subsidy (Up to ₹1,25,000)',
+    estimatedMonthlySavings: 'Save ₹4,500 / month on diesel',
+    deadline: 'Nov 15, 2026'
+  },
+  {
+    id: 'CES-103',
+    name: 'Pradhan Mantri Ujjwala Free LPG Connection',
+    category: ['Clean Cooking LPG', 'SDG 7'],
+    provider: 'Ministry of Petroleum & Natural Gas',
+    description: '100% free LPG gas stove and first 14.2kg cylinder refill for rural BPL households.',
+    subsidyAmount: '100% Free Connection + ₹1,600 Subsidy',
+    estimatedMonthlySavings: 'Clean Smokeless Cooking Access',
+    deadline: 'Ongoing'
+  }
+];
+
+export const SAMPLE_CLEAN_ENERGY_REQUESTS = [
+  {
+    id: 'SOLAR-REQ-101',
+    schemeName: 'PM Surya Ghar Rooftop Solar Scheme',
+    applicantName: 'Arun Kumar',
+    applicantPhone: '+91 98450 11223',
+    district: 'Ramanagara Rural District',
+    village: 'Ramanagara Village Ward 4',
+    solarCapacity: '3.0 kW Rooftop Solar Plant',
+    subsidyGrant: '₹78,000 Direct Bank Subsidy',
+    monthlyBill: '₹2,500 / month',
+    rooftopArea: '350 sq ft (Sufficient for 3 kW)',
+    status: 'Pending NGO Rural Inspection',
+    submittedDate: '2026-08-06',
+    inspectionDate: null
+  },
+  {
+    id: 'SOLAR-REQ-102',
+    schemeName: 'PM-KUSUM Solar Agricultural Pump Grant',
+    applicantName: 'Lakshmi Devi',
+    applicantPhone: '+91 94481 22334',
+    district: 'Mandya Rural District',
+    village: 'Pandavapura Hamlet Ward 2',
+    solarCapacity: '5.0 HP Solar Pump Set',
+    subsidyGrant: '₹1,25,000 Govt Grant',
+    monthlyBill: '₹4,200 / month',
+    rooftopArea: '500 sq ft Field Open Shed',
+    status: 'Rural Site Visit Scheduled',
+    submittedDate: '2026-08-05',
+    inspectionDate: '2026-08-09'
+  },
+  {
+    id: 'SOLAR-REQ-103',
+    schemeName: 'Pradhan Mantri Ujjwala Free LPG Connection',
+    applicantName: 'Ramesh Gowda',
+    applicantPhone: '+91 97312 99881',
+    district: 'Tumakuru North District',
+    village: 'Gubbi Village Ward 1',
+    solarCapacity: '2-Burner Gas Stove + 14.2kg LPG Cylinder',
+    subsidyGrant: '100% Free Stove & First Refill',
+    monthlyBill: '₹850 / month',
+    rooftopArea: 'Standard Kitchen Space',
+    status: 'Grant Transferred & Verified',
+    submittedDate: '2026-08-03',
+    inspectionDate: '2026-08-04'
+  }
+];
+
+export const SAMPLE_FOOD_DONATIONS = [
+  {
+    id: 'FOOD-401',
+    donorName: 'Sri Sai Caterers & Marriages',
+    foodType: 'Fresh Cooked Vegetarian Meals (Rice, Sambar, Vegetable Curry)',
+    quantity: '120 Portions',
+    location: 'Ramanagara Ward 2 Shelter Kiosk',
+    preparedTime: 'Today, 01:00 PM',
+    expiryTime: 'Today, 09:00 PM',
+    status: 'Available for Pick-up',
+    ngoAssigned: 'Gram Vikas Rural Foundation'
+  },
+  {
+    id: 'FOOD-402',
+    donorName: 'Mandya Supermarket Surplus',
+    foodType: 'Packed Wheat Flour, Rice Bags & Milk Packets',
+    quantity: '45 Ration Packets',
+    location: 'Pandavapura Community Relief Shelter',
+    preparedTime: 'Yesterday',
+    expiryTime: 'Aug 12, 2026',
+    status: 'Assigned to NGO Shuttles',
+    ngoAssigned: 'Clean Water & Eco Relief'
   }
 ];
 
@@ -467,46 +341,146 @@ export const SAMPLE_EDUCATION_SPONSORS = [
     totalSponsoredStudents: 255,
     deadline: 'September 10, 2026',
     description: 'Covers full college tuition fees directly paid to accredited degree colleges for meritorious female students from rural villages.'
-  },
-  {
-    id: 'SPON-503',
-    programTitle: 'TCS Digital Youth Employability & Coding Grant',
-    sponsorName: 'Tata Consultancy Services Foundation',
-    sponsorType: 'Corporate CSR',
-    fundingAmount: 'Free 6-Month Full-Stack Certification + ₹12,000 Stipend',
-    targetBeneficiaries: 'Rural Youth & Diploma Graduates in Karnataka',
-    totalSponsoredStudents: 310,
-    deadline: 'September 25, 2026',
-    description: 'Guaranteed 6-month hands-on software development training with direct placement interviews upon completion.'
   }
 ];
 
-export const SAMPLE_NOTIFICATIONS = [
+export const SAMPLE_CIVIC_REPORTS = [
   {
-    id: 'NOTIF-001',
-    title: '☀️ PM Surya Ghar Solar Grant Approved',
-    message: 'Your profile is matched for ₹78,000 rooftop solar subsidy. NGO field officer site survey scheduled.',
-    timestamp: '2 hours ago',
-    read: false,
-    type: 'opportunity',
-    link: 'clean-energy'
+    id: 'CIVIC-101',
+    title: 'Overhead Drinking Water Pipe Fracture & Leakage',
+    category: 'Water Sanitation',
+    district: 'Ramanagara Rural District',
+    village: 'Ramanagara Village Ward 4',
+    severity: 'High',
+    status: 'Assigned to Plumber Team',
+    reportedDate: 'August 5, 2026',
+    reporterName: 'Arun Kumar',
+    description: 'Main overhead drinking water pipe fractured near primary school. Potable water leaking into open drainage.'
   },
   {
-    id: 'NOTIF-002',
-    title: '💻 Tech Developer Submitted Solution',
-    message: 'Developer Priya Sharma submitted IoT water telemetry code for Ramanagara Ward 4 pipe burst issue.',
-    timestamp: '1 day ago',
-    read: false,
-    type: 'clearance',
-    link: 'developer-hub'
+    id: 'CIVIC-102',
+    title: 'Solar Street Light Battery Telemetry Failure',
+    category: 'Clean Energy Hardware',
+    district: 'Mandya Rural District',
+    village: 'Pandavapura Hamlet Ward 2',
+    severity: 'Medium',
+    status: 'Escalated to Developer Hub',
+    reportedDate: 'August 6, 2026',
+    reporterName: 'Lakshmi Devi',
+    description: 'Solar street light battery charging controller stopped sending telemetry data packets.'
+  }
+];
+
+export const SAMPLE_RURAL_ISSUES = [
+  {
+    id: 'RISS-101',
+    title: 'Drinking Water Pipeline Burst & Canal Contamination',
+    ruralDistrict: 'Ramanagara Rural District',
+    village: 'Ramanagara Village Ward 4',
+    sdgId: 6,
+    sdgName: '6 - Clean Water & Sanitation',
+    category: 'Water Sanitation',
+    severity: 'High',
+    description: 'Main overhead drinking water pipe fractured near school. Contaminated runoff entering drinking taps.',
+    reportedByNgo: 'Citizen Report (Arun Kumar)',
+    fieldOfficer: 'Suresh Patil (Field Officer)',
+    status: 'Open',
+    dateLogged: '2026-08-04',
+    targetClearanceDate: 'Within 5 Days',
+    evidencePhotos: ['https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=500&auto=format&fit=crop&q=80'],
+    developerSolutionsCount: 2,
+    clearanceNotes: 'Awaiting field plumber replacement parts.'
   },
   {
-    id: 'NOTIF-003',
-    title: '🏥 Medical Camp Appointment Confirmed',
-    message: 'Free Eye Checkup Camp slot booked for August 14 at Ramanagara Primary School.',
-    timestamp: '2 days ago',
-    read: true,
-    type: 'reminder',
-    link: 'healthcare'
+    id: 'RISS-102',
+    title: 'River Arkavathi Flash Flood Bridge Road Submersion',
+    ruralDistrict: 'Ramanagara Rural District',
+    village: 'Kanakapura River Basin',
+    sdgId: 11,
+    sdgName: '11 - Sustainable Cities & Communities',
+    category: 'Disaster Relief',
+    severity: 'Critical',
+    description: 'Flash floods flooded NH-275 bridge. 8 evacuation shuttle buses currently active.',
+    reportedByNgo: 'Gram Vikas Rural Foundation',
+    fieldOfficer: 'Ramesh Gowda (Disaster Cell)',
+    status: 'Under Verification',
+    dateLogged: '2026-08-05',
+    targetClearanceDate: 'Within 48 Hours',
+    evidencePhotos: ['https://images.unsplash.com/photo-1547683905-f686c993aae5?w=500&auto=format&fit=crop&q=80'],
+    developerSolutionsCount: 1,
+    clearanceNotes: 'NDMA boats deployed.'
+  }
+];
+
+export const SAMPLE_DEVELOPER_SOLUTIONS = [
+  {
+    id: 'DSOL-301',
+    issueId: 'RISS-101',
+    issueTitle: 'Drinking Water Pipeline Burst & Canal Contamination',
+    developerName: 'Priya Sharma (Full-Stack IoT Dev)',
+    solutionTitle: 'Open-Source Ultrasonic Water Leakage Sensor & Telemetry API',
+    repoUrl: 'https://github.com/au410623104103/Sustain-AI',
+    techStack: ['Node.js', 'ESP32 IoT', 'MQTT', 'React'],
+    description: 'Built low-cost ESP32 pressure drop sensor telemetry system that alerts village panchayat automatically when pressure drops below 1.2 bar.',
+    status: 'Deployed & Operational',
+    dateSubmitted: '2026-08-05'
+  }
+];
+
+export const SAMPLE_DISASTER_ZONES = [
+  {
+    id: 'DIS-ZONE-1',
+    district: 'Ramanagara Rural District',
+    lossPercentage: 65,
+    affectedCitizens: 1240,
+    evacuatedCitizens: 890,
+    requiredFunding: '₹15,000,000',
+    allocatedFunding: '₹9,800,000',
+    hazardType: 'Flash Flood & Reservoir Overflow',
+    sheltersActive: 4,
+    safeShelter: 'Ramanagara District Higher Secondary Relief Camp',
+    touristWarning: 'Avoid NH-275 River Arkavathi bridge due to high water levels. Take State Highway 17 elevated bypass.',
+    migrationStatus: '8 Emergency Bus Shuttles Active En Route'
+  },
+  {
+    id: 'DIS-ZONE-2',
+    district: 'Mandya Rural District',
+    lossPercentage: 40,
+    affectedCitizens: 3400,
+    evacuatedCitizens: 0,
+    requiredFunding: '₹8,500,000',
+    allocatedFunding: '₹4,200,000',
+    hazardType: 'Agricultural Heatwave & Drought Stress',
+    sheltersActive: 2,
+    safeShelter: 'Pandavapura Primary Community Cooling Center',
+    touristWarning: 'Hydration kiosks active on Pandavapura Highway. Carry thermal sun protection.',
+    migrationStatus: 'Hydration Stations Active'
+  }
+];
+
+export const SAMPLE_DOS_AND_DONTS = [
+  {
+    dos: [
+      'Keep emergency survival kit with bottled water and sealed rations.',
+      'Evacuate immediately when red alert warning siren sounds.',
+      'Move elderly citizens and children to designated relief shelters.'
+    ],
+    donts: [
+      'Do not walk, swim, or drive through fast-flowing flood water.',
+      'Do not touch fallen electric power lines or submerged transformers.',
+      'Do not spread unverified rumors; follow official NDMA broadcasts.'
+    ]
+  },
+  {
+    dos: [
+      'Drink plenty of oral rehydration fluids and clean water.',
+      'Stay indoors during peak solar hours (12 PM - 3 PM).',
+      'Wear loose-fitting, light-colored cotton clothing.'
+    ],
+    donts: [
+      'Do not leave pets or livestock tied outdoors under direct heat.',
+      'Do not consume stale or uncovered food items.',
+      'Do not engage in strenuous physical labor during extreme heat hours.'
+    ]
   }
 ];
