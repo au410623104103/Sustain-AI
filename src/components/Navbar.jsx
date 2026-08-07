@@ -33,6 +33,8 @@ export default function Navbar({
     { code: 'Tamil', label: 'தமிழ் (Tamil)' }
   ];
 
+  const defaultAvatar = currentUser ? `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(currentUser.name)}` : '';
+
   return (
     <header className="sticky top-0 z-40 w-full glass-panel border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -248,9 +250,9 @@ export default function Navbar({
                 onClick={() => setActiveView('profile')}
                 className="flex items-center space-x-2 pl-2 border-l border-slate-200 dark:border-slate-800 cursor-pointer group"
               >
-                <div className="h-9 w-9 rounded-full bg-slate-200 dark:bg-slate-800 border border-emerald-500/40 p-0.5 overflow-hidden group-hover:border-emerald-400 transition-all">
+                <div className="h-9 w-9 rounded-full bg-slate-200 dark:bg-slate-800 border border-emerald-500/40 p-0.5 overflow-hidden group-hover:border-emerald-400 transition-all flex items-center justify-center">
                   <img 
-                    src={currentUser.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"} 
+                    src={currentUser.avatar || defaultAvatar} 
                     alt={currentUser.name} 
                     className="h-full w-full object-cover rounded-full"
                   />

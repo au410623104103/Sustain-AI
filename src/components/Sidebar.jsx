@@ -28,6 +28,8 @@ export default function Sidebar({ activeView, setActiveView, currentUser, onLogo
   const isNgoRole = activeView === 'ngo-panel';
   const isDevRole = activeView === 'developer-hub';
 
+  const defaultAvatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(currentUser.name || 'User')}`;
+
   const navItems = [
     { id: 'dashboard', label: t.navDashboard, icon: LayoutDashboard, badge: null },
     { id: 'clean-energy', label: t.navCleanEnergy, icon: Zap, badge: t.badgeSolarLpg },
@@ -62,7 +64,7 @@ export default function Sidebar({ activeView, setActiveView, currentUser, onLogo
         >
           <div className="flex items-center space-x-3">
             <img 
-              src={currentUser.avatar} 
+              src={currentUser.avatar || defaultAvatar} 
               alt={currentUser.name} 
               className="h-10 w-10 rounded-xl object-cover border border-emerald-500/30 group-hover:scale-105 transition-transform" 
             />
@@ -114,9 +116,9 @@ export default function Sidebar({ activeView, setActiveView, currentUser, onLogo
           })}
         </div>
 
-        {/* SDG Contribution Banner */}
-        <div className="mt-auto pt-4 border-t border-slate-200 dark:border-slate-800/80">
-          <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/20 text-center">
+        {/* Footer Impact Summary */}
+        <div className="pt-3 border-t border-slate-200 dark:border-slate-800 text-center">
+          <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
             <div className="flex items-center justify-center space-x-1 text-emerald-700 dark:text-emerald-400 text-xs font-bold mb-1">
               <ShieldCheck className="h-4 w-4" />
               <span>{t.universalScore}: {currentUser.impactScore || 840}</span>

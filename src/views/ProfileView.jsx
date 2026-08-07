@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { User, MapPin, Briefcase, GraduationCap, DollarSign, CheckCircle2, Save, Sparkles, HeartHandshake } from 'lucide-react';
+import { User, MapPin, Briefcase, GraduationCap, DollarSign, CheckCircle2, Save, Sparkles, HeartHandshake, Upload, Camera, Image, ShieldCheck } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
 
 export default function ProfileView({ currentUser, onSaveProfile, onContinue, currentLanguage }) {
   const [profile, setProfile] = useState({
     name: currentUser?.name || 'Arun Kumar',
+    email: currentUser?.email || 'arun.kumar@student.edu.in',
     age: currentUser?.age || 20,
     gender: currentUser?.gender || 'Male',
     state: currentUser?.state || 'Karnataka',
@@ -13,13 +14,25 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue, cu
     educationLevel: currentUser?.educationLevel || 'Undergraduate',
     incomeRange: currentUser?.incomeRange || 'Below ₹2.5 Lakhs / Year (Low Income)',
     incomeCategory: currentUser?.incomeCategory || 'Low Income',
+    avatar: currentUser?.avatar || 'https://api.dicebear.com/7.x/bottts/svg?seed=ArunKumar',
     skills: currentUser?.skills || ['Python Basics', 'Data Entry', 'Web Development'],
     needs: currentUser?.needs || ['Education', 'Financial Assistance', 'Employment']
   });
 
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [avatarTab, setAvatarTab] = useState('upload'); // 'upload', 'presets', 'url'
+  const [customUrlInput, setCustomUrlInput] = useState('');
 
   const t = TRANSLATIONS[currentLanguage || 'English'] || TRANSLATIONS.English;
+
+  // Preset Avatars
+  const presetAvatars = [
+    { label: 'Citizen / Student 🏡', url: 'https://api.dicebear.com/7.x/bottts/svg?seed=ArunKumar' },
+    { label: 'NGO Officer 🤝', url: 'https://api.dicebear.com/7.x/bottts/svg?seed=NgoOfficer' },
+    { label: 'Tech Developer 💻', url: 'https://api.dicebear.com/7.x/bottts/svg?seed=TechDeveloper' },
+    { label: 'Health Specialist 🩺', url: 'https://api.dicebear.com/7.x/bottts/svg?seed=HealthOfficer' },
+    { label: 'Eco Volunteer 🌿', url: 'https://api.dicebear.com/7.x/bottts/svg?seed=EcoVolunteer' }
+  ];
 
   const assistanceCategories = [
     'Education',
@@ -31,6 +44,17 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue, cu
     'Emergency Support',
     'Environment'
   ];
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfile(prev => ({ ...prev, avatar: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleNeedToggle = (category) => {
     setProfile(prev => {
@@ -51,6 +75,9 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue, cu
       onContinue && onContinue();
     }, 1000);
   };
+
+  // Helper to generate initials SVG fallback
+  const initials = profile.name ? profile.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'AK';
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
@@ -86,6 +113,121 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue, cu
 
       <form onSubmit={handleSubmit} className="space-y-8">
         
+        {/* SECTION: Profile Picture & Avatar Settings */}
+        <div className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
+          <h3 className="text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center space-x-2">
+            <Camera className="h-4 w-4" />
+            <span>Profile Picture & User Avatar</span>
+          </h3>
+
+          <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
+            
+            {/* Live Profile Avatar Preview Box */}
+            <div className="relative group shrink-0">
+              <div className="h-24 w-24 rounded-full bg-slate-200 dark:bg-slate-900 border-4 border-emerald-500/40 p-1 flex items-center justify-center overflow-hidden shadow-lg">
+                {profile.avatar ? (
+                  <img src={profile.avatar} alt="Profile Avatar" className="h-full w-full object-cover rounded-full" />
+                ) : (
+                  <div className="h-full w-full rounded-full bg-gradient-to-tr from-emerald-500 to-teal-500 text-slate-950 font-extrabold text-2xl flex items-center justify-center">
+                    {initials}
+                  </div>
+                )}
+              </div>
+              <span className="absolute bottom-0 right-0 h-6 w-6 rounded-full bg-emerald-500 border-2 border-slate-950 flex items-center justify-center text-[10px] text-slate-950 font-bold">
+                ✓
+              </span>
+            </div>
+
+            {/* Avatar Selector Options */}
+            <div className="flex-1 space-y-3 w-full">
+              <div className="flex items-center space-x-2 border-b border-slate-200 dark:border-slate-800 pb-2 text-xs">
+                <button
+                  type="button"
+                  onClick={() => setAvatarTab('upload')}
+                  className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
+                    avatarTab === 'upload' ? 'bg-emerald-500 text-slate-950' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  Upload File
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAvatarTab('presets')}
+                  className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
+                    avatarTab === 'presets' ? 'bg-emerald-500 text-slate-950' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  Choose Preset
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAvatarTab('url')}
+                  className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
+                    avatarTab === 'url' ? 'bg-emerald-500 text-slate-950' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  Image URL
+                </button>
+              </div>
+
+              {avatarTab === 'upload' && (
+                <div className="space-y-2">
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">Upload Custom Image (PNG, JPG, SVG)</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileUpload}
+                    className="w-full text-xs text-slate-600 dark:text-slate-400 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-500 file:text-slate-950 hover:file:bg-emerald-400 cursor-pointer"
+                  />
+                  <p className="text-[10px] text-slate-500">Image file will be converted and saved directly in persistent local storage.</p>
+                </div>
+              )}
+
+              {avatarTab === 'presets' && (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {presetAvatars.map((preset, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setProfile({ ...profile, avatar: preset.url })}
+                      className={`p-2 rounded-xl border text-xs font-bold transition-all text-left flex items-center space-x-2 ${
+                        profile.avatar === preset.url
+                          ? 'bg-emerald-500/20 border-emerald-500 text-emerald-700 dark:text-emerald-300'
+                          : 'bg-slate-100 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300'
+                      }`}
+                    >
+                      <img src={preset.url} alt="Preset" className="h-6 w-6 rounded-full shrink-0" />
+                      <span className="truncate text-[11px]">{preset.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {avatarTab === 'url' && (
+                <div className="flex space-x-2">
+                  <input
+                    type="url"
+                    placeholder="Paste image URL..."
+                    value={customUrlInput}
+                    onChange={(e) => setCustomUrlInput(e.target.value)}
+                    className="flex-1 px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs text-slate-900 dark:text-white"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (customUrlInput.trim()) setProfile({ ...profile, avatar: customUrlInput });
+                    }}
+                    className="px-4 py-2 bg-emerald-500 text-slate-950 font-bold rounded-xl text-xs"
+                  >
+                    Set URL
+                  </button>
+                </div>
+              )}
+
+            </div>
+          </div>
+        </div>
+
         {/* Section 1: Basic Demographics */}
         <div className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
           <h3 className="text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center space-x-2">
