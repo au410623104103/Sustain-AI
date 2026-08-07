@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { User, MapPin, Briefcase, GraduationCap, DollarSign, CheckCircle2, Save, Sparkles, HeartHandshake, Upload, Camera, Image, ShieldCheck } from 'lucide-react';
+import { User, MapPin, Briefcase, GraduationCap, DollarSign, CheckCircle2, Save, Sparkles, HeartHandshake, Upload, Camera, Image, ShieldCheck, Award } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
+import { aiEngine } from '../services/aiEngine';
 
 export default function ProfileView({ currentUser, onSaveProfile, onContinue, currentLanguage }) {
   const [profile, setProfile] = useState({
@@ -24,6 +25,7 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue, cu
   const [customUrlInput, setCustomUrlInput] = useState('');
 
   const t = TRANSLATIONS[currentLanguage || 'English'] || TRANSLATIONS.English;
+  const personaBadges = aiEngine.generateCitizenPersona(profile);
 
   // Preset Avatars
   const presetAvatars = [
@@ -76,7 +78,6 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue, cu
     }, 1000);
   };
 
-  // Helper to generate initials SVG fallback
   const initials = profile.name ? profile.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'AK';
 
   return (
@@ -109,6 +110,25 @@ export default function ProfileView({ currentUser, onSaveProfile, onContinue, cu
             </>
           )}
         </button>
+      </div>
+
+      {/* FEATURE 11: AI CITIZEN PERSONA BADGES */}
+      <div className="p-5 rounded-3xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3 shadow-sm">
+        <div className="flex items-center justify-between">
+          <h3 className="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider flex items-center space-x-1.5">
+            <Award className="h-4 w-4" />
+            <span>AI Citizen Persona Intelligence Badges</span>
+          </h3>
+          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold">Synthesized from Profile</span>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          {personaBadges.map((badge, idx) => (
+            <span key={idx} className={`px-3.5 py-1.5 rounded-full border text-xs ${badge.color}`}>
+              {badge.icon} {badge.title}
+            </span>
+          ))}
+        </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
