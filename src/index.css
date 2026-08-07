@@ -18,14 +18,14 @@
   color: #0f172a;
 }
 
-/* Explicit Heading & Content Color Rules for Dark & Light Themes */
+/* Default Heading Colors (NO !important so dark card banners can override them!) */
 .dark-theme h1,
 .dark-theme h2,
 .dark-theme h3,
 .dark-theme h4,
 .dark-theme h5,
 .dark-theme h6 {
-  color: #ffffff !important;
+  color: #ffffff;
 }
 
 .light-theme h1,
@@ -34,7 +34,7 @@
 .light-theme h4,
 .light-theme h5,
 .light-theme h6 {
-  color: #0f172a !important;
+  color: #0f172a;
 }
 
 .dark-theme p {
@@ -92,9 +92,17 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Force White Text Class for Dark Banners in both Light & Dark Mode */
+/* FORCE WHITE TEXT FOR DARK CARDS & BANNERS IN BOTH LIGHT & DARK MODE */
 .text-white-force,
-.text-white-force * {
+.text-white-force h1,
+.text-white-force h2,
+.text-white-force h3,
+.text-white-force h4,
+.text-white-force h5,
+.text-white-force h6,
+.text-white-force span,
+.text-white-force div,
+.text-white-force strong {
   color: #ffffff !important;
 }
 
