@@ -4,8 +4,13 @@ import Sidebar from './components/Sidebar';
 import EligibilityModal from './components/EligibilityModal';
 import ApiKeyModal from './components/ApiKeyModal';
 
-import LandingView from './views/LandingView';
-import AuthView from './views/AuthView';
+// Multi-Portal Onboarding & Authentication Engine
+import SplashScreen from './components/auth/SplashScreen';
+import WelcomeScreen from './components/auth/WelcomeScreen';
+import RoleSelectionScreen from './components/auth/RoleSelectionScreen';
+import AuthScreen from './components/auth/AuthScreen';
+
+// Core Dashboard & Portal Views
 import ProfileView from './views/ProfileView';
 import DashboardView from './views/DashboardView';
 import AiAssistantView from './views/AiAssistantView';
@@ -30,9 +35,26 @@ export default function App() {
   // Initialize storage seeds if empty
   storageService.init();
 
+  // Onboarding Stage Control: 'splash' -> 'welcome' -> 'role-selection' -> 'auth' -> 'app'
+  const [onboardingStage, setOnboardingStage] = useState(() => {
+    const user = storageService.getCurrentUser();
+    return user ? 'app' : 'splash';
+  });
+
+  const [selectedRole, setSelectedRole] = useState('citizen');
+  const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
+
   // Persistent React State from storageService
   const [currentUser, setCurrentUser] = useState(() => storageService.getCurrentUser());
-  const [activeView, setActiveView] = useState(() => storageService.getCurrentUser() ? 'dashboard' : 'landing');
+  const [activeView, setActiveView] = useState(() => {
+    const user = storageService.getCurrentUser();
+    if (!user) return 'dashboard';
+    if (user.role === 'ngo') return 'ngo-panel';
+    if (user.role === 'developer') return 'developer-hub';
+    if (user.role === 'sdg_admin') return 'sdg-impact';
+    return 'dashboard';
+  });
+
   const [notifications, setNotifications] = useState(() => storageService.getNotifications());
   
   // Theme & Language Persistence
@@ -73,8 +95,6 @@ export default function App() {
   useEffect(() => {
     const unsubscribe = realtimeService.subscribe((event) => {
       console.log('[App RealTime Sync] Event Received:', event);
-      
-      // Reload fresh persistent data from storageService upon broadcast
       setRuralIssues(storageService.getRuralIssues());
       setDeveloperSolutions(storageService.getDeveloperSolutions());
       setCleanEnergyRequests(storageService.getCleanEnergyRequests());
@@ -84,18 +104,31 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  // Handlers
-  const handleLoginSuccess = (userObj) => {
-    const userToSave = userObj || DEFAULT_DEMO_USER;
-    setCurrentUser(userToSave);
-    storageService.setCurrentUser(userToSave);
-    setActiveView('dashboard');
+  // Multi-Portal Role Auth Success Handler
+  const handleAuthSuccess = (userPayload) => {
+    const fullUser = {
+      ...DEFAULT_DEMO_USER,
+      ...userPayload,
+      role: selectedRole,
+      isAuthenticated: true
+    };
+
+    setCurrentUser(fullUser);
+    storageService.setCurrentUser(fullUser);
+
+    // Route to Role-Specific Dashboard
+    if (selectedRole === 'ngo') setActiveView('ngo-panel');
+    else if (selectedRole === 'developer') setActiveView('developer-hub');
+    else if (selectedRole === 'sdg_admin') setActiveView('sdg-impact');
+    else setActiveView('dashboard');
+
+    setOnboardingStage('app');
   };
 
   const handleLogout = () => {
     setCurrentUser(null);
     storageService.setCurrentUser(null);
-    setActiveView('landing');
+    setOnboardingStage('role-selection');
   };
 
   const handleSaveProfile = (updatedProfile) => {
@@ -115,14 +148,12 @@ export default function App() {
     setSelectedSchemeForModal(scheme);
   };
 
-  // Stream Clean Energy Grant Request to persistent storage + API
   const handleApplyCleanEnergy = async (newReq) => {
     const res = await apiService.applySolarGrant(newReq);
     setCleanEnergyRequests(res.data);
     setNotifications(storageService.getNotifications());
   };
 
-  // Add rural issue (from NGO upload or Citizen Civic Report)
   const handleAddRuralIssue = async (newIssue) => {
     const res = await apiService.createRuralIssue(newIssue);
     setRuralIssues(res.data);
@@ -144,7 +175,6 @@ export default function App() {
     setNotifications(updated);
   };
 
-  // Reset database to fresh seeds
   const handleResetDatabase = () => {
     if (window.confirm('Reset persistent database to fresh seed data?')) {
       storageService.resetToSeeds();
@@ -156,10 +186,44 @@ export default function App() {
     }
   };
 
+  // MULTI-PORTAL ONBOARDING FLOW RENDERERS
+  if (onboardingStage === 'splash') {
+    return <SplashScreen onFinish={() => setOnboardingStage('welcome')} />;
+  }
+
+  if (onboardingStage === 'welcome') {
+    return <WelcomeScreen onGetStarted={() => setOnboardingStage('role-selection')} />;
+  }
+
+  if (onboardingStage === 'role-selection') {
+    return (
+      <RoleSelectionScreen
+        onSelectRole={(role) => {
+          setSelectedRole(role);
+          setAuthMode('login');
+          setOnboardingStage('auth');
+        }}
+        onGoBack={() => setOnboardingStage('welcome')}
+      />
+    );
+  }
+
+  if (onboardingStage === 'auth') {
+    return (
+      <AuthScreen
+        selectedRole={selectedRole}
+        initialMode={authMode}
+        onAuthSuccess={handleAuthSuccess}
+        onGoBack={() => setOnboardingStage('role-selection')}
+      />
+    );
+  }
+
+  // AUTHENTICATED ROLE DASHBOARD APP SYSTEM
   return (
     <div className={`min-h-screen flex flex-col font-sans transition-colors duration-300 ${isDarkMode ? 'dark dark-theme bg-slate-950 text-slate-100' : 'light-theme bg-slate-50 text-slate-900'}`}>
       
-      {/* Top Navigation Bar with Role Switcher, Theme Toggle, Multilingual Selector & Realtime Sync Indicator */}
+      {/* Top Navigation Bar with Active Role Badge & Logout Button */}
       <Navbar
         currentUser={currentUser}
         activeView={activeView}
@@ -177,48 +241,26 @@ export default function App() {
         currentLanguage={currentLanguage}
         setCurrentLanguage={setCurrentLanguage}
         onResetDatabase={handleResetDatabase}
+        onLogout={handleLogout}
+        onSwitchRole={() => setOnboardingStage('role-selection')}
       />
 
       {/* Main Layout Container */}
       <div className="flex-1 flex max-w-[1600px] w-full mx-auto">
         
-        {/* Left Sidebar (Only visible when logged in) */}
-        {currentUser && (
-          <Sidebar
-            activeView={activeView}
-            setActiveView={setActiveView}
-            currentUser={currentUser}
-            onLogout={handleLogout}
-            isMobileMenuOpen={isMobileMenuOpen}
-            setIsMobileMenuOpen={setIsMobileMenuOpen}
-            currentLanguage={currentLanguage}
-          />
-        )}
+        {/* Left Sidebar */}
+        <Sidebar
+          activeView={activeView}
+          setActiveView={setActiveView}
+          currentUser={currentUser}
+          onLogout={handleLogout}
+          isMobileMenuOpen={isMobileMenuOpen}
+          setIsMobileMenuOpen={setIsMobileMenuOpen}
+          currentLanguage={currentLanguage}
+        />
 
         {/* Dynamic Page Views Container */}
         <main className="flex-1 overflow-x-hidden">
-          {activeView === 'landing' && (
-            <LandingView
-              onGetStarted={() => {
-                if (currentUser) setActiveView('dashboard');
-                else setActiveView('auth');
-              }}
-              onExploreServices={() => {
-                if (currentUser) setActiveView('schemes');
-                else setActiveView('auth');
-              }}
-              setActiveView={setActiveView}
-              currentLanguage={currentLanguage}
-            />
-          )}
-
-          {activeView === 'auth' && (
-            <AuthView 
-              onLoginSuccess={handleLoginSuccess} 
-              currentLanguage={currentLanguage}
-            />
-          )}
-
           {activeView === 'profile' && (
             <ProfileView
               currentUser={currentUser}

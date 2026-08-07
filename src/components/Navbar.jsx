@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Bell, Key, User, Menu, X, Building2, Code, Globe, CheckCircle2, Sun, Moon, Heart, Home, Languages, RefreshCw, Radio } from 'lucide-react';
+import { Sparkles, Bell, Key, User, Menu, X, Building2, Code, Globe, CheckCircle2, Sun, Moon, Heart, Home, Languages, RefreshCw, Radio, LogOut, ShieldCheck, ArrowRightLeft } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
 
 export default function Navbar({ 
@@ -15,7 +15,9 @@ export default function Navbar({
   setIsDarkMode,
   currentLanguage,
   setCurrentLanguage,
-  onResetDatabase
+  onResetDatabase,
+  onLogout,
+  onSwitchRole
 }) {
   const [showNotifications, setShowNotifications] = useState(false);
   const unreadCount = notifications.filter(n => !n.read).length;
@@ -35,6 +37,15 @@ export default function Navbar({
 
   const defaultAvatar = currentUser ? `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(currentUser.name)}` : '';
 
+  const roleBadges = {
+    citizen: { label: '👤 Citizen', color: 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30' },
+    ngo: { label: '🤝 NGO Partner', color: 'bg-purple-500/20 text-purple-600 dark:text-purple-400 border-purple-500/30' },
+    developer: { label: '💻 Developer', color: 'bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border-cyan-500/30' },
+    sdg_admin: { label: '🌍 SDG Admin', color: 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/30' }
+  };
+
+  const currentRoleBadge = roleBadges[currentUser?.role || 'citizen'] || roleBadges.citizen;
+
   return (
     <header className="sticky top-0 z-40 w-full glass-panel border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,131 +60,106 @@ export default function Navbar({
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="text-xl font-extrabold tracking-tight">Sustain<span className="gradient-text-emerald">AI</span></span>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center space-x-1">
-                  <Radio className="h-2.5 w-2.5 text-emerald-500 animate-pulse" />
-                  <span>Real-Time DB Active</span>
+                <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-white">
+                  Sustain<span className="text-emerald-500">AI</span>
+                </span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hidden sm:inline-block">
+                  AI OS Platform
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 hidden sm:block">Empowering Citizens • Rural Field NGOs • Developers</p>
+              
+              {/* Real-time HTML5 BroadcastChannel status pill */}
+              <div className="flex items-center space-x-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">
+                <Radio className="h-3 w-3 text-emerald-500 animate-pulse" />
+                <span>Live Broadcast Bus Active</span>
+              </div>
             </div>
           </div>
 
-          {/* Desktop Multi-Role Switcher Pills (Clean Theme Adaptive Styles) */}
-          <nav className="hidden md:flex items-center space-x-1.5 p-1 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-            <button 
-              onClick={() => setActiveView(currentUser ? 'dashboard' : 'landing')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
-                activeView === 'landing' || activeView === 'dashboard'
-                  ? 'bg-emerald-500 text-slate-950 shadow-md font-extrabold'
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800'
+          {/* Quick Role Navigation Pills */}
+          <div className="hidden lg:flex items-center space-x-1 p-1 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs">
+            <button
+              onClick={() => setActiveView('dashboard')}
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
+                activeView === 'dashboard' ? 'bg-emerald-500 text-slate-950 shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <Home className="h-3.5 w-3.5" />
-              <span>{t.citizenPortal}</span>
+              Citizen OS
             </button>
-
-            <button 
-              onClick={() => {
-                if (!currentUser) setActiveView('auth');
-                else setActiveView('ngo-panel');
-              }}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
-                activeView === 'ngo-panel'
-                  ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md font-extrabold'
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800'
+            <button
+              onClick={() => setActiveView('ngo-panel')}
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
+                activeView === 'ngo-panel' ? 'bg-purple-600 text-white shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <Building2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-              <span>{t.ngoPanel}</span>
+              NGO Panel
             </button>
-
-            <button 
-              onClick={() => {
-                if (!currentUser) setActiveView('auth');
-                else setActiveView('developer-hub');
-              }}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
-                activeView === 'developer-hub'
-                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md font-extrabold'
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800'
+            <button
+              onClick={() => setActiveView('developer-hub')}
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
+                activeView === 'developer-hub' ? 'bg-cyan-500 text-slate-950 shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <Code className="h-3.5 w-3.5 text-purple-600 dark:text-purple-400" />
-              <span>{t.developerHub}</span>
+              Dev Hub
             </button>
-
-            <button 
+            <button
               onClick={() => setActiveView('sdg-impact')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
-                activeView === 'sdg-impact'
-                  ? 'bg-amber-500 text-slate-950 font-extrabold shadow-md'
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800'
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
+                activeView === 'sdg-impact' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <Globe className="h-3.5 w-3.5" />
-              <span>{t.sdg17Goals}</span>
+              SDG Analytics
             </button>
-          </nav>
+          </div>
 
-          {/* Right Action Controls: Language Dropdown + Light/Dark Theme Switch + AI Settings + Notifications */}
-          <div className="flex items-center space-x-2">
+          {/* Right Controls: Language, Theme, API Key, Notifications, Role Badge & Logout */}
+          <div className="flex items-center space-x-3">
             
-            {/* MULTILINGUAL LANGUAGE SELECTOR DROPDOWN (EN, HI, TE, TA) */}
-            <div className="flex items-center space-x-1 p-1 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              <Languages className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0 ml-1" />
+            {/* Multilingual Selector */}
+            <div className="relative flex items-center">
+              <Languages className="h-4 w-4 text-emerald-600 dark:text-emerald-400 absolute left-2.5 pointer-events-none" />
               <select
-                value={currentLanguage || 'English'}
-                onChange={(e) => setCurrentLanguage && setCurrentLanguage(e.target.value)}
-                className="bg-transparent text-slate-900 dark:text-white font-extrabold text-xs focus:outline-none cursor-pointer pr-1"
+                value={currentLanguage}
+                onChange={(e) => setCurrentLanguage(e.target.value)}
+                className="pl-8 pr-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-emerald-500 cursor-pointer"
               >
-                {languages.map(lang => (
-                  <option key={lang.code} value={lang.code} className="bg-slate-900 text-white font-bold">
+                {languages.map((lang) => (
+                  <option key={lang.code} value={lang.code}>
                     {lang.label}
                   </option>
                 ))}
               </select>
             </div>
 
-            {/* LIGHT / DARK THEME TOGGLE BUTTON */}
+            {/* Dark / Light Mode Toggle */}
             <button
               onClick={() => setIsDarkMode(!isDarkMode)}
-              title={isDarkMode ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
-              className="p-2 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-amber-500 hover:scale-105 transition-all text-xs flex items-center space-x-1 shadow-sm font-bold"
+              className="p-2 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-amber-500 transition-all"
+              title="Toggle Light/Dark Theme"
             >
-              {isDarkMode ? (
-                <>
-                  <Sun className="h-4 w-4 text-amber-400 fill-amber-400/20" />
-                  <span className="hidden lg:inline text-[11px] text-slate-200 font-extrabold">{t.lightMode}</span>
-                </>
-              ) : (
-                <>
-                  <Moon className="h-4 w-4 text-indigo-600 fill-indigo-600/20" />
-                  <span className="hidden lg:inline text-[11px] text-slate-800 font-extrabold">{t.darkMode}</span>
-                </>
-              )}
+              {isDarkMode ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4 text-slate-700" />}
             </button>
 
             {/* Reset Database Button */}
             <button
               onClick={onResetDatabase}
-              title="Reset Database to Fresh Seeds"
-              className="p-2 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-rose-500 transition-all text-xs hidden lg:flex items-center space-x-1"
+              className="hidden sm:flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-600 dark:text-slate-400 hover:text-amber-500 transition-all"
+              title="Reset Persistent Local Storage to Seed Defaults"
             >
-              <RefreshCw className="h-3.5 w-3.5 text-slate-500" />
+              <RefreshCw className="h-3.5 w-3.5" />
+              <span className="hidden md:inline">Reset DB</span>
             </button>
 
-            {/* Gemini API Key Toggle */}
+            {/* Gemini API Key Trigger */}
             <button
               onClick={onOpenApiKeyModal}
-              title="Configure AI API Key"
-              className="p-2 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all text-xs flex items-center space-x-1"
+              className="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold hover:bg-emerald-500/20 transition-all"
             >
-              <Key className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-              <span className="hidden lg:inline font-mono text-[11px] font-bold">{t.aiSettings}</span>
+              <Key className="h-3.5 w-3.5" />
+              <span>Gemini API</span>
             </button>
 
-            {/* Notification Dropdown Button */}
+            {/* Notifications Icon & Drawer */}
             {currentUser && (
               <div className="relative">
                 <button
@@ -244,27 +230,49 @@ export default function Navbar({
               </div>
             )}
 
-            {/* Profile Avatar / Auth Button */}
+            {/* Profile Avatar / Active Role Badge & Logout */}
             {currentUser ? (
-              <div 
-                onClick={() => setActiveView('profile')}
-                className="flex items-center space-x-2 pl-2 border-l border-slate-200 dark:border-slate-800 cursor-pointer group"
-              >
-                <div className="h-9 w-9 rounded-full bg-slate-200 dark:bg-slate-800 border border-emerald-500/40 p-0.5 overflow-hidden group-hover:border-emerald-400 transition-all flex items-center justify-center">
-                  <img 
-                    src={currentUser.avatar || defaultAvatar} 
-                    alt={currentUser.name} 
-                    className="h-full w-full object-cover rounded-full"
-                  />
+              <div className="flex items-center space-x-2 pl-2 border-l border-slate-200 dark:border-slate-800">
+                {/* Active Role Badge */}
+                <button
+                  onClick={onSwitchRole}
+                  className={`hidden sm:flex items-center space-x-1 px-2.5 py-1 rounded-xl text-xs font-extrabold border ${currentRoleBadge.color}`}
+                  title="Click to Switch Portal Role"
+                >
+                  <span>{currentRoleBadge.label}</span>
+                  <ArrowRightLeft className="h-3 w-3 ml-0.5" />
+                </button>
+
+                {/* Profile Box */}
+                <div 
+                  onClick={() => setActiveView('profile')}
+                  className="flex items-center space-x-2 cursor-pointer group"
+                >
+                  <div className="h-9 w-9 rounded-full bg-slate-200 dark:bg-slate-800 border border-emerald-500/40 p-0.5 overflow-hidden group-hover:border-emerald-400 transition-all flex items-center justify-center">
+                    <img 
+                      src={currentUser.avatar || defaultAvatar} 
+                      alt={currentUser.name} 
+                      className="h-full w-full object-cover rounded-full"
+                    />
+                  </div>
+                  <div className="hidden xl:block text-left">
+                    <p className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors leading-tight">{currentUser.name}</p>
+                    <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">{currentUser.ruralDistrict || 'Ramanagara District'}</p>
+                  </div>
                 </div>
-                <div className="hidden sm:block text-left">
-                  <p className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors leading-tight">{currentUser.name}</p>
-                  <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">{currentUser.ruralDistrict || 'Ramanagara District'}</p>
-                </div>
+
+                {/* Logout Button */}
+                <button
+                  onClick={onLogout}
+                  className="p-2 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-red-500 hover:border-red-500/40 transition-all"
+                  title="Logout Session"
+                >
+                  <LogOut className="h-4 w-4" />
+                </button>
               </div>
             ) : (
               <button
-                onClick={() => setActiveView('auth')}
+                onClick={onSwitchRole}
                 className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-extrabold text-xs hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
               >
                 Sign In
