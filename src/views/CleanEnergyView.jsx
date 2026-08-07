@@ -14,7 +14,7 @@ import {
   Building2,
   Phone
 } from 'lucide-react';
-import { SAMPLE_CLEAN_ENERGY_SCHEMES } from '../data/mockDatabase';
+import { SAMPLE_SCHEMES, SAMPLE_CLEAN_ENERGY_SCHEMES } from '../data/mockDatabase';
 import { TRANSLATIONS } from '../data/translations';
 
 export default function CleanEnergyView({ currentUser, onApplyCleanEnergy, currentLanguage }) {
@@ -26,6 +26,11 @@ export default function CleanEnergyView({ currentUser, onApplyCleanEnergy, curre
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
 
   const t = TRANSLATIONS[currentLanguage || 'English'] || TRANSLATIONS.English;
+
+  // Fallback Clean Energy Schemes Array
+  const schemesList = (SAMPLE_CLEAN_ENERGY_SCHEMES && SAMPLE_CLEAN_ENERGY_SCHEMES.length > 0)
+    ? SAMPLE_CLEAN_ENERGY_SCHEMES
+    : (SAMPLE_SCHEMES || []).filter(s => Array.isArray(s.category) && s.category.some(c => c.includes('Energy')));
 
   // Solar Calculations based on Monthly Bill
   const recommendedKw = Math.min(10, Math.max(1, (monthlyBill / 800))).toFixed(1);
@@ -41,7 +46,7 @@ export default function CleanEnergyView({ currentUser, onApplyCleanEnergy, curre
     if (onApplyCleanEnergy && selectedScheme) {
       onApplyCleanEnergy({
         id: `SOLAR-REQ-${Date.now()}`,
-        schemeName: selectedScheme.name,
+        schemeName: selectedScheme.name || 'PM Surya Ghar Rooftop Solar',
         applicantName: applicantName,
         applicantPhone: applicantPhone,
         district: currentUser?.ruralDistrict || 'Ramanagara Rural District',
@@ -70,7 +75,7 @@ export default function CleanEnergyView({ currentUser, onApplyCleanEnergy, curre
             <span>{t.cleanTag}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">{t.cleanTitle}</h1>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 font-medium">
             {t.cleanSub}
           </p>
         </div>
@@ -164,7 +169,7 @@ export default function CleanEnergyView({ currentUser, onApplyCleanEnergy, curre
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {SAMPLE_CLEAN_ENERGY_SCHEMES.map((scheme) => (
+          {schemesList.map((scheme) => (
             <div 
               key={scheme.id}
               className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-4 shadow-sm"
@@ -172,29 +177,29 @@ export default function CleanEnergyView({ currentUser, onApplyCleanEnergy, curre
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
-                    {scheme.category}
+                    {Array.isArray(scheme.category) ? scheme.category.join(', ') : scheme.category || 'Clean Energy'}
                   </span>
                   <span className="text-[10px] font-extrabold text-emerald-700 dark:text-emerald-400">98% Eligible</span>
                 </div>
 
                 <h3 className="text-base font-bold mb-1 text-slate-900 dark:text-white">{scheme.name}</h3>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">Provider: <strong className="text-slate-900 dark:text-slate-200">{scheme.provider}</strong></p>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mb-3 font-semibold">Provider: <strong className="text-slate-900 dark:text-slate-200">{scheme.provider}</strong></p>
 
                 <div className="p-3 rounded-2xl bg-slate-100/90 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 space-y-2 text-xs">
                   <div>
                     <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">Government Subsidy Benefit:</span>
-                    <strong className="text-emerald-700 dark:text-emerald-400 font-bold">{scheme.subsidyAmount}</strong>
+                    <strong className="text-emerald-700 dark:text-emerald-400 font-bold">{scheme.benefits || scheme.subsidyAmount || 'Up to ₹78,000 Direct Bank Credit'}</strong>
                   </div>
 
                   <div className="pt-2 border-t border-slate-200 dark:border-slate-900">
                     <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">Estimated Monthly Savings:</span>
-                    <span className="text-amber-700 dark:text-amber-300 font-bold">{scheme.estimatedMonthlySavings}</span>
+                    <span className="text-amber-700 dark:text-amber-300 font-bold">{scheme.estimatedMonthlySavings || 'Save up to 90% on electricity bill'}</span>
                   </div>
                 </div>
               </div>
 
               <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                <span className="text-[10px] text-slate-600 dark:text-slate-400 font-semibold">{scheme.eligibility}</span>
+                <span className="text-[10px] text-slate-600 dark:text-slate-400 font-semibold">{scheme.deadline ? `Deadline: ${scheme.deadline}` : 'Ongoing Government Scheme'}</span>
 
                 <button
                   onClick={() => setSelectedScheme(scheme)}

@@ -28,9 +28,54 @@ import {
 } from 'lucide-react';
 import { SAMPLE_DISASTER_ZONES, SAMPLE_DOS_AND_DONTS } from '../data/mockDatabase';
 
+const DEFAULT_DISASTER_ZONE = {
+  id: 'DIS-101',
+  district: 'Ramanagara Rural District',
+  lossPercentage: 65,
+  affectedCitizens: 1240,
+  evacuatedCitizens: 890,
+  requiredFunding: '₹15,000,000',
+  allocatedFunding: '₹9,800,000',
+  hazardType: 'Flash Flood & Reservoir Overflow',
+  sheltersActive: 4,
+  safeShelter: 'Ramanagara District Higher Secondary Relief Camp',
+  touristWarning: 'Avoid NH-275 River Arkavathi bridge due to high water levels. Take State Highway 17 elevated bypass.',
+  migrationStatus: '8 Emergency Bus Shuttles Active En Route'
+};
+
+const DEFAULT_DOS_DONTS = [
+  {
+    dos: [
+      'Keep emergency survival kit with bottled water and sealed rations.',
+      'Evacuate immediately when red alert warning siren sounds.',
+      'Move elderly citizens and children to designated relief shelters.'
+    ],
+    donts: [
+      'Do not walk, swim, or drive through fast-flowing flood water.',
+      'Do not touch fallen electric power lines or submerged transformers.',
+      'Do not spread unverified rumors; follow official NDMA broadcasts.'
+    ]
+  },
+  {
+    dos: [
+      'Drink plenty of oral rehydration fluids and clean water.',
+      'Stay indoors during peak solar hours (12 PM - 3 PM).',
+      'Wear loose-fitting, light-colored cotton clothing.'
+    ],
+    donts: [
+      'Do not leave pets or livestock tied outdoors under direct heat.',
+      'Do not consume stale or uncovered food items.',
+      'Do not engage in strenuous physical labor during extreme heat hours.'
+    ]
+  }
+];
+
 export default function DisasterSupportView({ currentUser }) {
+  const zonesList = (SAMPLE_DISASTER_ZONES && SAMPLE_DISASTER_ZONES.length > 0) ? SAMPLE_DISASTER_ZONES : [DEFAULT_DISASTER_ZONE];
+  const dosDontsList = (SAMPLE_DOS_AND_DONTS && SAMPLE_DOS_AND_DONTS.length > 0) ? SAMPLE_DOS_AND_DONTS : DEFAULT_DOS_DONTS;
+
   const [activeTab, setActiveTab] = useState('citizen'); // 'report', 'citizen', or 'ngo'
-  const [selectedZone, setSelectedZone] = useState(SAMPLE_DISASTER_ZONES[0]);
+  const [selectedZone, setSelectedZone] = useState(zonesList[0] || DEFAULT_DISASTER_ZONE);
   const [activeProtocol, setActiveProtocol] = useState(0); // 0 for Floods, 1 for Heatwave
   const [disasterFilter, setDisasterFilter] = useState('all'); // 'all', 'ongoing', 'upcoming', 'past'
 
@@ -45,6 +90,8 @@ export default function DisasterSupportView({ currentUser }) {
   const [requestAmount, setRequestAmount] = useState('₹2,50,000');
   const [requestReason, setRequestReason] = useState('Emergency drinking water purification kits & medical tents');
   const [fundSuccess, setFundSuccess] = useState(false);
+
+  const currentZone = selectedZone || DEFAULT_DISASTER_ZONE;
 
   const handleFundSubmit = (e) => {
     e.preventDefault();
@@ -62,13 +109,13 @@ export default function DisasterSupportView({ currentUser }) {
     'Tumakuru North District': { lat: 13.34, lng: 77.10 }
   };
 
-  const coords = districtCoordinates[selectedZone.district] || { lat: 12.72, lng: 77.28 };
+  const coords = districtCoordinates[currentZone.district] || { lat: 12.72, lng: 77.28 };
 
   // Authentic Windy Live Weather Radar Embed URL
   const windyRadarEmbedUrl = `https://embed.windy.com/embed2.html?lat=${coords.lat}&lon=${coords.lng}&detailLat=${coords.lat}&detailLon=${coords.lng}&width=650&height=450&zoom=9&level=surface&overlay=radar&product=radar&menu=&message=true&marker=true&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1`;
 
   // Real Google Maps Embed URL
-  const googleMapsIframeUrl = `https://maps.google.com/maps?q=${encodeURIComponent(selectedZone.district + ', Karnataka, India')}&t=${googleMapType}&z=12&ie=UTF8&iwloc=&output=embed`;
+  const googleMapsIframeUrl = `https://maps.google.com/maps?q=${encodeURIComponent(currentZone.district + ', Karnataka, India')}&t=${googleMapType}&z=12&ie=UTF8&iwloc=&output=embed`;
 
   // Weather Symptoms for selected location
   const weatherSymptoms = {
@@ -104,7 +151,7 @@ export default function DisasterSupportView({ currentUser }) {
     }
   };
 
-  const currentWeather = weatherSymptoms[selectedZone.district] || weatherSymptoms['Ramanagara Rural District'];
+  const currentWeather = weatherSymptoms[currentZone.district] || weatherSymptoms['Ramanagara Rural District'];
 
   // Categorized Disasters Data for Intelligence Report Section
   const disasterReports = [
@@ -186,7 +233,7 @@ export default function DisasterSupportView({ currentUser }) {
             <AlertTriangle className="h-4 w-4" />
             <span>UN SDG 11 & SDG 13 Climate Resilience Portal</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold">Disaster, Climate Weather Map & Migration Hub</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Disaster, Climate Weather Map & Migration Hub</h1>
           <p className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-300 mt-1">
             Authentic live Doppler rain radar weather maps, real Google Maps satellite layers, tourist safe routes, and NGO disaster loss analytics.
           </p>
@@ -197,7 +244,7 @@ export default function DisasterSupportView({ currentUser }) {
           <button
             onClick={() => setActiveTab('report')}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
-              activeTab === 'report' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              activeTab === 'report' ? 'bg-amber-500 text-slate-950 shadow-md font-extrabold' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <FileText className="h-4 w-4" />
@@ -207,7 +254,7 @@ export default function DisasterSupportView({ currentUser }) {
           <button
             onClick={() => setActiveTab('citizen')}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
-              activeTab === 'citizen' ? 'bg-emerald-500 text-slate-950 shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              activeTab === 'citizen' ? 'bg-emerald-500 text-slate-950 shadow-md font-extrabold' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <Compass className="h-4 w-4" />
@@ -217,7 +264,7 @@ export default function DisasterSupportView({ currentUser }) {
           <button
             onClick={() => setActiveTab('ngo')}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
-              activeTab === 'ngo' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              activeTab === 'ngo' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md font-extrabold' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <Building2 className="h-4 w-4" />
@@ -226,16 +273,16 @@ export default function DisasterSupportView({ currentUser }) {
         </div>
       </div>
 
-      {/* DISASTER & CLIMATE INTELLIGENCE REPORT SECTION (NEW!) */}
+      {/* DISASTER & CLIMATE INTELLIGENCE REPORT SECTION */}
       {activeTab === 'report' && (
         <div className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200 dark:border-slate-800">
             <div>
-              <h2 className="text-lg font-bold flex items-center space-x-2">
+              <h2 className="text-lg font-bold flex items-center space-x-2 text-slate-900 dark:text-white">
                 <FileText className="h-5 w-5 text-amber-500" />
                 <span>Real-Time Disaster & Satellite Intelligence Reports</span>
               </h2>
-              <p className="text-xs text-slate-600 dark:text-slate-400">Live Satellite Radar briefings categorized by ongoing, upcoming forecasts, and resolved past disasters.</p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">Live Satellite Radar briefings categorized by ongoing, upcoming forecasts, and resolved past disasters.</p>
             </div>
 
             {/* Filter Pills */}
@@ -269,7 +316,7 @@ export default function DisasterSupportView({ currentUser }) {
 
           <div className="grid grid-cols-1 gap-5">
             {filteredDisasters.map((report) => (
-              <div key={report.id} className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-4">
+              <div key={report.id} className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center space-x-3">
                     <span className={`px-3 py-1 rounded-full text-xs font-black ${
@@ -286,7 +333,7 @@ export default function DisasterSupportView({ currentUser }) {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-bold mb-1">{report.title}</h3>
+                  <h3 className="text-lg font-bold mb-1 text-slate-900 dark:text-white">{report.title}</h3>
                   <p className="text-xs text-slate-600 dark:text-slate-300 font-semibold">{report.district}</p>
                 </div>
 
@@ -301,15 +348,15 @@ export default function DisasterSupportView({ currentUser }) {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                  <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                  <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
                     <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">Affected Citizens</span>
                     <strong className="text-amber-700 dark:text-amber-300 font-bold">{report.affectedCitizens} People</strong>
                   </div>
-                  <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                  <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
                     <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">Evacuated / Safe</span>
                     <strong className="text-emerald-700 dark:text-emerald-400 font-bold">{report.evacuatedCount} Evacuated</strong>
                   </div>
-                  <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                  <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
                     <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">Relief Shelter Haven</span>
                     <strong className="text-slate-900 dark:text-white font-bold">{report.shelter}</strong>
                   </div>
@@ -321,7 +368,7 @@ export default function DisasterSupportView({ currentUser }) {
       )}
 
       {/* AUTHENTIC LIVE RAIN RADAR & GOOGLE MAPS ENGINE CANVAS */}
-      <div className="glass-panel p-6 rounded-3xl border-2 border-emerald-500/40 space-y-6">
+      <div className="glass-panel p-6 rounded-3xl border-2 border-emerald-500/40 space-y-6 shadow-sm">
         
         {/* Map Header & Engine Controls */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
@@ -356,12 +403,12 @@ export default function DisasterSupportView({ currentUser }) {
           {/* District Pins Selector */}
           <div className="flex items-center space-x-2 overflow-x-auto pb-1 sm:pb-0">
             <span className="text-xs text-slate-600 dark:text-slate-300 font-bold shrink-0">Focus District:</span>
-            {SAMPLE_DISASTER_ZONES.map((zone) => (
+            {zonesList.map((zone) => (
               <button
                 key={zone.id}
                 onClick={() => setSelectedZone(zone)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all ${
-                  selectedZone.id === zone.id
+                  currentZone.id === zone.id
                     ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border border-emerald-500/40 shadow-sm'
                     : 'bg-slate-100 dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
@@ -371,7 +418,7 @@ export default function DisasterSupportView({ currentUser }) {
             ))}
           </div>
 
-          {/* Google Maps Sub-Layers (when in google-maps mode) */}
+          {/* Google Maps Sub-Layers */}
           {viewMode === 'google-maps' && (
             <div className="flex items-center space-x-1 p-1 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs">
               <button
@@ -408,7 +455,7 @@ export default function DisasterSupportView({ currentUser }) {
           {viewMode === 'rain-radar' ? (
             /* AUTHENTIC LIVE WINDY DOPPLER RAIN RADAR IFRAME */
             <iframe
-              title={`Authentic Live Rain Radar for ${selectedZone.district}`}
+              title={`Authentic Live Rain Radar for ${currentZone.district}`}
               src={windyRadarEmbedUrl}
               className="w-full h-full border-0 filter contrast-105"
               loading="lazy"
@@ -417,7 +464,7 @@ export default function DisasterSupportView({ currentUser }) {
           ) : (
             /* REAL GOOGLE MAPS IFRAME VIEWPORT */
             <iframe
-              title={`Google Map View for ${selectedZone.district}`}
+              title={`Google Map View for ${currentZone.district}`}
               src={googleMapsIframeUrl}
               className="w-full h-full border-0 filter contrast-105"
               loading="lazy"
@@ -430,18 +477,18 @@ export default function DisasterSupportView({ currentUser }) {
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-ping"></span>
             <span>
               {viewMode === 'rain-radar' ? '🔴 Live Doppler Rain Radar Active: ' : '📍 Real Google Maps Active: '}
-              <strong className="text-emerald-400">{selectedZone.district}</strong>
+              <strong className="text-emerald-400">{currentZone.district}</strong>
             </span>
           </div>
 
         </div>
 
-        {/* REAL-TIME WEATHER REPORT & SYMPTOMS HUD (CLEAN ADAPTIVE LIGHT/DARK CONTAINERS) */}
+        {/* REAL-TIME WEATHER REPORT & SYMPTOMS HUD */}
         <div className="p-5 rounded-2xl bg-slate-100/90 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider flex items-center space-x-1.5">
               <CloudRain className="h-4 w-4" />
-              <span>Real-Time Live Weather Symptoms Report for {selectedZone.district}</span>
+              <span>Real-Time Live Weather Symptoms Report for {currentZone.district}</span>
             </h3>
             <span className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold">Doppler Weather Station #402</span>
           </div>
@@ -449,7 +496,7 @@ export default function DisasterSupportView({ currentUser }) {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
             <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-0.5 shadow-sm">
               <span className="text-slate-500 dark:text-slate-400 text-[10px] block font-semibold">Temperature</span>
-              <strong className="text-base font-extrabold">{currentWeather.temp}</strong>
+              <strong className="text-base font-extrabold text-slate-900 dark:text-white">{currentWeather.temp}</strong>
             </div>
 
             <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-0.5 shadow-sm">
@@ -493,7 +540,7 @@ export default function DisasterSupportView({ currentUser }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             {/* Tourist Safe Route Alert Card */}
-            <div className="glass-panel p-6 rounded-3xl border-2 border-emerald-500/40 space-y-4">
+            <div className="glass-panel p-6 rounded-3xl border-2 border-emerald-500/40 space-y-4 shadow-sm">
               <div className="flex items-center space-x-2 text-emerald-700 dark:text-emerald-400 font-bold text-sm">
                 <Navigation className="h-5 w-5" />
                 <span>🧭 Tourist & Traveler Safe Route Alert</span>
@@ -501,10 +548,10 @@ export default function DisasterSupportView({ currentUser }) {
 
               <div className="p-4 rounded-2xl bg-slate-100/90 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 space-y-2 text-xs">
                 <span className="text-amber-700 dark:text-amber-400 font-bold block text-[11px]">TRAVEL WARNING & ROUTE DIVERT:</span>
-                <p className="text-slate-900 dark:text-slate-200 font-semibold">{selectedZone.touristWarning}</p>
+                <p className="text-slate-900 dark:text-slate-200 font-semibold">{currentZone.touristWarning || 'Avoid low-lying canal bridges during heavy downpour.'}</p>
                 <div className="pt-2 border-t border-slate-200 dark:border-slate-900 text-slate-600 dark:text-slate-400">
                   <span>Designated Safe Tourist Haven: </span>
-                  <strong className="text-emerald-700 dark:text-emerald-400 font-extrabold">{selectedZone.safeShelter}</strong>
+                  <strong className="text-emerald-700 dark:text-emerald-400 font-extrabold">{currentZone.safeShelter || 'District Community Center'}</strong>
                 </div>
               </div>
 
@@ -515,7 +562,7 @@ export default function DisasterSupportView({ currentUser }) {
             </div>
 
             {/* Citizen Evacuation & Migration Step Guide */}
-            <div className="glass-panel p-6 rounded-3xl border-2 border-blue-500/40 space-y-4">
+            <div className="glass-panel p-6 rounded-3xl border-2 border-blue-500/40 space-y-4 shadow-sm">
               <div className="flex items-center space-x-2 text-blue-700 dark:text-blue-400 font-bold text-sm">
                 <Bus className="h-5 w-5" />
                 <span>🚌 Citizen Evacuation & Migration Guide</span>
@@ -523,17 +570,17 @@ export default function DisasterSupportView({ currentUser }) {
 
               <div className="p-4 rounded-2xl bg-slate-100/90 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 space-y-2 text-xs">
                 <span className="text-slate-500 dark:text-slate-400 block text-[11px] font-semibold">Active Migration Status:</span>
-                <p className="text-emerald-700 dark:text-emerald-300 font-extrabold">{selectedZone.migrationStatus}</p>
+                <p className="text-emerald-700 dark:text-emerald-300 font-extrabold">{currentZone.migrationStatus || '8 Emergency Bus Shuttles Active En Route'}</p>
                 <div className="pt-2 border-t border-slate-200 dark:border-slate-900 text-slate-700 dark:text-slate-300">
                   <span>Designated Relief Camp: </span>
-                  <strong className="block mt-0.5 font-bold">{selectedZone.safeShelter}</strong>
+                  <strong className="block mt-0.5 font-bold">{currentZone.safeShelter || 'District Relief Camp'}</strong>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-700 dark:text-slate-300">
                 <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
                   <span className="text-slate-500 dark:text-slate-400 block text-[9px] font-semibold">Citizens Evacuated:</span>
-                  <strong className="text-emerald-700 dark:text-emerald-400 font-bold">{selectedZone.evacuatedCitizens} / {selectedZone.affectedCitizens}</strong>
+                  <strong className="text-emerald-700 dark:text-emerald-400 font-bold">{currentZone.evacuatedCitizens || 890} / {currentZone.affectedCitizens || 1240}</strong>
                 </div>
                 <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
                   <span className="text-slate-500 dark:text-slate-400 block text-[9px] font-semibold">Emergency Shuttles:</span>
@@ -545,10 +592,10 @@ export default function DisasterSupportView({ currentUser }) {
           </div>
 
           {/* INTERACTIVE DO'S AND DONTS CHECKLIST PROTOCOLS */}
-          <div className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6">
+          <div className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
               <div>
-                <h2 className="text-base font-bold flex items-center space-x-2">
+                <h2 className="text-base font-bold flex items-center space-x-2 text-slate-900 dark:text-white">
                   <ShieldCheck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                   <span>Official Emergency Do's & Don'ts Protocols</span>
                 </h2>
@@ -582,7 +629,7 @@ export default function DisasterSupportView({ currentUser }) {
                   <span>ALWAYS DO THESE PROTOCOLS:</span>
                 </h3>
                 <ul className="space-y-2 text-xs text-slate-800 dark:text-slate-200">
-                  {SAMPLE_DOS_AND_DONTS[activeProtocol].dos.map((rule, idx) => (
+                  {(dosDontsList[activeProtocol]?.dos || DEFAULT_DOS_DONTS[0].dos).map((rule, idx) => (
                     <li key={idx} className="flex items-start space-x-2">
                       <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span>
                       <span className="font-medium">{rule}</span>
@@ -598,7 +645,7 @@ export default function DisasterSupportView({ currentUser }) {
                   <span>NEVER DO THESE HAZARDS:</span>
                 </h3>
                 <ul className="space-y-2 text-xs text-slate-800 dark:text-slate-200">
-                  {SAMPLE_DOS_AND_DONTS[activeProtocol].donts.map((rule, idx) => (
+                  {(dosDontsList[activeProtocol]?.donts || DEFAULT_DOS_DONTS[0].donts).map((rule, idx) => (
                     <li key={idx} className="flex items-start space-x-2">
                       <span className="text-red-600 dark:text-red-400 font-bold">✕</span>
                       <span className="font-medium">{rule}</span>
@@ -619,21 +666,21 @@ export default function DisasterSupportView({ currentUser }) {
           
           {/* NGO DISASTER METRICS BAR */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1">
+            <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1 shadow-sm">
               <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Affected District</span>
-              <p className="text-sm font-extrabold">{selectedZone.district}</p>
+              <p className="text-sm font-extrabold text-slate-900 dark:text-white">{currentZone.district}</p>
             </div>
-            <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1">
+            <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1 shadow-sm">
               <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Estimated Loss %</span>
-              <p className="text-xl font-extrabold text-red-600 dark:text-red-400">{selectedZone.lossPercentage}% Loss</p>
+              <p className="text-xl font-extrabold text-red-600 dark:text-red-400">{currentZone.lossPercentage}% Loss</p>
             </div>
-            <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1">
+            <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1 shadow-sm">
               <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Affected Population</span>
-              <p className="text-xl font-extrabold text-amber-700 dark:text-amber-300">{selectedZone.affectedCitizens} People</p>
+              <p className="text-xl font-extrabold text-amber-700 dark:text-amber-300">{currentZone.affectedCitizens} People</p>
             </div>
-            <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1">
+            <div className="p-4 rounded-2xl glass-panel border border-slate-200 dark:border-slate-800 space-y-1 shadow-sm">
               <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Relief Funding Status</span>
-              <p className="text-xl font-extrabold text-emerald-700 dark:text-emerald-400">{selectedZone.allocatedFunding}</p>
+              <p className="text-xl font-extrabold text-emerald-700 dark:text-emerald-400">{currentZone.allocatedFunding}</p>
             </div>
           </div>
 
@@ -641,9 +688,9 @@ export default function DisasterSupportView({ currentUser }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             {/* Funding Allocation & Supplies Progress Bar */}
-            <div className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-4">
+            <div className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm">
               <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold flex items-center space-x-2">
+                <h3 className="text-sm font-bold flex items-center space-x-2 text-slate-900 dark:text-white">
                   <DollarSign className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                   <span>Relief Funding Allocation for Affected Area</span>
                 </h3>
@@ -659,12 +706,12 @@ export default function DisasterSupportView({ currentUser }) {
               <div className="p-4 rounded-2xl bg-slate-100/90 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 space-y-3 text-xs">
                 <div className="flex items-center justify-between">
                   <span className="text-slate-600 dark:text-slate-400 font-semibold">Total Funding Required:</span>
-                  <strong className="font-bold">{selectedZone.requiredFunding}</strong>
+                  <strong className="font-bold text-slate-900 dark:text-white">{currentZone.requiredFunding}</strong>
                 </div>
 
                 <div className="flex items-center justify-between">
                   <span className="text-slate-600 dark:text-slate-400 font-semibold">Allocated & Dispatched:</span>
-                  <strong className="text-emerald-700 dark:text-emerald-400 font-bold">{selectedZone.allocatedFunding}</strong>
+                  <strong className="text-emerald-700 dark:text-emerald-400 font-bold">{currentZone.allocatedFunding}</strong>
                 </div>
 
                 {/* Progress Bar */}
@@ -680,8 +727,8 @@ export default function DisasterSupportView({ currentUser }) {
             </div>
 
             {/* Evacuation & Migration Process Control Center */}
-            <div className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-4">
-              <h3 className="text-sm font-bold flex items-center space-x-2">
+            <div className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm">
+              <h3 className="text-sm font-bold flex items-center space-x-2 text-slate-900 dark:text-white">
                 <Users className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                 <span>People Evacuation & Migration Management</span>
               </h3>
@@ -689,12 +736,12 @@ export default function DisasterSupportView({ currentUser }) {
               <div className="p-4 rounded-2xl bg-slate-100/90 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 space-y-3 text-xs">
                 <div className="flex items-center justify-between">
                   <span className="text-slate-600 dark:text-slate-400 font-semibold">Evacuated to Relief Camps:</span>
-                  <strong className="text-emerald-700 dark:text-emerald-400 font-bold">{selectedZone.evacuatedCitizens} Citizens (72% Evacuated)</strong>
+                  <strong className="text-emerald-700 dark:text-emerald-400 font-bold">{currentZone.evacuatedCitizens} Citizens (72% Evacuated)</strong>
                 </div>
 
                 <div className="flex items-center justify-between">
                   <span className="text-slate-600 dark:text-slate-400 font-semibold">Primary Relief Camp:</span>
-                  <strong className="text-slate-900 dark:text-slate-200 text-right font-bold">{selectedZone.safeShelter}</strong>
+                  <strong className="text-slate-900 dark:text-slate-200 text-right font-bold">{currentZone.safeShelter}</strong>
                 </div>
 
                 <div className="pt-2 border-t border-slate-200 dark:border-slate-900 text-slate-800 dark:text-slate-300 font-medium">
@@ -716,7 +763,7 @@ export default function DisasterSupportView({ currentUser }) {
             <button onClick={() => setShowFundModal(false)} className="absolute top-4 right-4 text-slate-400">✕</button>
 
             <h3 className="text-base font-bold text-white text-white-force">Request Emergency Relief Funding</h3>
-            <p className="text-xs text-slate-400 text-white-force">Request funds from Government Disaster Relief Board for {selectedZone.district}</p>
+            <p className="text-xs text-slate-400 text-white-force">Request funds from Government Disaster Relief Board for {currentZone.district}</p>
 
             {fundSuccess ? (
               <div className="p-4 text-center text-xs text-emerald-400 font-bold space-y-2 text-white-force">
