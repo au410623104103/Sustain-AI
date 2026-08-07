@@ -208,6 +208,17 @@ export const SAMPLE_FOOD_DONATIONS = [
     location: 'Ramanagara Ward 2 Shelter Kiosk',
     contactPhone: '+91 98450 33445',
     status: 'Available'
+  },
+  {
+    id: 'FOOD-102',
+    donorName: 'Gram Samriddhi Wedding Caterers',
+    foodType: 'Fresh Roti, Dal & Sabzi (80 Servings)',
+    quantity: '80 Meals',
+    cookedTime: 'Today 2:30 PM',
+    expiryTime: 'Tonight 11:30 PM',
+    location: 'Mandya Hamlet Field Kitchen',
+    contactPhone: '+91 98450 55667',
+    status: 'Available'
   }
 ];
 
@@ -369,6 +380,17 @@ export const SAMPLE_HEALTHCARE_SERVICES = [
     rating: 4.9,
     timings: 'Mon - Sat (9:00 AM - 5:00 PM)',
     services: ['Free Eye Screening & Glasses', 'Diabetes & BP Clinic', 'Free ECG Heart Check']
+  },
+  {
+    id: 'HCS-03',
+    name: 'Mandya Community Health Center & Tele-Medicine Hub',
+    type: 'Government Public Hospital',
+    distance: '8.1 km away',
+    address: 'Main Road, Pandavapura, Mandya',
+    contact: '+91 8232 251100',
+    rating: 4.7,
+    timings: '24/7 OPD & Emergency Unit',
+    services: ['Free Tele-Specialist Consultation', 'Pediatric Vaccination', 'Free Blood Transfusion']
   }
 ];
 
@@ -396,6 +418,30 @@ export const SAMPLE_MEDICAL_CAMPS = [
     doctorsCount: '8 Pediatricians & Gynaecologists',
     availableSlots: 60,
     specialties: ['Free Immunization Vaccines', 'Maternal Iron Supplementation', 'Child Growth Monitoring']
+  },
+  {
+    id: 'CAMP-303',
+    title: 'Rural Diabetes & Cardiac Prevention Mega Screening',
+    ruralDistrict: 'Tumakuru North District',
+    venue: 'Gubbi Town Secondary School Campus',
+    date: 'August 22, 2026 (Saturday)',
+    time: '8:30 AM - 5:00 PM',
+    organizer: 'Narayana Health Rural Outreach & CSR Guild',
+    doctorsCount: '15 Cardiologists & Diabetologists',
+    availableSlots: 85,
+    specialties: ['Free Lipid Profile Test', '2D Echo Heart Scan', 'Diabetic Foot Screening']
+  },
+  {
+    id: 'CAMP-304',
+    title: 'Senior Citizen Free Dental & Joint Mobility Camp',
+    ruralDistrict: 'Chikballapur East District',
+    venue: 'Sidlaghatta Panchayat Grounds',
+    date: 'August 28, 2026 (Friday)',
+    time: '9:30 AM - 3:30 PM',
+    organizer: 'Seva Arogya Trust & Manipal Dental Foundation',
+    doctorsCount: '10 Dentists & Orthopedicians',
+    availableSlots: 50,
+    specialties: ['Free Denture Fitting', 'Arthritis Physiotherapy', 'Calcium Supplement Distribution']
   }
 ];
 
@@ -421,6 +467,17 @@ export const SAMPLE_EDUCATION_SPONSORS = [
     totalSponsoredStudents: 255,
     deadline: 'September 10, 2026',
     description: 'Covers full college tuition fees directly paid to accredited degree colleges for meritorious female students from rural villages.'
+  },
+  {
+    id: 'SPON-503',
+    programTitle: 'TCS Digital Youth Employability & Coding Grant',
+    sponsorName: 'Tata Consultancy Services Foundation',
+    sponsorType: 'Corporate CSR',
+    fundingAmount: 'Free 6-Month Full-Stack Certification + ₹12,000 Stipend',
+    targetBeneficiaries: 'Rural Youth & Diploma Graduates in Karnataka',
+    totalSponsoredStudents: 310,
+    deadline: 'September 25, 2026',
+    description: 'Guaranteed 6-month hands-on software development training with direct placement interviews upon completion.'
   }
 ];
 
